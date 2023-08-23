@@ -27,7 +27,7 @@ export default function SingleProfile() {
         <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <main>
-        <TopBar />
+        {/* <TopBar /> */}
         <div className={styles.container}>
           <div className={styles.imageContainer}>
             <Image
