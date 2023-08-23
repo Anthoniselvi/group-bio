@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { data } from "@/components/data";
 import Image from "next/image";
 import styles from "@/styles/SingleProfile.module.css";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
@@ -26,11 +27,28 @@ export default function SingleProfile() {
           className={styles.image}
         />
       </div>
-      <h1>{selectedProfile.name}</h1>
-      <p>{selectedProfile.designation}</p>
-      <p>{selectedProfile.company}</p>
-      <p>{selectedProfile.city}</p>
-      <p>{selectedProfile.servicesOffered}</p>
+      <div className={styles.content}>
+        <div className={styles.heading}>
+          <h1>{selectedProfile.name}</h1>
+          <LinkedInIcon style={{ cursor: "pointer" }} />
+        </div>
+        <div className={styles.personal}>
+          <h2>Personal Info</h2>
+          {/* <h4>{selectedProfile.name}</h4> */}
+          <p>{selectedProfile.designation}</p>
+          <p>{selectedProfile.company}</p>
+          <p>{selectedProfile.city}</p>
+          <p>{selectedProfile.servicesOffered}</p>
+        </div>
+        <div className={styles.business}>
+          <h2>Business Info</h2>
+          {/* <h4>{selectedProfile.name}</h4> */}
+          <p>{selectedProfile.designation}</p>
+          <p>{selectedProfile.company}</p>
+          <p>{selectedProfile.city}</p>
+          <p>{selectedProfile.servicesOffered}</p>
+        </div>
+      </div>
     </div>
   );
 }

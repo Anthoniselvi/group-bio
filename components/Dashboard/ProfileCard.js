@@ -22,7 +22,14 @@ export default function ProfileCard() {
     });
   };
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        cursor: "pointer",
+      }}
+    >
       {data.map((item) => (
         <Card
           sx={{ display: "flex" }}
