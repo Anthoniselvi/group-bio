@@ -32,9 +32,9 @@ export default function SingleProfile() {
           <div className={styles.imageContainer}>
             <Image
               src={selectedProfile.image}
-              width={150}
-              height={150}
-              alt=""
+              width={170}
+              height={170}
+              alt="image"
               className={styles.image}
             />
           </div>
