@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import ProfileCard from "@/components/Dashboard/ProfileCard";
 import TopBar from "@/components/TopBar/TopBar";
+import Navbar from "@/components/TopBar/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <main>
-        <TopBar />
+        {/* <Navbar /> */}
         <div className={styles.maindiv}>
           <ProfileCard />
         </div>

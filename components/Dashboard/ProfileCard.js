@@ -11,6 +11,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { data } from "../data";
 import { useRouter } from "next/router";
+import TopBar from "../TopBar/TopBar";
 
 export default function ProfileCard() {
   const theme = useTheme();
