@@ -56,7 +56,11 @@ export default function ProfileCard() {
             }}
           >
             <CardContent
-              sx={{ flex: "1 0 auto", padding: 0, paddingLeft: "1em" }}
+              sx={{
+                flex: "1 0 auto",
+                padding: 0,
+                paddingLeft: "1em",
+              }}
             >
               <Typography
                 component="div"
@@ -79,27 +83,26 @@ export default function ProfileCard() {
                 // color="text.secondary"
                 component="div"
               >
-                {item.role}
+                {item.role} - {item.companyName}
               </Typography>
-              <Typography
+              {/* <Typography
                 sx={{
                   fontFamily: "Sans-serif",
                   fontSize: "14px",
                   color: "#000000",
                   fontWeight: 600,
                 }}
-                // variant="subtitle1"
-                // color="text.secondary"
                 component="div"
               >
                 {item.companyName}
-              </Typography>
+              </Typography> */}
               <Typography
                 sx={{
                   fontFamily: "Sans-serif",
                   fontSize: "14px",
-                  color: "#000000",
-                  fontWeight: 600,
+                  color: "#999999",
+                  // color: "#000000",
+                  // fontWeight: 600,
                 }}
                 // variant="subtitle1"
                 // color="text.secondary"
