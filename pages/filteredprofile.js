@@ -14,6 +14,13 @@ export default function FilteredProfile() {
   const { searchResult, searchQuery } = router.query;
   console.log("searchResult :" + JSON.stringify(searchResult));
   const filteredData = JSON.parse(searchResult);
+
+  const navigateToSingleProfile = (item) => {
+    router.push({
+      pathname: "/singleprofile",
+      query: { id: item.id }, // Pass the clicked item's ID as a query parameter
+    });
+  };
   return (
     <div
       style={{
@@ -35,7 +42,7 @@ export default function FilteredProfile() {
             <Card
               sx={{ display: "flex" }}
               key={item.id}
-              //   onClick={() => navigateToSingleProfile(item)}
+              onClick={() => navigateToSingleProfile(item)}
             >
               <CardMedia
                 component="img"

@@ -33,18 +33,31 @@ export default function ProfileCard() {
     >
       {data.map((item) => (
         <Card
-          sx={{ display: "flex" }}
+          sx={{ display: "flex", padding: "1em" }}
           key={item.id}
           onClick={() => navigateToSingleProfile(item)}
         >
           <CardMedia
             component="img"
-            sx={{ width: 151 }}
+            sx={{
+              width: 70,
+              height: 70,
+              borderRadius: "50%",
+            }}
             image={item.image}
             alt="Live from space album cover"
           />
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <CardContent sx={{ flex: "1 0 auto" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "top",
+              width: "100%",
+            }}
+          >
+            <CardContent
+              sx={{ flex: "1 0 auto", padding: 0, paddingLeft: "1em" }}
+            >
               <Typography
                 component="div"
                 // variant="h5"
@@ -104,6 +117,7 @@ export default function ProfileCard() {
                 // color="text.secondary"
                 component="div"
               >
+                Services Offered: <br />
                 {item.servicesOffered}
               </Typography>
             </CardContent>
