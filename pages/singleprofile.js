@@ -3,6 +3,7 @@ import { data } from "@/components/data";
 import Image from "next/image";
 import styles from "@/styles/SingleProfile.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import LinkIcon from "@mui/icons-material/Link";
 import Head from "next/head";
 import TopBar from "@/components/TopBar/TopBar";
 export default function SingleProfile() {
@@ -40,24 +41,52 @@ export default function SingleProfile() {
           </div>
           <div className={styles.content}>
             <div className={styles.heading}>
-              <h1>{selectedProfile.name}</h1>
-              <LinkedInIcon style={{ cursor: "pointer" }} />
-            </div>
-            <div className={styles.personal}>
-              <h2>Personal Info</h2>
-              {/* <h4>{selectedProfile.name}</h4> */}
-              <p>{selectedProfile.designation}</p>
-              <p>{selectedProfile.company}</p>
-              <p>{selectedProfile.city}</p>
-              <p>{selectedProfile.servicesOffered}</p>
+              <h1 className={styles.headingtext}>{selectedProfile.name}</h1>
+              <div className={styles.linkicon}>
+                <LinkedInIcon style={{ cursor: "pointer" }} />
+                <LinkIcon style={{ cursor: "pointer" }} />
+              </div>
             </div>
             <div className={styles.business}>
-              <h2>Business Info</h2>
+              <h2 className={styles.contentheading}>Business Info</h2>
               {/* <h4>{selectedProfile.name}</h4> */}
-              <p>{selectedProfile.designation}</p>
-              <p>{selectedProfile.company}</p>
-              <p>{selectedProfile.city}</p>
-              <p>{selectedProfile.servicesOffered}</p>
+              <p className={styles.contenttext}>
+                Role & Company: <br />
+                {selectedProfile.role} - {selectedProfile.companyName}
+              </p>
+              <p className={styles.contenttext}>
+                City: <br />
+                {selectedProfile.city}
+              </p>
+              <p className={styles.contenttext}>
+                Region: <br />
+                {selectedProfile.region}
+              </p>
+              <p className={styles.contenttext}>
+                Industry: <br />
+                {selectedProfile.industry}
+              </p>
+              <p className={styles.contenttext}>
+                Years Since: <br />
+                {selectedProfile.years}
+              </p>
+              <p className={styles.contenttext}>
+                Services Offered: <br />
+                {selectedProfile.servicesOffered}
+              </p>
+            </div>
+
+            <div className={styles.personal}>
+              <h2 className={styles.contentheading}>Personal Info</h2>
+              {/* <h4>{selectedProfile.name}</h4> */}
+              <p className={styles.contenttext}>
+                Date Of Birth: <br />
+                {selectedProfile.dob}
+              </p>
+              <p className={styles.contenttext}>
+                Interests: <br />
+                {selectedProfile.interest}
+              </p>
             </div>
           </div>
         </div>

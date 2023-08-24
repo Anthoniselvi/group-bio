@@ -66,7 +66,7 @@ export default function ProfileCard() {
                 // color="text.secondary"
                 component="div"
               >
-                {item.designation}
+                {item.role}
               </Typography>
               <Typography
                 sx={{
