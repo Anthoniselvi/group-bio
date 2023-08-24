@@ -52,7 +52,9 @@ export default function SingleProfile() {
               {/* <h4>{selectedProfile.name}</h4> */}
               <p className={styles.contenttext}>
                 Role & Company: <br />
-                {selectedProfile.role} - {selectedProfile.companyName}
+                <span className={styles.span}>
+                  {selectedProfile.role} - {selectedProfile.companyName}
+                </span>
               </p>
               <p className={styles.contenttext}>
                 City: <br />
