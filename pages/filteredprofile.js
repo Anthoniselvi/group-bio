@@ -40,18 +40,38 @@ export default function FilteredProfile() {
 
           {filteredData.map((item) => (
             <Card
-              sx={{ display: "flex" }}
+              sx={{ display: "flex", padding: "1em", paddingBottom: 0 }}
               key={item.id}
               onClick={() => navigateToSingleProfile(item)}
             >
               <CardMedia
                 component="img"
-                sx={{ width: 151 }}
+                sx={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: "50%",
+                }}
                 image={item.image}
                 alt="Live from space album cover"
               />
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <CardContent sx={{ flex: "1 0 auto" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "top",
+                  width: "100%",
+                }}
+              >
+                <CardContent
+                  sx={{
+                    // flex: "1 0 auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5em",
+                    padding: 0,
+                    paddingLeft: "1em",
+                  }}
+                >
                   <Typography
                     component="div"
                     // variant="h5"
@@ -63,6 +83,7 @@ export default function FilteredProfile() {
                   >
                     {item.name}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontFamily: "Sans-serif",
@@ -73,34 +94,11 @@ export default function FilteredProfile() {
                     // color="text.secondary"
                     component="div"
                   >
-                    {item.role}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "Sans-serif",
-                      fontSize: "14px",
-                      color: "#000000",
-                      fontWeight: 600,
-                    }}
-                    // variant="subtitle1"
-                    // color="text.secondary"
-                    component="div"
-                  >
-                    {item.companyName}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "Sans-serif",
-                      fontSize: "14px",
-                      color: "#000000",
-                      fontWeight: 600,
-                    }}
-                    // variant="subtitle1"
-                    // color="text.secondary"
-                    component="div"
-                  >
+                    {item.role} - {item.companyName}
+                    <br />
                     {item.city}
                   </Typography>
+
                   <Typography
                     sx={{
                       fontFamily: "Sans-serif",
@@ -111,6 +109,7 @@ export default function FilteredProfile() {
                     // color="text.secondary"
                     component="div"
                   >
+                    Services Offered: <br />
                     {item.servicesOffered}
                   </Typography>
                 </CardContent>

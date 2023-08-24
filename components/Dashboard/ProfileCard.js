@@ -33,7 +33,7 @@ export default function ProfileCard() {
     >
       {data.map((item) => (
         <Card
-          sx={{ display: "flex", padding: "1em" }}
+          sx={{ display: "flex", padding: "1em", paddingBottom: 0 }}
           key={item.id}
           onClick={() => navigateToSingleProfile(item)}
         >
@@ -57,7 +57,10 @@ export default function ProfileCard() {
           >
             <CardContent
               sx={{
-                flex: "1 0 auto",
+                // flex: "1 0 auto",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5em",
                 padding: 0,
                 paddingLeft: "1em",
               }}
@@ -73,6 +76,7 @@ export default function ProfileCard() {
               >
                 {item.name}
               </Typography>
+
               <Typography
                 sx={{
                   fontFamily: "Sans-serif",
@@ -84,32 +88,10 @@ export default function ProfileCard() {
                 component="div"
               >
                 {item.role} - {item.companyName}
-              </Typography>
-              {/* <Typography
-                sx={{
-                  fontFamily: "Sans-serif",
-                  fontSize: "14px",
-                  color: "#000000",
-                  fontWeight: 600,
-                }}
-                component="div"
-              >
-                {item.companyName}
-              </Typography> */}
-              <Typography
-                sx={{
-                  fontFamily: "Sans-serif",
-                  fontSize: "14px",
-                  color: "#999999",
-                  // color: "#000000",
-                  // fontWeight: 600,
-                }}
-                // variant="subtitle1"
-                // color="text.secondary"
-                component="div"
-              >
+                <br />
                 {item.city}
               </Typography>
+
               <Typography
                 sx={{
                   fontFamily: "Sans-serif",
