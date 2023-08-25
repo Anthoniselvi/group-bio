@@ -12,9 +12,18 @@ import { useRouter } from "next/router";
 export default function FilteredProfile() {
   const router = useRouter();
   const { searchResult, searchQuery } = router.query;
-  console.log("searchResult :" + JSON.stringify(searchResult));
-  const filteredData = JSON.parse(searchResult);
+  // console.log("searchResult :" + JSON.stringify(searchResult));
+  // const filteredData = JSON.parse(searchResult);
 
+  let filteredData = []; // Initialize with an empty array
+
+  try {
+    if (searchResult) {
+      filteredData = JSON.parse(searchResult);
+    }
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+  }
   const navigateToSingleProfile = (item) => {
     router.push({
       pathname: "/singleprofile",
