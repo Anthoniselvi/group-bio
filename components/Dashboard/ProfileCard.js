@@ -33,7 +33,14 @@ export default function ProfileCard() {
     >
       {data.map((item) => (
         <Card
-          sx={{ display: "flex", padding: "1em", paddingBottom: 0 }}
+          sx={{
+            display: "flex",
+            padding: "1em",
+            paddingTop: 0,
+            paddingBottom: 0,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
           key={item.id}
           onClick={() => navigateToSingleProfile(item)}
         >
@@ -45,7 +52,7 @@ export default function ProfileCard() {
               borderRadius: "50%",
             }}
             image={item.image}
-            alt="Live from space album cover"
+            alt="Profile Image"
           />
           <Box
             sx={{
@@ -63,6 +70,7 @@ export default function ProfileCard() {
                 gap: "0.5em",
                 padding: 0,
                 paddingLeft: "1em",
+                paddingTop: "1em",
               }}
             >
               <Typography
