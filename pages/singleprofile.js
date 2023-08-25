@@ -5,7 +5,7 @@ import styles from "@/styles/SingleProfile.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import Head from "next/head";
-import TopBar from "@/components/TopBar/TopBar";
+
 export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
@@ -50,45 +50,45 @@ export default function SingleProfile() {
             <div className={styles.business}>
               <h2 className={styles.contentheading}>Business Info</h2>
               {/* <h4>{selectedProfile.name}</h4> */}
-              <p className={styles.contenttext}>
-                Role & Company: <br />
-                <span className={styles.span}>
-                  {selectedProfile.role} - {selectedProfile.companyName}
-                </span>
-              </p>
-              <p className={styles.contenttext}>
-                City: <br />
-                {selectedProfile.city}
-              </p>
-              <p className={styles.contenttext}>
-                Region: <br />
-                {selectedProfile.region}
-              </p>
-              <p className={styles.contenttext}>
-                Industry: <br />
-                {selectedProfile.industry}
-              </p>
-              <p className={styles.contenttext}>
-                Years Since: <br />
-                {selectedProfile.years}
-              </p>
-              <p className={styles.contenttext}>
-                Services Offered: <br />
-                {selectedProfile.servicesOffered}
-              </p>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Role & Company </p>
+                <p className={styles.span}>
+                  {selectedProfile.role}, {selectedProfile.companyName}
+                </p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>City </p>
+                <p className={styles.span}>{selectedProfile.city}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Region </p>
+                <p className={styles.span}>{selectedProfile.region}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Industry </p>
+                <p className={styles.span}>{selectedProfile.industry}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Years Since </p>
+                <p className={styles.span}>{selectedProfile.years}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Services Offered </p>
+                <p className={styles.span}>{selectedProfile.servicesOffered}</p>
+              </div>
             </div>
 
             <div className={styles.personal}>
               <h2 className={styles.contentheading}>Personal Info</h2>
               {/* <h4>{selectedProfile.name}</h4> */}
-              <p className={styles.contenttext}>
-                Date Of Birth: <br />
-                {selectedProfile.dob}
-              </p>
-              <p className={styles.contenttext}>
-                Interests: <br />
-                {selectedProfile.interest}
-              </p>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Date Of Birth: </p>
+                <p className={styles.span}>{selectedProfile.dob}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Interests: </p>
+                <p className={styles.span}>{selectedProfile.interest}</p>
+              </div>
             </div>
           </div>
         </div>

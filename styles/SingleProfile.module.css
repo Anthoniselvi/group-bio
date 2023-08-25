@@ -33,10 +33,13 @@
 .headingtext{
     font-size: 35px;
     font-weight: 700;
+    letter-spacing: 2px;
 }
 .contentheading{
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
+    letter-spacing: 1px;
+    color: #000;
 }
 .contenttext{
     font-size: 16px;
@@ -45,11 +48,16 @@
 .personal, .business{
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     align-items: left;
     justify-content: left;
     width: 100%;
 }
 .span{
     font-weight: normal;
+}
+.row{
+    display: flex;
+    flex-direction: column;
+    gap:0.3em;
 }

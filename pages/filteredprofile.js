@@ -40,7 +40,14 @@ export default function FilteredProfile() {
 
           {filteredData.map((item) => (
             <Card
-              sx={{ display: "flex", padding: "1em", paddingBottom: 0 }}
+              sx={{
+                display: "flex",
+                padding: "1em",
+                paddingTop: 0,
+                paddingBottom: 0,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
               key={item.id}
               onClick={() => navigateToSingleProfile(item)}
             >
@@ -52,7 +59,7 @@ export default function FilteredProfile() {
                   borderRadius: "50%",
                 }}
                 image={item.image}
-                alt="Live from space album cover"
+                alt="Profile Image"
               />
               <Box
                 sx={{
@@ -70,6 +77,7 @@ export default function FilteredProfile() {
                     gap: "0.5em",
                     padding: 0,
                     paddingLeft: "1em",
+                    paddingTop: "1em",
                   }}
                 >
                   <Typography
@@ -94,7 +102,7 @@ export default function FilteredProfile() {
                     // color="text.secondary"
                     component="div"
                   >
-                    {item.role} - {item.companyName}
+                    {item.role}, {item.companyName}
                     <br />
                     {item.city}
                   </Typography>

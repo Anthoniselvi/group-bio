@@ -95,7 +95,7 @@ export default function ProfileCard() {
                 // color="text.secondary"
                 component="div"
               >
-                {item.role} - {item.companyName}
+                {item.role}, {item.companyName}
                 <br />
                 {item.city}
               </Typography>
