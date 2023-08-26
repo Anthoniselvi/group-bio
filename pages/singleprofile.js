@@ -8,7 +8,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import Head from "next/head";
 import { Launcher } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
-
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
@@ -20,6 +20,11 @@ export default function SingleProfile() {
     return <div>Loading...</div>;
   }
 
+  const navigateToHome = () => {
+    router.push({
+      pathname: "/",
+    });
+  };
   return (
     <>
       <Head>
@@ -31,6 +36,10 @@ export default function SingleProfile() {
       <main>
         {/* <TopBar /> */}
         <div className={styles.container}>
+          <KeyboardBackspaceIcon
+            onClick={navigateToHome}
+            style={{ marginBottom: "-2rem", cursor: "pointer" }}
+          />
           <div className={styles.imageContainer}>
             <Image
               src={selectedProfile.image}

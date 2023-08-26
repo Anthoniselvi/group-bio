@@ -1,15 +1,16 @@
+import React, { useState } from "react";
 import styles from "@/styles/Navbar.module.css";
 import { ImCross } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
 import data from "../data";
 import { useRouter } from "next/router";
+
 const Navbar = ({ opened, setOpened }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const router = useRouter();
 
   const handleMenuClicked = () => {
@@ -20,29 +21,37 @@ const Navbar = ({ opened, setOpened }) => {
     setSearchVisible(!searchVisible);
   };
 
+  const performSearch = () => {
+    const filteredData = data.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.servicesOffered.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    setSearchResult(filteredData);
+    setSearchVisible(false); // Hide the search input
+    router.push({
+      pathname: "/filteredprofile",
+      query: {
+        searchResult: JSON.stringify(filteredData),
+        searchQuery: searchQuery,
+      },
+    });
+  };
+
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
   const handleSearchEnter = (e) => {
     if (e.key === "Enter") {
-      const filteredData = data.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.servicesOffered.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      setSearchResult(filteredData);
-      setSearchVisible(false); // Hide the search input
-      router.push({
-        pathname: "/filteredprofile",
-        query: {
-          searchResult: JSON.stringify(filteredData),
-          searchQuery: searchQuery,
-        },
-      });
+      performSearch();
     }
+  };
+
+  const handleSearchClick = () => {
+    performSearch();
   };
 
   return (
@@ -61,12 +70,17 @@ const Navbar = ({ opened, setOpened }) => {
             <input
               type="text"
               placeholder="Search by Name / Company / Services"
-              className={styles.searchInput}
+              className={`${styles.searchInput} ${styles.searchInputFocused}`}
               value={searchQuery}
               onChange={handleSearchInputChange}
               onKeyPress={handleSearchEnter}
               autoFocus // Set autofocus here
-              ref={(input) => input && input.focus()} // Programmatically set focus
+              ref={(input) => input && input.focus()}
+            />
+            <SearchIcon
+              style={{ color: "black" }}
+              className={styles.search}
+              onClick={handleSearchClick} // Call the search function when the icon is clicked
             />
           </div>
           <CloseIcon

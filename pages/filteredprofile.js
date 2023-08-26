@@ -6,14 +6,18 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRouter } from "next/router";
 
 export default function FilteredProfile() {
   const router = useRouter();
   const { searchResult, searchQuery } = router.query;
-  // console.log("searchResult :" + JSON.stringify(searchResult));
-  // const filteredData = JSON.parse(searchResult);
+
+  const navigateToHome = () => {
+    router.push({
+      pathname: "/",
+    });
+  };
 
   let filteredData = []; // Initialize with an empty array
 
@@ -43,7 +47,11 @@ export default function FilteredProfile() {
     >
       {filteredData ? (
         <>
-          <div>
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <KeyboardBackspaceIcon
+              style={{ cursor: "pointer" }}
+              onClick={navigateToHome}
+            />
             Results for <strong>"{searchQuery}"</strong>
           </div>
 
@@ -135,7 +143,7 @@ export default function FilteredProfile() {
           ))}
         </>
       ) : (
-        <p>No Results found</p>
+        <p style={{ color: "black" }}>No Results found</p>
       )}
     </div>
   );

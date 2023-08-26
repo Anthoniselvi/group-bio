@@ -15,12 +15,30 @@
     position: absolute;
     width: 92%;
 top:95px;
+display: flex;
+justify-content: space-between;
+align-items: center;
   }
   .searchInput{
-    width: 100%;
-    padding: 1em;
-    border: 2px solid #121212;
-    border-radius: 10px;
+    padding: 10px;
+  border: 1px solid #01b4e4;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  transition: #01b4e4 0.3s ease-in-out;
+  position: relative;
+  }
+  .searchInputFocused {
+    border-color: #01b4e4; /* Highlight border color when focused */
+    box-shadow: 0 0 5px rgba(1, 180, 228, 0.5); /* Add a subtle shadow */
+  }
+  .search{
+    position: absolute;
+    margin-left: 90%;
+    cursor: pointer;
+    background-color:#01b4e4; 
+    padding: 5px;
+    border-radius: 50%;
   }
   .item {
     flex: 1;
