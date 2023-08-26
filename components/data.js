@@ -15,6 +15,7 @@ export const data = [
 
     dob: "03-03-1986",
     interest: "Reading Books, Watching movies",
+    phone: "+91-8778833937",
   },
   {
     id: 2,
@@ -32,6 +33,7 @@ export const data = [
 
     dob: "10-12-1982",
     interest: "Traveling, Photography",
+    phone: "+91-9988776655",
   },
   {
     id: 3,
@@ -49,6 +51,7 @@ export const data = [
 
     dob: "05-08-1990",
     interest: "Hiking, Cooking",
+    phone: "+91-9988776655",
   },
   {
     id: 4,
@@ -66,6 +69,7 @@ export const data = [
 
     dob: "11-09-1988",
     interest: "Playing Guitar, Yoga",
+    phone: "+91-9988776655",
   },
   {
     id: 5,
@@ -83,6 +87,7 @@ export const data = [
 
     dob: "07-06-1992",
     interest: "Gaming, Programming",
+    phone: "+91-9988776655",
   },
   {
     id: 6,
@@ -100,6 +105,7 @@ export const data = [
 
     dob: "09-18-1985",
     interest: "Painting, Traveling",
+    phone: "+91-9988776655",
   },
   {
     id: 7,
@@ -117,6 +123,7 @@ export const data = [
 
     dob: "12-25-1979",
     interest: "Gardening, Meditation",
+    phone: "+91-9988776655",
   },
   {
     id: 8,
@@ -134,6 +141,7 @@ export const data = [
 
     dob: "04-30-1994",
     interest: "Sketching, Music",
+    phone: "+91-9988776655",
   },
   {
     id: 9,
@@ -151,6 +159,7 @@ export const data = [
 
     dob: "02-15-1980",
     interest: "Reading Journals, Hiking",
+    phone: "+91-9988776655",
   },
   {
     id: 10,
@@ -168,6 +177,7 @@ export const data = [
 
     dob: "06-20-1976",
     interest: "Playing Chess, Cooking",
+    phone: "+91-9988776655",
   },
 ];
 

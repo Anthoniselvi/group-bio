@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { data } from "@/components/data";
 import Image from "next/image";
@@ -5,16 +6,16 @@ import styles from "@/styles/SingleProfile.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import Head from "next/head";
+import { Launcher } from "react-chat-widget";
+import "react-chat-widget/lib/styles.css";
 
 export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
-  //   console.log("Data in single: " + JSON.stringify(data));
-  //   console.log("id in single: " + id);
+  const [showWhatsAppWidget, setShowWhatsAppWidget] = useState(false);
 
   const selectedProfile = data.find((item) => item.id === Number(id)) || {};
 
-  //   console.log("selectedProfile in single: " + JSON.stringify(selectedProfile));
   if (!selectedProfile) {
     return <div>Loading...</div>;
   }
@@ -61,6 +62,17 @@ export default function SingleProfile() {
                 <p className={styles.span}>{selectedProfile.city}</p>
               </div>
               <div className={styles.row}>
+                <p className={styles.contenttext}>Contact Number </p>
+                <a
+                  className={styles.span}
+                  href={`https://api.whatsapp.com/send?phone=${selectedProfile.phone}&text=Hello`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {selectedProfile.phone}
+                </a>
+              </div>
+              <div className={styles.row}>
                 <p className={styles.contenttext}>Region </p>
                 <p className={styles.span}>{selectedProfile.region}</p>
               </div>
@@ -93,6 +105,22 @@ export default function SingleProfile() {
           </div>
         </div>
       </main>
+      {showWhatsAppWidget && (
+        <Launcher
+          agentProfile={{
+            teamName: "Support",
+            imageUrl: "https://via.placeholder.com/40",
+          }}
+          onMessageWasSent={() => {
+            // Handle message being sent
+          }}
+          handleClick={() => {
+            // Handle widget click
+          }}
+          isOpen={showWhatsAppWidget}
+          showEmoji
+        />
+      )}
     </>
   );
 }
