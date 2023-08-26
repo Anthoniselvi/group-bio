@@ -60,7 +60,7 @@ const Navbar = ({ opened, setOpened }) => {
           <div className={styles.searchContainer}>
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search by Name / Company / Services"
               className={styles.searchInput}
               value={searchQuery}
               onChange={handleSearchInputChange}
