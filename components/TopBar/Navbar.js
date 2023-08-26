@@ -69,6 +69,7 @@ const Navbar = ({ opened, setOpened }) => {
           <div className={styles.searchContainer}>
             <input
               type="text"
+              required
               placeholder="Search by Name / Company / Services"
               className={`${styles.searchInput} ${styles.searchInputFocused}`}
               value={searchQuery}
@@ -78,7 +79,7 @@ const Navbar = ({ opened, setOpened }) => {
               ref={(input) => input && input.focus()}
             />
             <SearchIcon
-              style={{ color: "black" }}
+              style={{ color: "black", fontSize: "20px", fontWeight: 600 }}
               className={styles.search}
               onClick={handleSearchClick} // Call the search function when the icon is clicked
             />
