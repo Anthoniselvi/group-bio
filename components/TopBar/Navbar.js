@@ -65,6 +65,8 @@ const Navbar = ({ opened, setOpened }) => {
               value={searchQuery}
               onChange={handleSearchInputChange}
               onKeyPress={handleSearchEnter}
+              autoFocus // Set autofocus here
+              ref={(input) => input && input.focus()} // Programmatically set focus
             />
           </div>
           <CloseIcon
