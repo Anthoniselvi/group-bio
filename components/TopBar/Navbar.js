@@ -78,11 +78,12 @@ const Navbar = ({ opened, setOpened }) => {
               autoFocus // Set autofocus here
               ref={(input) => input && input.focus()}
             />
-            <SearchIcon
-              style={{ color: "black", fontSize: "20px", fontWeight: 600 }}
-              className={styles.search}
-              onClick={handleSearchClick} // Call the search function when the icon is clicked
-            />
+            <div className={styles.search}>
+              <SearchIcon
+                style={{ color: "black", fontSize: "20px", fontWeight: 600 }}
+                onClick={handleSearchClick} // Call the search function when the icon is clicked
+              />
+            </div>
           </div>
           <CloseIcon
             onClick={handleSearchIconClicked}
