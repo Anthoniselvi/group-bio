@@ -74,11 +74,14 @@ const Navbar = ({ opened, setOpened }) => {
           />
         </>
       ) : (
-        <SearchIcon
-          onClick={handleSearchIconClicked}
-          className={styles.icon}
-          style={{ color: "#01b4e4", fontSize: "30px" }}
-        />
+        // Check if opened is false before displaying the search icon
+        !opened && (
+          <SearchIcon
+            onClick={handleSearchIconClicked}
+            className={styles.icon}
+            style={{ color: "#01b4e4", fontSize: "30px" }}
+          />
+        )
       )}
     </div>
   );
