@@ -137,10 +137,13 @@ box-shadow: 0 0 5px #01b4e4;}
 
   .nav{
     background: #032541;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    align-items: center;
+    /* justify-content: space-between;
     text-align: center;
     display: flex;
-    align-items: center;
+    align-items: center; */
     padding: 2rem 3rem;
     position: fixed;
     color: white;

@@ -6,7 +6,8 @@ import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField"; // Import TextField from Material-UI
-
+import axios from "axios";
+import Footer from "@/components/Footer/Footer";
 const steps = ["Personal Information", "Company Information"];
 
 export default function HorizontalNonLinearStepper() {
@@ -47,18 +48,30 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(step);
   };
 
-  const handleComplete = () => {
-    const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
+  const handleComplete = async () => {
+    try {
+      // Combine form data from both steps
+      const formData = { ...formDataStep1, ...formDataStep2 };
 
-    // Log form data for Step 1 and Step 2
-    console.log("Step 1 Data:", formDataStep1);
-    console.log("Step 2 Data:", formDataStep2);
-    handleReset();
-    // handleNext();
+      // Send POST request to your API endpoint
+      const response = await axios.post("/api/profile", formData);
+
+      if (response.status === 201) {
+        console.log("Profile data submitted successfully!");
+        // Reset the form data if needed
+        setFormDataStep1({
+          formDataStep1,
+        });
+        setFormDataStep2({
+          formDataStep2,
+        });
+      } else {
+        console.error("Error submitting profile data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
-
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});
@@ -78,8 +91,14 @@ export default function HorizontalNonLinearStepper() {
   };
 
   return (
-    <Box sx={{ width: "100%", padding: "1rem", paddingTop: "8rem" }}>
-      <Stepper nonLinear activeStep={activeStep}>
+    <Box
+      sx={{
+        width: "100%",
+        padding: "1rem",
+        paddingTop: "8rem",
+      }}
+    >
+      {/* <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -87,13 +106,16 @@ export default function HorizontalNonLinearStepper() {
             </StepButton>
           </Step>
         ))}
-      </Stepper>
+      </Stepper> */}
       <div style={{ paddingTop: "2rem" }}>
         {activeStep === 0 && (
           <div
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            {/* <Typography sx={{ mt: 2, mb: 1, py: 1 }}>Step 1</Typography> */}
+            <h3>Step 1</h3>
+            <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+              Add your Personal information
+            </Typography>
             {/* Render input fields for Step 1 */}
             <TextField
               label="Name"
@@ -152,10 +174,11 @@ export default function HorizontalNonLinearStepper() {
                 mr: 1,
                 backgroundColor: "#032541",
                 color: "#fff",
+                borderRadius: "20px",
                 "&:hover": { backgroundColor: "#01b4e4", color: "#121212" },
               }}
             >
-              Next
+              Continue
             </Button>
           </div>
         )}
@@ -164,7 +187,10 @@ export default function HorizontalNonLinearStepper() {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            {/* <Typography sx={{ mt: 2, mb: 1, py: 1 }}>Step 2</Typography> */}
+            <h3>Step 2</h3>
+            <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+              Add your Business information
+            </Typography>
             {/* Render input fields for Step 2 */}
             <TextField
               label="Designation"
@@ -213,6 +239,7 @@ export default function HorizontalNonLinearStepper() {
                 mr: 1,
                 backgroundColor: "#032541",
                 color: "#fff",
+                borderRadius: "20px",
                 "&:hover": { backgroundColor: "#01b4e4", color: "#121212" },
               }}
             >
@@ -233,6 +260,19 @@ export default function HorizontalNonLinearStepper() {
           </React.Fragment>
         )}
       </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          zIndex: 1000,
+          paddingTop: "10vh",
+        }}
+      >
+        <Button backgroundColor="secondary">Call Now</Button>
+        <Button>Whatsapp Now</Button>
+      </div>
+      {/* <Footer /> */}
     </Box>
   );
 }

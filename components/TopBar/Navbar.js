@@ -6,13 +6,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import data from "../data";
 import { useRouter } from "next/router";
-
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 const Navbar = ({ opened, setOpened }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const router = useRouter();
 
+  const navigateToHome = () => {
+    router.push({
+      pathname: "/",
+    });
+  };
   const handleMenuClicked = () => {
     setOpened(!opened);
   };
@@ -56,15 +61,23 @@ const Navbar = ({ opened, setOpened }) => {
 
   return (
     <div className={styles.nav}>
-      {!opened ? (
+      {router.pathname === "/form" ? (
+        <KeyboardBackspaceIcon onClick={navigateToHome} />
+      ) : !opened ? (
         <GiHamburgerMenu onClick={handleMenuClicked} className={styles.icon} />
       ) : (
         <ImCross onClick={handleMenuClicked} className={styles.icon} />
       )}
 
-      <h3 style={{ color: "#fff" }}>ABC Group Bio</h3>
+      {router.pathname === "/form" ? (
+        <h3 style={{ color: "#fff" }}>Create Profile</h3>
+      ) : (
+        <h3 style={{ color: "#fff" }}>ABC Group Bio</h3>
+      )}
 
-      {searchVisible ? (
+      {router.pathname === "/form" ? (
+        <></>
+      ) : searchVisible && router.pathname === "/" ? (
         <>
           <div className={styles.searchContainer}>
             <input
