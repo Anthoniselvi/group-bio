@@ -1,33 +1,27 @@
 import dbConnect from "@/util/mongo";
 import ProfileSchema from "@/models/ProfileSchema";
 
-export default async function handler(req, res) {
-  const { method, cookies } = req;
+const handler = async (req, res) => {
+  const { method } = req;
 
-  //   const token = cookies.token;
-
-  dbConnect();
+  await dbConnect();
 
   if (method === "GET") {
     try {
-      const profiles = await ProfileSchema.find();
-      res.status(200).json(profiles);
+      const Profiles = await ProfileSchema.find();
+      res.status(200).json(Profiles);
     } catch (err) {
       res.status(500).json(err);
     }
   }
-
   if (method === "POST") {
-    // if (!token || token !== process.env.token) {
-    //   return res.status(401).json("Not authenticated!");
-    // }
-    console.log("profileschema: " + ProfileSchema);
     try {
-      const profile = await ProfileSchema.create(req.body);
-      console.log("profile: " + profile);
-      res.status(201).json(profile);
+      const newprofile = await ProfileSchema.create(req.body);
+      res.status(201).json(newprofile);
     } catch (err) {
       res.status(500).json(err);
     }
   }
-}
+};
+
+export default handler;
