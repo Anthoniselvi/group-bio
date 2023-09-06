@@ -77,7 +77,7 @@ const Navbar = ({ opened, setOpened }) => {
 
       {router.pathname === "/form" ? (
         <></>
-      ) : searchVisible && router.pathname === "/" ? (
+      ) : searchVisible && router.pathname === "/allprofiles" ? (
         <>
           <div className={styles.searchContainer}>
             <input

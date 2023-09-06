@@ -12,7 +12,7 @@ function Drawer({ setOpened }) {
     <div className={styles.navbars}>
       <ul className={styles.navbarwrappers}>
         <li className={styles.navbarelement}>
-          <a href="/" onClick={hideMenu} className={styles.text}>
+          <a href="/allprofiles" onClick={hideMenu} className={styles.text}>
             Members
           </a>
         </li>

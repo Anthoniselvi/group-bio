@@ -1,5 +1,6 @@
+// pages/api/profile/index.js
 import dbConnect from "@/util/mongo";
-import ProfileSchema from "@/models/ProfileSchema";
+import Profile from "@/models/ProfileSchema";
 
 const handler = async (req, res) => {
   const { method } = req;
@@ -8,7 +9,7 @@ const handler = async (req, res) => {
 
   if (method === "GET") {
     try {
-      const Profiles = await ProfileSchema.find();
+      const Profiles = await Profile.find();
       res.status(200).json(Profiles);
     } catch (err) {
       res.status(500).json(err);
@@ -16,7 +17,8 @@ const handler = async (req, res) => {
   }
   if (method === "POST") {
     try {
-      const newprofile = await ProfileSchema.create(req.body);
+      const newprofile = await Profile.create(req.body);
+      console.log("newprofile:" + JSON.stringify(newprofile));
       res.status(201).json(newprofile);
     } catch (err) {
       res.status(500).json(err);

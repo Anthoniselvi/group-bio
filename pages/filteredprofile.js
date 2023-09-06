@@ -13,9 +13,9 @@ export default function FilteredProfile() {
   const router = useRouter();
   const { searchResult, searchQuery } = router.query;
 
-  const navigateToHome = () => {
+  const navigateToAllProfiles = () => {
     router.push({
-      pathname: "/",
+      pathname: "/allprofiles",
     });
   };
 
@@ -50,7 +50,7 @@ export default function FilteredProfile() {
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
             <KeyboardBackspaceIcon
               style={{ cursor: "pointer" }}
-              onClick={navigateToHome}
+              onClick={navigateToAllProfiles}
             />
             Results for <strong>"{searchQuery}"</strong>
           </div>
