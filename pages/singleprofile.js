@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { data } from "@/components/data";
+import axios from "axios";
 import Image from "next/image";
 import styles from "@/styles/SingleProfile.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -13,18 +13,32 @@ export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
   const [showWhatsAppWidget, setShowWhatsAppWidget] = useState(false);
-
-  const selectedProfile = data.find((item) => item.id === Number(id)) || {};
-
-  if (!selectedProfile) {
-    return <div>Loading...</div>;
-  }
+  const [selectedProfile, setSelectedProfile] = useState({}); // State to store the selected profile data
 
   const navigateToHome = () => {
     router.push({
       pathname: "/",
     });
   };
+
+  useEffect(() => {
+    // Fetch data for the selected profile from your API when the component mounts
+    if (id) {
+      axios
+        .get(`/api/profile/${id}`) // Replace with the correct API endpoint URL for fetching a single profile by ID
+        .then((response) => {
+          setSelectedProfile(response.data); // Set the fetched profile data in the state
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [id]); // Include 'id' as a dependency to re-fetch data when the 'id' changes
+
+  if (!selectedProfile || Object.keys(selectedProfile).length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Head>
