@@ -228,3 +228,30 @@
     transform: rotate(0deg);
   }
 }
+
+.container{
+  width: 100vw;
+  height: 100%;
+  padding: 6rem 2rem;
+
+}
+.header_container{
+  height: 10vh;
+display: flex;
+flex-direction: column;
+gap: 20% !important;
+
+}
+.header_title{
+  font-family: "Poppins";
+  font-size: 30px !important ;
+
+}
+.header_text{
+  font-family: "Poppins";
+  font-size: 15;
+  color: #cdbbbb;
+}
+.content_container{
+  padding-top: 10%;
+}

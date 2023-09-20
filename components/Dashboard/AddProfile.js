@@ -59,14 +59,14 @@ export default function AddProfile() {
   const handleComplete = async () => {
     try {
       // Generate a userId
-      const userId = await generateUserId();
+      // const userId = await generateUserId();
 
       // Add userId to the formData
       const formData = {
         ...formDataStep1,
         ...formDataStep2,
         ...formDataStep3,
-        userId,
+        // userId,
       };
 
       console.log("input details:" + JSON.stringify(formData));
