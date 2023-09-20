@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useEffect, useState } from "react"; // Import useEffect and useState
-import axios from "axios"; // Import Axios
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -11,33 +9,19 @@ import Typography from "@mui/material/Typography";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
+import { data } from "../data";
 import { useRouter } from "next/router";
 import TopBar from "../TopBar/TopBar";
 
 export default function ProfileCard() {
   const theme = useTheme();
   const router = useRouter();
-  const [data, setData] = useState([]); // State to store the fetched data
-
   const navigateToSingleProfile = (item) => {
     router.push({
       pathname: "/singleprofile",
-      query: { id: item.userId }, // Pass the clicked item's ID as a query parameter
+      query: { id: item.id }, // Pass the clicked item's ID as a query parameter
     });
   };
-
-  useEffect(() => {
-    // Fetch data from your API endpoint when the component mounts
-    axios
-      .get("/api/profile") // Replace with the correct API endpoint URL
-      .then((response) => {
-        setData(response.data); // Set the fetched data in the state
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []); // The empty array [] ensures this effect runs once when the component mounts
-
   return (
     <div
       style={{
@@ -67,7 +51,7 @@ export default function ProfileCard() {
               height: 70,
               borderRadius: "50%",
             }}
-            image={item.photo}
+            image={item.image}
             alt="Profile Image"
           />
           <Box
@@ -111,9 +95,9 @@ export default function ProfileCard() {
                 // color="text.secondary"
                 component="div"
               >
-                {item.designation}, {item.company}
+                {item.role}, {item.companyName}
                 <br />
-                {item.location}
+                {item.city}
               </Typography>
 
               <Typography
@@ -127,7 +111,7 @@ export default function ProfileCard() {
                 component="div"
               >
                 Services Offered: <br />
-                {item.offers}
+                {item.servicesOffered}
               </Typography>
             </CardContent>
           </Box>

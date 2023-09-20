@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const ProfileSchema = new mongoose.Schema(
   {
-    userId: {
-      type: String,
-      unique: true,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -22,42 +17,36 @@ const ProfileSchema = new mongoose.Schema(
       required: true,
       maxlength: 200,
     },
-    phone: {
+    dob: {
       type: String,
       required: true,
-      length: 10,
+      maxlength: 200,
+    },
+    interests: {
+      type: String,
+      required: true,
+      maxlength: 200,
     },
     photo: {
       type: String,
       required: true,
-    },
-    company: {
-      type: String,
-      required: true,
-      maxlength: 200,
     },
     designation: {
       type: String,
       required: true,
       maxlength: 200,
     },
-
+    company: {
+      type: String,
+      required: true,
+      maxlength: 200,
+    },
     industry: {
       type: String,
       required: true,
       maxlength: 200,
     },
     offers: {
-      type: String,
-      required: true,
-      maxlength: 200,
-    },
-    linkedin: {
-      type: String,
-      required: true,
-      maxlength: 200,
-    },
-    website: {
       type: String,
       required: true,
       maxlength: 200,
