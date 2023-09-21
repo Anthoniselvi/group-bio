@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const profileSchema = new mongoose.Schema(
+const { Schema } = mongoose;
+mongoose.Promise = global.Promise;
+const profileSchema = new Schema(
   {
     name: { type: String, required: true },
     course: { type: String, required: true },
@@ -18,6 +20,6 @@ const profileSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Profile =
-  mongoose.models.Profile || mongoose.model("Profile", profileSchema);
-export default Profile;
+module.exports =
+  // mongoose.models.Profile ||
+  mongoose.model("Profile", profileSchema);

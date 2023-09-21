@@ -71,7 +71,7 @@ export default function AddProfile() {
 
       console.log("input details:" + JSON.stringify(formData));
       const response = await axios.post("/api/profile", formData);
-      console.log("response : " + JSON.stringify(response));
+      console.log("response : " + response);
       if (response.status === 201) {
         console.log("Profile data submitted successfully!");
 

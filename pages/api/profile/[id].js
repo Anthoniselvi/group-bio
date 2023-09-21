@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       }
 
       // Retrieve a single profile by ID
-      const profile = await Profile.findById(_id);
+      const profile = await Profile.findById(id);
 
       if (!profile) {
         res.status(404).json({ error: "Profile not found" });
