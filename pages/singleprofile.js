@@ -25,7 +25,7 @@ export default function SingleProfile() {
     // Fetch data for the selected profile from your API when the component mounts
     if (id) {
       axios
-        .get(`/api/profile/${id}`) // Replace with the correct API endpoint URL for fetching a single profile by ID
+        .get(`http://localhost:2222/profile/${id}`)
         .then((response) => {
           setSelectedProfile(response.data); // Set the fetched profile data in the state
         })
@@ -77,15 +77,38 @@ export default function SingleProfile() {
               <div className={styles.row}>
                 <p className={styles.contenttext}>Role & Company </p>
                 <p className={styles.span}>
-                  {selectedProfile.role}, {selectedProfile.companyName}
+                  {selectedProfile.designation}, {selectedProfile.company}
                 </p>
               </div>
+
               <div className={styles.row}>
-                <p className={styles.contenttext}>City </p>
-                <p className={styles.span}>{selectedProfile.city}</p>
+                <p className={styles.contenttext}>Industry </p>
+                <p className={styles.span}>{selectedProfile.industry}</p>
+              </div>
+
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Services Offered </p>
+                <p className={styles.span}>{selectedProfile.offers}</p>
+              </div>
+            </div>
+
+            <div className={styles.personal}>
+              <h2 className={styles.contentheading}>Personal Info</h2>
+              {/* <h4>{selectedProfile.name}</h4> */}
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Course </p>
+                <p className={styles.span}>{selectedProfile.course}</p>
               </div>
               <div className={styles.row}>
-                <p className={styles.contenttext}>Contact Number </p>
+                <p className={styles.contenttext}>Years</p>
+                <p className={styles.span}>{selectedProfile.year}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Location </p>
+                <p className={styles.span}>{selectedProfile.location}</p>
+              </div>
+              <div className={styles.row}>
+                <p className={styles.contenttext}>Contact </p>
                 <a
                   className={styles.span}
                   href={`https://api.whatsapp.com/send?phone=${selectedProfile.phone}&text=Hello`}
@@ -94,35 +117,6 @@ export default function SingleProfile() {
                 >
                   {selectedProfile.phone}
                 </a>
-              </div>
-              <div className={styles.row}>
-                <p className={styles.contenttext}>Region </p>
-                <p className={styles.span}>{selectedProfile.region}</p>
-              </div>
-              <div className={styles.row}>
-                <p className={styles.contenttext}>Industry </p>
-                <p className={styles.span}>{selectedProfile.industry}</p>
-              </div>
-              <div className={styles.row}>
-                <p className={styles.contenttext}>Years Since </p>
-                <p className={styles.span}>{selectedProfile.years}</p>
-              </div>
-              <div className={styles.row}>
-                <p className={styles.contenttext}>Services Offered </p>
-                <p className={styles.span}>{selectedProfile.servicesOffered}</p>
-              </div>
-            </div>
-
-            <div className={styles.personal}>
-              <h2 className={styles.contentheading}>Personal Info</h2>
-              {/* <h4>{selectedProfile.name}</h4> */}
-              <div className={styles.row}>
-                <p className={styles.contenttext}>Date Of Birth: </p>
-                <p className={styles.span}>{selectedProfile.dob}</p>
-              </div>
-              <div className={styles.row}>
-                <p className={styles.contenttext}>Interests: </p>
-                <p className={styles.span}>{selectedProfile.interest}</p>
               </div>
             </div>
           </div>

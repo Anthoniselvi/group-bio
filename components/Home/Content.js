@@ -8,36 +8,80 @@ import StepContent from "@mui/material/StepContent";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import PersonPinIcon from "@mui/icons-material/PersonPin";
+import TextField from "@mui/material/TextField";
 import styles from "@/styles/Home.module.css";
 
 const steps = [
   {
     label: "Personal Information",
     status: "4 fields left",
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
+    fields: [
+      {
+        label: "Name",
+        value: "",
+      },
+      {
+        label: "Image",
+        value: "",
+      },
+      {
+        label: "Course",
+        value: "",
+      },
+      {
+        label: "Year",
+        value: "",
+      },
+      {
+        label: "Location",
+        value: "",
+      },
+      {
+        label: "Contact Number",
+        value: "",
+      },
+    ],
   },
   {
     label: "Business Information",
     status: "4 fields left",
-    description:
-      "An ad group contains one or more ads which target a shared set of keywords.",
+    fields: [
+      {
+        label: "Company Name",
+        value: "",
+      },
+      {
+        label: "Designation",
+        value: "",
+      },
+      {
+        label: "Industry",
+        value: "",
+      },
+      {
+        label: "Services Offered",
+        value: "",
+      },
+    ],
   },
   {
     label: "Social Media Information",
     status: "2 fields left",
-    description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`,
+    fields: [
+      {
+        label: "LinkedIn",
+        value: "",
+      },
+      {
+        label: "Website",
+        value: "",
+      },
+    ],
   },
 ];
 
 export default function Content() {
   const [activeStep, setActiveStep] = useState(0);
-  // const [stepClose, setStepClose] = useState(false)
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -51,6 +95,11 @@ export default function Content() {
     setActiveStep(0);
   };
 
+  const handleFieldChange = (event, index) => {
+    const newSteps = [...steps];
+    newSteps[activeStep].fields[index].value = event.target.value;
+  };
+
   const handleStepLabelClick = (index) => {
     if (index === activeStep) {
       // If the clicked label is the currently active step, close it
@@ -60,20 +109,19 @@ export default function Content() {
       setActiveStep(index);
     }
   };
-
   return (
     <Box sx={{ maxWidth: 400 }} className={styles.content_container}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
             <StepLabel
+              // onClick={() => handleFieldChange(index)}
               onClick={() => handleStepLabelClick(index)}
-              sx={{ backgroundColor: "pink", borderRadius: 5, padding: 2 }}
-              //   optional={
-              //     index === 2 ? (
-              //       <Typography variant="caption">Last step</Typography>
-              //     ) : null
-              //   }
+              sx={{
+                backgroundColor: activeStep === index ? "pink" : "transparent",
+                borderRadius: 5,
+                padding: 2,
+              }}
             >
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="secondary">{step.label}</Typography>
@@ -81,7 +129,16 @@ export default function Content() {
               </div>
             </StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              {step.fields.map((field, fieldIndex) => (
+                <TextField
+                  key={field.label}
+                  label={field.label}
+                  value={field.value}
+                  onChange={(event) => handleFieldChange(event, fieldIndex)}
+                  fullWidth
+                  margin="normal"
+                />
+              ))}
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button

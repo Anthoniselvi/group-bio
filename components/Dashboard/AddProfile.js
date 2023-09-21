@@ -9,8 +9,6 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Footer from "@/components/Footer/Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { generateUserId } from "./GenerateUserId";
-import Profile from "@/models/ProfileSchema";
 
 const steps = ["Personal Information", "Company Information"];
 
@@ -20,7 +18,8 @@ export default function AddProfile() {
 
   const [formDataStep1, setFormDataStep1] = React.useState({
     name: "",
-    batch: "",
+    course: "",
+    year: "",
     location: "",
     phone: "",
     photo: "",
@@ -103,36 +102,51 @@ export default function AddProfile() {
   //   }
   // };
 
-  const handleComplete = async () => {
-    try {
-      const formData = {
-        ...formDataStep1,
-        ...formDataStep2,
-        ...formDataStep3,
-      };
+  const handleComplete = (e) => {
+    e.preventDefault();
+    const formData = {
+      ...formDataStep1,
+      ...formDataStep2,
+      ...formDataStep3,
+    };
+    axios
+      .post(
+        "http://localhost:2222/profile/add",
+        // `${process.env.REACT_APP_BASE_URL}/profile/add`,
+        formData
+      )
+      .then((response) => {
+        console.log(response);
+        console.log("CreatedEvent: " + JSON.stringify(response.data));
+      });
 
-      const response = await axios.post("/api/profile", formData);
-
-      if (response.status === 201) {
-        console.log("Profile data submitted successfully!");
-
-        // Clear the form after submission
-        // ... (clear form state)
-      } else {
-        console.error("Error submitting profile data");
-        // Display an error message to the user
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // Display an error message to the user
-    }
+    setFormDataStep1({
+      name: "",
+      course: "",
+      year: "",
+      location: "",
+      phone: "",
+      photo: "",
+    });
+    setFormDataStep2({
+      company: "",
+      designation: "",
+      industry: "",
+      offers: "",
+    });
+    setFormDataStep3({
+      linkedin: "",
+      website: "",
+    });
   };
+
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});
     setFormDataStep1({
       name: "",
-      batch: "",
+      course: "",
+      year: "",
       location: "",
       phone: "",
       photo: "",
@@ -177,12 +191,22 @@ export default function AddProfile() {
               }
             />
             <TextField
-              label="Batch"
-              value={formDataStep1.batch}
+              label="Course"
+              value={formDataStep1.course}
               onChange={(e) =>
                 setFormDataStep1((prevData) => ({
                   ...prevData,
-                  batch: e.target.value,
+                  course: e.target.value,
+                }))
+              }
+            />
+            <TextField
+              label="Year"
+              value={formDataStep1.year}
+              onChange={(e) =>
+                setFormDataStep1((prevData) => ({
+                  ...prevData,
+                  year: e.target.value,
                 }))
               }
             />

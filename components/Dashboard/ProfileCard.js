@@ -22,21 +22,22 @@ export default function ProfileCard() {
   const navigateToSingleProfile = (item) => {
     router.push({
       pathname: "/singleprofile",
-      query: { id: item.userId }, // Pass the clicked item's ID as a query parameter
+      query: { id: item._id }, // Pass the clicked item's ID as a query parameter
     });
   };
 
   useEffect(() => {
     // Fetch data from your API endpoint when the component mounts
     axios
-      .get("/api/profile") // Replace with the correct API endpoint URL
+      .get("http://localhost:2222/profile/all")
       .then((response) => {
-        setData(response.data); // Set the fetched data in the state
+        setData(response.data);
+        console.log("Data:" + JSON.stringify(response.data));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); // The empty array [] ensures this effect runs once when the component mounts
+  }, []);
 
   return (
     <div
