@@ -27,7 +27,5 @@ async function connectToDatabase() {
   }
 }
 
-// Export the Mongoose instance
-const db = connectToDatabase();
-
-export default db;
+// Export the connectToDatabase function
+export { connectToDatabase };

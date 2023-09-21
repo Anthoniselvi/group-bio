@@ -1,13 +1,14 @@
-import dbConnect from "../../../util/mongo";
+import { connectToDatabase } from "../../../util/mongo";
 import Profile from "../../../models/ProfileSchema";
 
 export default async function handler(req, res) {
   const { method } = req;
 
-  dbConnect();
+  // Connect to the database
+  await connectToDatabase();
 
-  console.log("Server: Handling request for method:", method); // Log the HTTP method (GET or POST)
-  console.log("Server: Profile model:", Profile); // Log the Profile model
+  console.log("Server: Handling request for method:", method);
+  console.log("Server: Profile model:", Profile);
 
   if (method === "GET") {
     console.log("Server: Handling GET request");

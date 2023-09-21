@@ -10,6 +10,8 @@ import axios from "axios";
 import Footer from "@/components/Footer/Footer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { generateUserId } from "./GenerateUserId";
+import Profile from "@/models/ProfileSchema";
+
 const steps = ["Personal Information", "Company Information"];
 
 export default function AddProfile() {
@@ -56,51 +58,75 @@ export default function AddProfile() {
     setActiveStep(step);
   };
 
+  // const handleComplete = async () => {
+  //   try {
+  //     // Generate a userId
+  //     // const userId = await generateUserId();
+
+  //     // Add userId to the formData
+  //     const formData = {
+  //       ...formDataStep1,
+  //       ...formDataStep2,
+  //       ...formDataStep3,
+  //       // userId,
+  //     };
+
+  //     console.log("input details:" + JSON.stringify(formData));
+  //     const response = await axios.post("/api/profile", formData);
+  //     console.log("response : " + response);
+  //     if (response.status === 201) {
+  //       console.log("Profile data submitted successfully!");
+
+  //       // Clear the form after submission
+  //       setFormDataStep1({
+  //         name: "",
+  //         batch: "",
+  //         location: "",
+  //         phone: "",
+  //         photo: "",
+  //       });
+  //       setFormDataStep2({
+  //         company: "",
+  //         designation: "",
+  //         industry: "",
+  //         offers: "",
+  //       });
+  //       setFormDataStep3({
+  //         linkedin: "",
+  //         website: "",
+  //       });
+  //     } else {
+  //       console.error("Error submitting profile data");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
   const handleComplete = async () => {
     try {
-      // Generate a userId
-      // const userId = await generateUserId();
-
-      // Add userId to the formData
       const formData = {
         ...formDataStep1,
         ...formDataStep2,
         ...formDataStep3,
-        // userId,
       };
 
-      console.log("input details:" + JSON.stringify(formData));
       const response = await axios.post("/api/profile", formData);
-      console.log("response : " + response);
+
       if (response.status === 201) {
         console.log("Profile data submitted successfully!");
 
         // Clear the form after submission
-        setFormDataStep1({
-          name: "",
-          batch: "",
-          location: "",
-          phone: "",
-          photo: "",
-        });
-        setFormDataStep2({
-          company: "",
-          designation: "",
-          industry: "",
-          offers: "",
-        });
-        setFormDataStep3({
-          linkedin: "",
-          website: "",
-        });
+        // ... (clear form state)
       } else {
         console.error("Error submitting profile data");
+        // Display an error message to the user
       }
     } catch (error) {
       console.error("Error:", error);
+      // Display an error message to the user
     }
   };
-
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});

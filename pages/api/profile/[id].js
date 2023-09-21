@@ -1,12 +1,12 @@
 // pages/api/profile/[id].js
-import dbConnect from "@/util/mongo";
+import { connectToDatabase } from "../../../util/mongo";
 import Profile from "@/models/ProfileSchema";
 
 export default async function handler(req, res) {
   const { method, query } = req;
   const { id } = query;
 
-  await dbConnect();
+  await connectToDatabase();
 
   if (method === "GET") {
     try {

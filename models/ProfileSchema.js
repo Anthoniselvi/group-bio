@@ -21,5 +21,4 @@ const profileSchema = new Schema(
 );
 
 module.exports =
-  // mongoose.models.Profile ||
-  mongoose.model("Profile", profileSchema);
+  mongoose.models.Profile || mongoose.model("Profile", profileSchema);
