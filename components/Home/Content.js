@@ -51,13 +51,23 @@ export default function Content() {
     setActiveStep(0);
   };
 
+  const handleStepLabelClick = (index) => {
+    if (index === activeStep) {
+      // If the clicked label is the currently active step, close it
+      setActiveStep(-1);
+    } else {
+      // If the clicked label is not the active step, open it
+      setActiveStep(index);
+    }
+  };
+
   return (
     <Box sx={{ maxWidth: 400 }} className={styles.content_container}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
             <StepLabel
-              onClick={handleNext}
+              onClick={() => handleStepLabelClick(index)}
               sx={{ backgroundColor: "pink", borderRadius: 5, padding: 2 }}
               //   optional={
               //     index === 2 ? (
