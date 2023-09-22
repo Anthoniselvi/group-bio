@@ -24,7 +24,7 @@ export default function SingleProfile() {
     // Fetch data for the selected profile from your API when the component mounts
     if (id) {
       axios
-        .get(`${process.env.BASE_URL}/profile/${id}`)
+        .get(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/${id}`)
         // .get(`http://localhost:2222/profile/${id}`)
         .then((response) => {
           setSelectedProfile(response.data);
