@@ -27,7 +27,8 @@ export default function SingleProfile() {
       axios
         .get(`http://localhost:2222/profile/${id}`)
         .then((response) => {
-          setSelectedProfile(response.data); // Set the fetched profile data in the state
+          setSelectedProfile(response.data);
+          console.log("selectedprofile :" + JSON.stringify(response.data));
         })
         .catch((error) => {
           console.error("Error fetching data:", error);

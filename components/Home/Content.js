@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import styles from "@/styles/Home.module.css";
+import axios from "axios";
 
 const steps = [
   {
@@ -17,27 +18,27 @@ const steps = [
     status: "4 fields left",
     fields: [
       {
-        label: "Name",
+        label: "name",
         value: "",
       },
       {
-        label: "Image",
+        label: "image",
         value: "",
       },
       {
-        label: "Course",
+        label: "course",
         value: "",
       },
       {
-        label: "Year",
+        label: "year",
         value: "",
       },
       {
-        label: "Location",
+        label: "location",
         value: "",
       },
       {
-        label: "Contact Number",
+        label: "phone",
         value: "",
       },
     ],
@@ -47,19 +48,19 @@ const steps = [
     status: "4 fields left",
     fields: [
       {
-        label: "Company Name",
+        label: "company",
         value: "",
       },
       {
-        label: "Designation",
+        label: "designation",
         value: "",
       },
       {
-        label: "Industry",
+        label: "industry",
         value: "",
       },
       {
-        label: "Services Offered",
+        label: "offers",
         value: "",
       },
     ],
@@ -69,11 +70,11 @@ const steps = [
     status: "2 fields left",
     fields: [
       {
-        label: "LinkedIn",
+        label: "linkedin",
         value: "",
       },
       {
-        label: "Website",
+        label: "website",
         value: "",
       },
     ],
@@ -82,6 +83,20 @@ const steps = [
 
 export default function Content() {
   const [activeStep, setActiveStep] = useState(0);
+  const [inputFieldValues, setInputFieldValues] = useState({
+    name: "",
+    image: "",
+    course: "",
+    year: "",
+    location: "",
+    phone: "",
+    company: "",
+    designation: "",
+    industry: "",
+    offers: "",
+    linkedin: "",
+    website: "",
+  });
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -95,27 +110,57 @@ export default function Content() {
     setActiveStep(0);
   };
 
-  const handleFieldChange = (event, index) => {
-    const newSteps = [...steps];
-    newSteps[activeStep].fields[index].value = event.target.value;
+  const handleFieldChange = (event, fieldLabel) => {
+    setInputFieldValues((prevValues) => ({
+      ...prevValues,
+      [fieldLabel]: event.target.value,
+    }));
   };
 
   const handleStepLabelClick = (index) => {
     if (index === activeStep) {
-      // If the clicked label is the currently active step, close it
       setActiveStep(-1);
     } else {
-      // If the clicked label is not the active step, open it
       setActiveStep(index);
     }
   };
+
+  const handleSubmit = () => {
+    // Create an object containing the data to be sent in the POST request
+    const postData = {
+      name: inputFieldValues.name,
+      image: inputFieldValues.image,
+      course: inputFieldValues.course,
+      year: inputFieldValues.year,
+      location: inputFieldValues.location,
+      phone: inputFieldValues.phone,
+      company: inputFieldValues.company,
+      designation: inputFieldValues.designation,
+      industry: inputFieldValues.industry,
+      offers: inputFieldValues.offers,
+      linkedin: inputFieldValues.linkedin,
+      website: inputFieldValues.website,
+    };
+
+    // Send a POST request using Axios
+    axios
+      .post("http://localhost:2222/profile/add", postData)
+      .then((response) => {
+        console.log("Profile added successfully!");
+        // You can perform any additional actions here, such as redirecting the user or updating the UI.
+      })
+      .catch((error) => {
+        console.error("Error adding profile: ", error);
+        // Handle the error, e.g., display an error message to the user.
+      });
+  };
+
   return (
     <Box sx={{ maxWidth: 400 }} className={styles.content_container}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
-          <Step key={step.label}>
+          <Step key={step.index}>
             <StepLabel
-              // onClick={() => handleFieldChange(index)}
               onClick={() => handleStepLabelClick(index)}
               sx={{
                 backgroundColor: activeStep === index ? "pink" : "transparent",
@@ -124,26 +169,38 @@ export default function Content() {
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="secondary">{step.label}</Typography>
-                <Typography variant="caption">{step.status}</Typography>
+                <Typography variant="h6">{step.label}</Typography>
+                <Typography variant="body2">{step.status}</Typography>
               </div>
             </StepLabel>
             <StepContent>
               {step.fields.map((field, fieldIndex) => (
-                <TextField
+                // <TextField
+                //   key={field.label}
+                //   label={field.label}
+                //   value={inputFieldValues[field.label]}
+                //   onChange={(event) => handleFieldChange(event, field.label)}
+                //   fullWidth
+                //   margin="normal"
+                // />
+
+                <input
                   key={field.label}
-                  label={field.label}
-                  value={field.value}
-                  onChange={(event) => handleFieldChange(event, fieldIndex)}
-                  fullWidth
-                  margin="normal"
+                  type="text"
+                  name={field.label}
+                  value={inputFieldValues[field.label]}
+                  onChange={(event) => handleFieldChange(event, field.label)}
                 />
               ))}
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
                     variant="contained"
-                    onClick={handleNext}
+                    onClick={
+                      activeStep === steps.length - 1
+                        ? handleSubmit
+                        : handleNext
+                    }
                     sx={{ mt: 1, mr: 1 }}
                   >
                     {index === steps.length - 1 ? "Finish" : "Continue"}
@@ -151,7 +208,7 @@ export default function Content() {
                   <Button
                     disabled={index === 0}
                     onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
+                    sx={{ mt: 1 }}
                   >
                     Back
                   </Button>
@@ -161,10 +218,10 @@ export default function Content() {
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length && (
+      {activeStep === steps.length - 1 && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+          <Button onClick={handleReset} sx={{ mt: 1 }}>
             Reset
           </Button>
         </Paper>

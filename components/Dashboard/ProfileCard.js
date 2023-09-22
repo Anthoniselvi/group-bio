@@ -22,7 +22,7 @@ export default function ProfileCard() {
   const navigateToSingleProfile = (item) => {
     router.push({
       pathname: "/singleprofile",
-      query: { id: item._id }, // Pass the clicked item's ID as a query parameter
+      query: { id: item.profileId }, // Pass the clicked item's ID as a query parameter
     });
   };
 

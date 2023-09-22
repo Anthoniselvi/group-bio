@@ -1,7 +1,7 @@
 .container {
     height: 100px;
     padding: 0px 50px;
-    background: #3d2a52;
+    background: #003049;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,7 +152,7 @@ box-shadow: 0 0 5px #01b4e4;}
     width: 100%;
 }
 .activewhat {
-  background: #3d2a52;
+  background: #003049;
   justify-content: space-between;
   text-align: center;
   display: flex;
@@ -167,7 +167,7 @@ box-shadow: 0 0 5px #01b4e4;}
 }
 
 .activeproject {
-  background: #3d2a52;
+  background: #003049;
   /* background: #fff8f0; */
   justify-content: center;
   text-align: center;
@@ -182,10 +182,10 @@ box-shadow: 0 0 5px #01b4e4;}
 }
 
 .activeteam {
-  /* background: #3d2a52; */
+  /* background: #003049; */
   height: 100px;
   width: 100%;
-  background: #3d2a52;
+  background: #003049;
   /* background: #b370b0; */
   justify-content: center;
   text-align: center;
@@ -198,8 +198,8 @@ box-shadow: 0 0 5px #01b4e4;}
 }
 
 .activeget {
-  /* background: #3d2a52; */
-  background: #3d2a52;
+  /* background: #003049; */
+  background: #003049;
   height: 100px;
   width: 100%;
   justify-content: center;
@@ -213,7 +213,7 @@ box-shadow: 0 0 5px #01b4e4;}
 }
 
 .activehome {
-  background: #3d2a52;
+  background: #003049;
   justify-content: center;
   text-align: center;
   color: white;
