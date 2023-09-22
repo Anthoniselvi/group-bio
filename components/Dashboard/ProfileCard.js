@@ -27,10 +27,9 @@ export default function ProfileCard() {
   };
 
   useEffect(() => {
-    // Fetch data from your API endpoint when the component mounts
     axios
-      .get(`${process.env.BASE_URL}/profile/all`)
-      // .get("http://localhost:2222/profile/all")
+      // .get(`${process.env.BASE_URL}/profile/all`)
+      .get("https://api.titanrays.com/bio/profile/all")
       .then((response) => {
         setData(response.data);
         console.log("Data:" + JSON.stringify(response.data));
