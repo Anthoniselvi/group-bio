@@ -95,7 +95,8 @@ export default function Content() {
     };
 
     axios
-      .post("http://localhost:2222/profile/add", postData)
+      .post(`${process.env.BASE_URL}/profile/add`, postData)
+      // .post("http://localhost:2222/profile/add", postData)
       .then((response) => {
         console.log("Profile added successfully!");
       })
