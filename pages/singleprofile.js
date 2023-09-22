@@ -6,13 +6,12 @@ import styles from "@/styles/SingleProfile.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import Head from "next/head";
-import { Launcher } from "react-chat-widget";
-import "react-chat-widget/lib/styles.css";
+
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
-  const [showWhatsAppWidget, setShowWhatsAppWidget] = useState(false);
+
   const [selectedProfile, setSelectedProfile] = useState({}); // State to store the selected profile data
 
   const navigateToHome = () => {
@@ -110,35 +109,12 @@ export default function SingleProfile() {
               </div>
               <div className={styles.row}>
                 <p className={styles.contenttext}>Contact </p>
-                <a
-                  className={styles.span}
-                  href={`https://api.whatsapp.com/send?phone=${selectedProfile.phone}&text=Hello`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {selectedProfile.phone}
-                </a>
+                <a className={styles.span}>{selectedProfile.phone}</a>
               </div>
             </div>
           </div>
         </div>
       </main>
-      {showWhatsAppWidget && (
-        <Launcher
-          agentProfile={{
-            teamName: "Support",
-            imageUrl: "https://via.placeholder.com/40",
-          }}
-          onMessageWasSent={() => {
-            // Handle message being sent
-          }}
-          handleClick={() => {
-            // Handle widget click
-          }}
-          isOpen={showWhatsAppWidget}
-          showEmoji
-        />
-      )}
     </>
   );
 }
