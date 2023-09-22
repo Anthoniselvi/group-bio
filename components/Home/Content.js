@@ -11,75 +11,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
-
-const steps = [
-  {
-    label: "Personal Information",
-    status: "4 fields left",
-    fields: [
-      {
-        label: "name",
-        value: "",
-      },
-      {
-        label: "image",
-        value: "",
-      },
-      {
-        label: "course",
-        value: "",
-      },
-      {
-        label: "year",
-        value: "",
-      },
-      {
-        label: "location",
-        value: "",
-      },
-      {
-        label: "phone",
-        value: "",
-      },
-    ],
-  },
-  {
-    label: "Business Information",
-    status: "4 fields left",
-    fields: [
-      {
-        label: "company",
-        value: "",
-      },
-      {
-        label: "designation",
-        value: "",
-      },
-      {
-        label: "industry",
-        value: "",
-      },
-      {
-        label: "offers",
-        value: "",
-      },
-    ],
-  },
-  {
-    label: "Social Media Information",
-    status: "2 fields left",
-    fields: [
-      {
-        label: "linkedin",
-        value: "",
-      },
-      {
-        label: "website",
-        value: "",
-      },
-    ],
-  },
-];
+import { steps } from "./steps";
+import ProgressSlider from "./ProgressSlider";
 
 export default function Content() {
   const [activeStep, setActiveStep] = useState(0);
@@ -98,6 +31,26 @@ export default function Content() {
     website: "",
   });
 
+  const [filledFields, setFilledFields] = useState({
+    name: false,
+    course: false,
+    year: false,
+    location: false,
+    phone: false,
+    company: false,
+    designation: false,
+    industry: false,
+    offers: false,
+    linkedin: false,
+  });
+
+  const calculateProgressPercentage = () => {
+    const totalFields = Object.keys(filledFields).length;
+    const filledCount = Object.values(filledFields).filter(
+      (value) => value || value === ""
+    ).length;
+    return (filledCount / totalFields) * 100;
+  };
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -126,7 +79,6 @@ export default function Content() {
   };
 
   const handleSubmit = () => {
-    // Create an object containing the data to be sent in the POST request
     const postData = {
       name: inputFieldValues.name,
       image: inputFieldValues.image,
@@ -142,21 +94,19 @@ export default function Content() {
       website: inputFieldValues.website,
     };
 
-    // Send a POST request using Axios
     axios
       .post("http://localhost:2222/profile/add", postData)
       .then((response) => {
         console.log("Profile added successfully!");
-        // You can perform any additional actions here, such as redirecting the user or updating the UI.
       })
       .catch((error) => {
         console.error("Error adding profile: ", error);
-        // Handle the error, e.g., display an error message to the user.
       });
   };
 
   return (
     <Box sx={{ maxWidth: 400 }} className={styles.content_container}>
+      <ProgressSlider progressPercentage={calculateProgressPercentage()} />
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.index}>
