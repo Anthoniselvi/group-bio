@@ -31,61 +31,80 @@ export default function Content() {
     website: "",
   });
 
-  const [filledFields, setFilledFields] = useState({
-    name: false,
-    course: false,
-    year: false,
-    location: false,
-    phone: false,
-    company: false,
-    designation: false,
-    industry: false,
-    offers: false,
-    linkedin: false,
-  });
-  const mandatoryFields = [
-    "name",
-    "course",
-    "year",
-    "location",
-    "phone",
-    "company",
-    "designation",
-    "offers",
-    "linkedin",
-    "website",
-  ];
+  // Initialize arrays to track filled fields for each step
+  const [filledFields, setFilledFields] = useState(steps.map(() => new Set()));
+
+  // Function to calculate the progress percentage
   const calculateProgressPercentage = () => {
-    // Count the number of filled mandatory fields
-    const filledMandatoryFieldsCount = mandatoryFields.filter(
-      (field) => inputFieldValues[field] !== ""
+    const filledMandatoryFieldsCount = Object.keys(inputFieldValues).filter(
+      (field) =>
+        inputFieldValues[field] !== "" &&
+        steps.find((step) => step.mandatoryFields.includes(field))
     ).length;
 
-    // Calculate the progress
-    const progress = filledMandatoryFieldsCount * 10;
+    const progressPercentage = (filledMandatoryFieldsCount / 10) * 100;
 
-    return progress;
+    return progressPercentage;
   };
 
+  // Function to handle the next step
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  // Function to handle going back to the previous step
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  // Function to reset to the first step
   const handleReset = () => {
     setActiveStep(0);
   };
 
+  // Function to handle field changes
   const handleFieldChange = (event, fieldLabel) => {
     setInputFieldValues((prevValues) => ({
       ...prevValues,
       [fieldLabel]: event.target.value,
     }));
+
+    // Update the filled fields for the current step
+    const currentStepFilledFields = filledFields[activeStep];
+    if (event.target.value) {
+      currentStepFilledFields.add(fieldLabel);
+    } else {
+      currentStepFilledFields.delete(fieldLabel);
+    }
+
+    // Calculate and update the step statuses only if the field is mandatory
+    if (steps[activeStep].mandatoryFields.includes(fieldLabel)) {
+      const updatedStepStatus = calculateStepStatus();
+      // Here, you can use updatedStepStatus as needed in your component
+    }
   };
 
+  // Function to calculate step statuses based on the filled mandatory fields for each step
+  const calculateStepStatus = () => {
+    const stepStatus = steps.map((step, index) => {
+      const currentStepFilledFields = filledFields[index];
+      const mandatoryFieldsCount = step.mandatoryFields.length;
+      let unfilledMandatoryFieldsCount = mandatoryFieldsCount;
+
+      // Check if all mandatory fields in the step are filled
+      step.mandatoryFields.forEach((field) => {
+        if (currentStepFilledFields.has(field)) {
+          unfilledMandatoryFieldsCount--;
+        }
+      });
+
+      return `${unfilledMandatoryFieldsCount} fields left`;
+    });
+
+    return stepStatus;
+  };
+
+  // Function to handle step label clicks
   const handleStepLabelClick = (index) => {
     if (index === activeStep) {
       setActiveStep(-1);
@@ -94,6 +113,7 @@ export default function Content() {
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = () => {
     const postData = {
       name: inputFieldValues.name,
@@ -137,26 +157,20 @@ export default function Content() {
             >
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="h6">{step.label}</Typography>
-                <Typography variant="body2">{step.status}</Typography>
+                <Typography variant="body2">
+                  {calculateStepStatus()[index]}
+                </Typography>
               </div>
             </StepLabel>
             <StepContent>
               {step.fields.map((field, fieldIndex) => (
-                // <TextField
-                //   key={field.label}
-                //   label={field.label}
-                //   value={inputFieldValues[field.label]}
-                //   onChange={(event) => handleFieldChange(event, field.label)}
-                //   fullWidth
-                //   margin="normal"
-                // />
-
-                <input
+                <TextField
                   key={field.label}
-                  type="text"
-                  name={field.label}
+                  label={field.label}
                   value={inputFieldValues[field.label]}
                   onChange={(event) => handleFieldChange(event, field.label)}
+                  fullWidth
+                  margin="normal"
                 />
               ))}
               <Box sx={{ mb: 2 }}>
@@ -191,6 +205,7 @@ export default function Content() {
           <Button onClick={handleReset} sx={{ mt: 1 }}>
             Reset
           </Button>
+          s
         </Paper>
       )}
     </Box>

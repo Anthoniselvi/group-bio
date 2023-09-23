@@ -2,6 +2,7 @@ export const steps = [
   {
     label: "Personal Information",
     status: "4 fields left",
+    mandatoryFields: ["name", "course", "year", "location"], // Add the mandatory fields here
     fields: [
       {
         label: "name",
@@ -32,6 +33,7 @@ export const steps = [
   {
     label: "Business Information",
     status: "4 fields left",
+    mandatoryFields: ["company", "designation", "industry", "offers"], // Add the mandatory fields here
     fields: [
       {
         label: "company",
@@ -54,6 +56,7 @@ export const steps = [
   {
     label: "Social Media Information",
     status: "2 fields left",
+    mandatoryFields: ["linkedin", "website"], // Add the mandatory fields here
     fields: [
       {
         label: "linkedin",
