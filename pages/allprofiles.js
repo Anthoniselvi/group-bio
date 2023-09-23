@@ -14,7 +14,8 @@ const steps = ["Personal Information", "Company Information"];
 
 export default function AllProfiles() {
   return (
-    <div style={{ padding: "1rem", paddingTop: "10rem" }}>
+    <div style={{ padding: "1rem", paddingTop: "6rem" }}>
+      <h2 style={{ paddingBottom: "1rem" }}>Members</h2>
       <ProfileCard />
     </div>
   );

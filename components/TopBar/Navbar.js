@@ -110,7 +110,7 @@ const Navbar = ({ opened, setOpened }) => {
           <SearchIcon
             onClick={handleSearchIconClicked}
             className={styles.icon}
-            style={{ color: "#01b4e4", fontSize: "30px" }}
+            style={{ color: "#01b4e4", fontSize: "30px", textAlign: "right" }}
           />
         )
       )}

@@ -10,10 +10,11 @@
     z-index: 999;
   }
   .searchContainer{
-    margin:0;
+    margin:2%;
+    margin-right: 5%;
     padding: 0;
     position: absolute;
-    width: 92%;
+    width: 96%;
 top:95px;
 display: flex;
 justify-content: space-between;
@@ -145,6 +146,7 @@ box-shadow: 0 0 5px #01b4e4;}
     display: flex;
     align-items: center; */
     padding: 2rem 3rem;
+    padding-right: 0;
     position: fixed;
     color: white;
     top: 0;
@@ -291,6 +293,7 @@ box-shadow: 0 0 5px #01b4e4;}
     position: relative;
     font-size: 25px;
 color: white;
+margin-left: 20px;
 }
 }
 /* @media screen and (max-width: 678px){
