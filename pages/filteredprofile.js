@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRouter } from "next/router";
+import styles from "@/styles/SingleProfile.module.css";
 
 export default function FilteredProfile() {
   const router = useRouter();
@@ -33,6 +34,9 @@ export default function FilteredProfile() {
       pathname: "/singleprofile",
       query: { id: item.id }, // Pass the clicked item's ID as a query parameter
     });
+  };
+  const getFirstLetterCapital = (name) => {
+    return name.charAt(0).toUpperCase();
   };
   return (
     <div
@@ -68,7 +72,7 @@ export default function FilteredProfile() {
               key={item.profileId}
               onClick={() => navigateToSingleProfile(item)}
             >
-              <CardMedia
+              {/* <CardMedia
                 component="img"
                 sx={{
                   width: 70,
@@ -77,7 +81,18 @@ export default function FilteredProfile() {
                 }}
                 image={item.photo}
                 alt="Profile Image"
-              />
+              /> */}
+              {item.photo ? (
+                // Display the image if it is available
+                <img src={item.photo} alt="Profile" />
+              ) : (
+                // Display the first letter of the name in capital if no image is available
+                <div className={styles.nameInitial}>
+                  <p className={styles.firstletter}>
+                    {getFirstLetterCapital(item.name)}
+                  </p>
+                </div>
+              )}
               <Box
                 sx={{
                   display: "flex",
