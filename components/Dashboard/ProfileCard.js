@@ -13,6 +13,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { useRouter } from "next/router";
 import TopBar from "../TopBar/TopBar";
+import Image from "./psgtech.jpg";
 
 export default function ProfileCard() {
   const theme = useTheme();
@@ -67,7 +68,7 @@ export default function ProfileCard() {
               height: 70,
               borderRadius: "50%",
             }}
-            image={item.photo}
+            image={Image}
             alt="Profile Image"
           />
           <Box
