@@ -86,7 +86,13 @@ export default function TopBar() {
           </Typography>
           {/* <Search>
             <SearchIconWrapper> */}
-          <SearchIcon style={{ color: "#01b4e4" }} />
+          <SearchIcon
+            style={{
+              color: "#01b4e4",
+              textAlign: "right",
+              marginLeft: "20px",
+            }}
+          />
           {/* </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
