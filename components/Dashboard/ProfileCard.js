@@ -13,7 +13,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { useRouter } from "next/router";
 import TopBar from "../TopBar/TopBar";
-import Image from "./psgtech.jpg";
+import Photo from "./photo.png";
+import Image from "next/image";
 
 export default function ProfileCard() {
   const theme = useTheme();
@@ -61,16 +62,34 @@ export default function ProfileCard() {
           key={item.id}
           onClick={() => navigateToSingleProfile(item)}
         >
-          <CardMedia
+          {/* <CardMedia
             component="img"
             sx={{
               width: 70,
               height: 70,
               borderRadius: "50%",
             }}
-            image={Image}
+            image={Photo}
             alt="Profile Image"
-          />
+          /> */}
+          <CardMedia
+            component="div"
+            sx={{
+              width: 70,
+              height: 70,
+              borderRadius: "50%",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={Photo}
+              alt="Profile Image"
+              width={70}
+              height={70}
+              objectFit="cover"
+            />
+          </CardMedia>
+
           <Box
             sx={{
               display: "flex",
