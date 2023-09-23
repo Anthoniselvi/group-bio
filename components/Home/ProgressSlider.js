@@ -27,14 +27,18 @@ function valuetext(value) {
 
 export default function ProgressSlider({ progressPercentage }) {
   return (
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: "100% " }}>
       <Slider
-        aria-label="Always visible"
+        // aria-label="Always visible"
         value={progressPercentage}
         getAriaValueText={valuetext}
         step={10}
-        marks={marks}
-        valueLabelDisplay="on"
+        sx={{
+          height: 10,
+          color: "#76c893",
+        }}
+        // marks={marks}
+        // valueLabelDisplay="on"
       />
     </Box>
   );

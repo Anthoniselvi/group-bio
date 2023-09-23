@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
@@ -11,5 +12,5 @@ body {
   overflow-x: hidden; */
   width: 100vw;
   min-height: 100vh;
-  font-family: "Source Sans Pro",Arial,sans-serif;
+  font-family: 'Poppins', sans-serif;
 }

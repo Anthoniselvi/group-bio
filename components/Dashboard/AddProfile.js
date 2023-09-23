@@ -244,7 +244,7 @@ export default function AddProfile() {
               onClick={handleNext}
               sx={{
                 mr: 1,
-                backgroundColor: "#032541",
+                backgroundColor: "#003049",
                 color: "#fff",
                 borderRadius: "20px",
                 "&:hover": { backgroundColor: "#01b4e4", color: "#121212" },
@@ -311,7 +311,7 @@ export default function AddProfile() {
               onClick={handleNext}
               sx={{
                 mr: 1,
-                backgroundColor: "#032541",
+                backgroundColor: "#003049",
                 color: "#fff",
                 borderRadius: "20px",
                 "&:hover": { backgroundColor: "#01b4e4", color: "#121212" },
@@ -358,7 +358,7 @@ export default function AddProfile() {
               onClick={handleComplete}
               sx={{
                 mr: 1,
-                backgroundColor: "#032541",
+                backgroundColor: "#003049",
                 color: "#fff",
                 borderRadius: "20px",
                 "&:hover": { backgroundColor: "#01b4e4", color: "#121212" },

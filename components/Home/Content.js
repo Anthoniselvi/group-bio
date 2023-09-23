@@ -142,27 +142,44 @@ export default function Content() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400 }} className={styles.content_container}>
+    <Box className={styles.content_container}>
       <ProgressSlider progressPercentage={calculateProgressPercentage()} />
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
-          <Step key={step.index}>
+          <Step
+            key={step.index}
+            sx={{
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              borderRadius: 5,
+            }}
+          >
             <StepLabel
               onClick={() => handleStepLabelClick(index)}
               sx={{
-                backgroundColor: activeStep === index ? "pink" : "transparent",
-                borderRadius: 5,
+                border: activeStep === index ? "#b8c0ff" : "transparent",
+                borderBottom: activeStep === index ? "1px solid black" : "none",
+                backgroundColor: activeStep === index ? "#eaf4f4" : "#fff",
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
                 padding: 2,
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h6">{step.label}</Typography>
-                <Typography variant="body2">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Typography sx={{ fontSize: 16, fontWeight: 600 }}>
+                  {step.label}
+                </Typography>
+                <Typography sx={{ fontSize: 12, color: "#a5a58d" }}>
                   {calculateStepStatus()[index]}
                 </Typography>
               </div>
             </StepLabel>
-            <StepContent>
+            <StepContent sx={{ p: 0, pr: 1, backgroundColor: "#fff" }}>
               {step.fields.map((field, fieldIndex) => (
                 <TextField
                   key={field.label}

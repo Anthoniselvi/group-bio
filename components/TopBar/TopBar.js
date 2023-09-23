@@ -61,7 +61,7 @@ export default function TopBar() {
       <AppBar position="fixed">
         <Toolbar
           sx={{
-            backgroundColor: "#032541",
+            backgroundColor: "#003049",
             color: "#121212",
           }}
         >

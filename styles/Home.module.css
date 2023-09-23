@@ -6,8 +6,8 @@
   padding: 6rem;
   min-height: 100vh;
 }
-.maindiv{ padding: 1rem;
-}
+/* .maindiv{ padding: 1rem;
+} */
 .description {
   display: inherit;
   justify-content: inherit;
@@ -231,20 +231,20 @@
 
 .container{
   width: 100vw;
-  height: 100vh;
-  padding: 6rem 2rem;
+  min-height: 100vh;
+  padding: 6rem 1.5rem;
 
 }
 .header_container{
   height: 10vh;
 display: flex;
 flex-direction: column;
-gap: 20% !important;
+/* gap: 20% !important; */
 
 }
 .header_title{
   font-family: "Poppins";
-  font-size: 30px !important ;
+  font-size: 25px !important ;
 
 }
 .header_text{
