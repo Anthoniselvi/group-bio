@@ -13,6 +13,15 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import { steps } from "./steps";
 import ProgressSlider from "./ProgressSlider";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
+const CustomStepIcon = () => {
+  return (
+    <div style={{ width: 22, height: 22 }}>
+      <AccountCircleIcon style={{ color: "rgb(1, 180, 228)", fontSize: 22 }} />
+    </div>
+  );
+};
 
 export default function Content() {
   const [activeStep, setActiveStep] = useState(0);
@@ -164,6 +173,9 @@ export default function Content() {
                 borderTopRightRadius: activeStep === index ? 20 : 5,
                 padding: 2,
               }}
+              icon={
+                activeStep === index ? <CustomStepIcon /> : <CustomStepIcon />
+              }
             >
               <div
                 style={{
