@@ -65,7 +65,7 @@ export default function FilteredProfile() {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              key={item.id}
+              key={item.profileId}
               onClick={() => navigateToSingleProfile(item)}
             >
               <CardMedia
@@ -75,7 +75,7 @@ export default function FilteredProfile() {
                   height: 70,
                   borderRadius: "50%",
                 }}
-                image={item.image}
+                image={item.photo}
                 alt="Profile Image"
               />
               <Box
@@ -119,9 +119,9 @@ export default function FilteredProfile() {
                     // color="text.secondary"
                     component="div"
                   >
-                    {item.role}, {item.companyName}
+                    {item.designation}, {item.company}
                     <br />
-                    {item.city}
+                    {item.location}
                   </Typography>
 
                   <Typography
@@ -135,7 +135,7 @@ export default function FilteredProfile() {
                     component="div"
                   >
                     Services Offered: <br />
-                    {item.servicesOffered}
+                    {item.offers}
                   </Typography>
                 </CardContent>
               </Box>

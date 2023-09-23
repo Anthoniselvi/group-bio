@@ -30,8 +30,8 @@ const Navbar = ({ opened, setOpened }) => {
     const filteredData = data.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.servicesOffered.toLowerCase().includes(searchQuery.toLowerCase())
+        item.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.offers.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     setSearchResult(filteredData);

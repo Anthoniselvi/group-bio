@@ -57,7 +57,7 @@ export default function SingleProfile() {
           />
           <div className={styles.imageContainer}>
             <Image
-              src={selectedProfile.image}
+              src={selectedProfile.photo}
               width={170}
               height={170}
               alt="image"

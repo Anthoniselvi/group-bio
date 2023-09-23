@@ -17,7 +17,7 @@ import TopBar from "../TopBar/TopBar";
 export default function ProfileCard() {
   const theme = useTheme();
   const router = useRouter();
-  const [data, setData] = useState([]); // State to store the fetched data
+  const [data, setData] = useState([]); 
 
   const navigateToSingleProfile = (item) => {
     router.push({

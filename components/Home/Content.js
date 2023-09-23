@@ -14,6 +14,7 @@ import axios from "axios";
 import { steps } from "./steps";
 import ProgressSlider from "./ProgressSlider";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EditIcon from "@mui/icons-material/Edit";
 
 const CustomStepIcon = () => {
   return (
@@ -40,10 +41,8 @@ export default function Content() {
     website: "",
   });
 
-  // Initialize arrays to track filled fields for each step
   const [filledFields, setFilledFields] = useState(steps.map(() => new Set()));
 
-  // Function to calculate the progress percentage
   const calculateProgressPercentage = () => {
     const filledMandatoryFieldsCount = Object.keys(inputFieldValues).filter(
       (field) =>
@@ -56,12 +55,10 @@ export default function Content() {
     return progressPercentage;
   };
 
-  // Function to handle the next step
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  // Function to handle going back to the previous step
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -78,7 +75,6 @@ export default function Content() {
       [fieldLabel]: event.target.value,
     }));
 
-    // Update the filled fields for the current step
     const currentStepFilledFields = filledFields[activeStep];
     if (event.target.value) {
       currentStepFilledFields.add(fieldLabel);
@@ -86,21 +82,17 @@ export default function Content() {
       currentStepFilledFields.delete(fieldLabel);
     }
 
-    // Calculate and update the step statuses only if the field is mandatory
     if (steps[activeStep].mandatoryFields.includes(fieldLabel)) {
       const updatedStepStatus = calculateStepStatus();
-      // Here, you can use updatedStepStatus as needed in your component
     }
   };
 
-  // Function to calculate step statuses based on the filled mandatory fields for each step
   const calculateStepStatus = () => {
     const stepStatus = steps.map((step, index) => {
       const currentStepFilledFields = filledFields[index];
       const mandatoryFieldsCount = step.mandatoryFields.length;
       let unfilledMandatoryFieldsCount = mandatoryFieldsCount;
 
-      // Check if all mandatory fields in the step are filled
       step.mandatoryFields.forEach((field) => {
         if (currentStepFilledFields.has(field)) {
           unfilledMandatoryFieldsCount--;
@@ -113,7 +105,6 @@ export default function Content() {
     return stepStatus;
   };
 
-  // Function to handle step label clicks
   const handleStepLabelClick = (index) => {
     if (index === activeStep) {
       setActiveStep(-1);
@@ -122,7 +113,26 @@ export default function Content() {
     }
   };
 
-  // Function to handle form submission
+  // Function to handle file drop for image upload
+  const handleImageDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setInputFieldValues((prevValues) => ({
+          ...prevValues,
+          image: e.target.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
   const handleSubmit = () => {
     const postData = {
       name: inputFieldValues.name,
@@ -141,7 +151,6 @@ export default function Content() {
 
     axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, postData)
-      // .post("http://localhost:2222/profile/add", postData)
       .then((response) => {
         console.log("Profile added successfully!");
       })
@@ -214,6 +223,40 @@ export default function Content() {
                   margin="normal"
                 />
               ))}
+              <label htmlFor="fileInput">
+                <Box
+                  sx={{
+                    mb: 2,
+                    ml: "60%",
+                    width: 100,
+                    height: 100,
+                    backgroundColor: "lightblue",
+                    border: "2px dashed #ccc",
+                    borderRadius: "5px",
+                    paddingTop: "70px",
+                    textAlign: "right",
+                    cursor: "pointer",
+                  }}
+                >
+                  <EditIcon />
+                  {inputFieldValues.image && (
+                    <div>
+                      <img
+                        src={inputFieldValues.image}
+                        alt="Uploaded Image Preview"
+                        style={{ maxWidth: "100%", maxHeight: "200px" }}
+                      />
+                    </div>
+                  )}
+                </Box>
+              </label>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={(e) => handleFileSelect(e)}
+              />
+
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
