@@ -7,7 +7,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import data from "../data";
 import { useRouter } from "next/router";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import EntriesForSearch from "./EntriesForSearch";
 const Navbar = ({ opened, setOpened }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -115,7 +114,6 @@ const Navbar = ({ opened, setOpened }) => {
           />
         )
       )}
-      {/* <EntriesForSearch /> */}
     </div>
   );
 };
