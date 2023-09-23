@@ -61,3 +61,17 @@
     flex-direction: column;
     gap:0.3em;
 }
+.nameInitial{
+    width:70px;
+    height: 70px;
+    background-color: #003049;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.firstletter{
+    color: #fff;
+    font-size: 40px;
+}

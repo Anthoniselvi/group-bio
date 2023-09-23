@@ -39,7 +39,9 @@ export default function SingleProfile() {
   if (!selectedProfile || Object.keys(selectedProfile).length === 0) {
     return <div>Loading...</div>;
   }
-
+  const getFirstLetterCapital = (name) => {
+    return name.charAt(0).toUpperCase();
+  };
   return (
     <>
       <Head>
@@ -56,13 +58,27 @@ export default function SingleProfile() {
             style={{ marginBottom: "-2rem", cursor: "pointer" }}
           />
           <div className={styles.imageContainer}>
-            <Image
+            {/* <Image
               src={selectedProfile.photo}
               width={170}
               height={170}
               alt="image"
               className={styles.image}
             />
+             */}
+            <div className={styles.image}>
+              {selectedProfile.photo ? (
+                // Display the image if it is available
+                <img src={selectedProfile.photo} alt="Profile" />
+              ) : (
+                // Display the first letter of the name in capital if no image is available
+                <div className={styles.nameInitial}>
+                  <p className={styles.firstletter}>
+                    {getFirstLetterCapital(selectedProfile.name)}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
           <div className={styles.content}>
             <div className={styles.heading}>
