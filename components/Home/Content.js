@@ -43,14 +43,30 @@ export default function Content() {
     offers: false,
     linkedin: false,
   });
-
+  const mandatoryFields = [
+    "name",
+    "course",
+    "year",
+    "location",
+    "phone",
+    "company",
+    "designation",
+    "offers",
+    "linkedin",
+    "website",
+  ];
   const calculateProgressPercentage = () => {
-    const totalFields = Object.keys(filledFields).length;
-    const filledCount = Object.values(filledFields).filter(
-      (value) => value || value === ""
+    // Count the number of filled mandatory fields
+    const filledMandatoryFieldsCount = mandatoryFields.filter(
+      (field) => inputFieldValues[field] !== ""
     ).length;
-    return (filledCount / totalFields) * 100;
+
+    // Calculate the progress
+    const progress = filledMandatoryFieldsCount * 10;
+
+    return progress;
   };
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
