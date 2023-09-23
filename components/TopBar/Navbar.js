@@ -27,6 +27,7 @@ const Navbar = ({ opened, setOpened }) => {
   };
 
   const performSearch = () => {
+    console.log("data: " + JSON.stringify(data));
     const filteredData = data.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
