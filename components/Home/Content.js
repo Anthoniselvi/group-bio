@@ -151,6 +151,7 @@ export default function Content() {
             sx={{
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
               borderRadius: 5,
+              backgroundColor: "#ffffff",
             }}
           >
             <StepLabel
@@ -158,9 +159,9 @@ export default function Content() {
               sx={{
                 border: activeStep === index ? "#b8c0ff" : "transparent",
                 borderBottom: activeStep === index ? "1px solid black" : "none",
-                backgroundColor: activeStep === index ? "#eaf4f4" : "#fff",
-                borderTopLeftRadius: 20,
-                borderTopRightRadius: 20,
+                backgroundColor: activeStep === index ? "#3e5c76" : "#fff",
+                borderTopLeftRadius: activeStep === index ? 20 : 5,
+                borderTopRightRadius: activeStep === index ? 20 : 5,
                 padding: 2,
               }}
             >
@@ -171,15 +172,26 @@ export default function Content() {
                   alignItems: "center",
                 }}
               >
-                <Typography sx={{ fontSize: 16, fontWeight: 600 }}>
+                <Typography
+                  sx={{
+                    fontSize: 16,
+                    fontWeight: 600,
+                    color: activeStep === index ? "#fff" : "#121212",
+                  }}
+                >
                   {step.label}
                 </Typography>
-                <Typography sx={{ fontSize: 12, color: "#a5a58d" }}>
+                <Typography
+                  sx={{
+                    fontSize: 12,
+                    color: activeStep === index ? "#edf2f4" : "#a5a58d",
+                  }}
+                >
                   {calculateStepStatus()[index]}
                 </Typography>
               </div>
             </StepLabel>
-            <StepContent sx={{ p: 0, pr: 1, backgroundColor: "#fff" }}>
+            <StepContent sx={{ p: 0, pr: 1 }}>
               {step.fields.map((field, fieldIndex) => (
                 <TextField
                   key={field.label}
@@ -199,7 +211,7 @@ export default function Content() {
                         ? handleSubmit
                         : handleNext
                     }
-                    sx={{ mt: 1, mr: 1 }}
+                    sx={{ mt: 1, mr: 1, backgroundColor: "#3e5c76" }}
                   >
                     {index === steps.length - 1 ? "Finish" : "Continue"}
                   </Button>
@@ -219,10 +231,12 @@ export default function Content() {
       {activeStep === steps.length - 1 && (
         <Paper square elevation={0} sx={{ p: 3 }}>
           <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} sx={{ mt: 1 }}>
+          <Button
+            onClick={handleReset}
+            sx={{ mt: 1, backgroundColor: "#003049", color: "#fff" }}
+          >
             Reset
           </Button>
-          s
         </Paper>
       )}
     </Box>
