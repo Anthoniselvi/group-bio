@@ -9,14 +9,12 @@ import TextField from "@mui/material/TextField"; // Import TextField from Materi
 import axios from "axios";
 import Footer from "@/components/Footer/Footer";
 import AddProfile from "@/components/Dashboard/AddProfile";
-import CreateMember from "@/components/Home/createMember";
 const steps = ["Personal Information", "Company Information"];
 
 export default function Form() {
   return (
     <div>
-      {/* <AddProfile /> */}
-      <CreateMember />
+      <AddProfile />
     </div>
   );
 }

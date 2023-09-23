@@ -6,7 +6,6 @@ import styles from "@/styles/SingleProfile.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import Head from "next/head";
-import Photo from "./photo.png";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 export default function SingleProfile() {
@@ -57,20 +56,12 @@ export default function SingleProfile() {
             style={{ marginBottom: "-2rem", cursor: "pointer" }}
           />
           <div className={styles.imageContainer}>
-            {/* <Image
+            <Image
               src={selectedProfile.photo}
               width={170}
               height={170}
               alt="image"
               className={styles.image}
-            /> */}
-
-            <Image
-              src={Photo}
-              alt="Profile Image"
-              width={70}
-              height={70}
-              objectFit="cover"
             />
           </div>
           <div className={styles.content}>

@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useRouter } from "next/router";
-import Photo from "./photo.png";
+
 export default function FilteredProfile() {
   const router = useRouter();
   const { searchResult, searchQuery } = router.query;
@@ -68,7 +68,7 @@ export default function FilteredProfile() {
               key={item.profileId}
               onClick={() => navigateToSingleProfile(item)}
             >
-              {/* <CardMedia
+              <CardMedia
                 component="img"
                 sx={{
                   width: 70,
@@ -77,24 +77,7 @@ export default function FilteredProfile() {
                 }}
                 image={item.photo}
                 alt="Profile Image"
-              /> */}
-              <CardMedia
-                component="div"
-                sx={{
-                  width: 70,
-                  height: 70,
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                }}
-              >
-                <Image
-                  src={Photo}
-                  alt="Profile Image"
-                  width={70}
-                  height={70}
-                  objectFit="cover"
-                />
-              </CardMedia>
+              />
               <Box
                 sx={{
                   display: "flex",
