@@ -3,7 +3,8 @@ import styles from "@/styles/Home.module.css";
 import Login from "@/components/Login";
 import Sample from "@/components/Sample";
 import Signin from "@/components/Signin/Signin";
-import HomePage from "../components/Home/homepage";
+import CreateMember from "../components/Home/createMember";
+import AllProfiles from "./allprofiles";
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <main>
         <div className={styles.maindiv}>
           {/* <Sample /> */}
-          <HomePage />
+          <AllProfiles />
         </div>
       </main>
     </>
