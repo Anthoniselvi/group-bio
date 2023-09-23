@@ -15,7 +15,7 @@ export default function FilteredProfile() {
 
   const navigateToAllProfiles = () => {
     router.push({
-      pathname: "/allprofiles",
+      pathname: "/",
     });
   };
 
