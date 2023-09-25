@@ -112,12 +112,17 @@ export default function Content() {
       setActiveStep(index);
     }
   };
-
-  // Function to handle file drop for image upload
   const handleImageDrop = (event) => {
     event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file) {
+
+    // Check if files are available in the event dataTransfer
+    if (
+      event.dataTransfer &&
+      event.dataTransfer.files &&
+      event.dataTransfer.files.length > 0
+    ) {
+      const file = event.dataTransfer.files[0];
+
       const reader = new FileReader();
       reader.onload = (e) => {
         setInputFieldValues((prevValues) => ({
@@ -237,6 +242,8 @@ export default function Content() {
                     textAlign: "right",
                     cursor: "pointer",
                   }}
+                  onDrop={(e) => handleImageDrop(e)} // Corrected the event handler here
+                  onDragOver={(e) => handleDragOver(e)}
                 >
                   <EditIcon />
                   {inputFieldValues.image && (
@@ -254,7 +261,7 @@ export default function Content() {
                 type="file"
                 id="fileInput"
                 style={{ display: "none" }}
-                onChange={(e) => handleFileSelect(e)}
+                onChange={(e) => handleImageDrop(e)} // Corrected the event handler here
               />
 
               <Box sx={{ mb: 2 }}>
