@@ -14,8 +14,10 @@ import axios from "axios";
 import { steps } from "./steps";
 import ProgressSlider from "./ProgressSlider";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import EditIcon from "@mui/icons-material/Edit";
-
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // Firebase Storage Imports
+import { storage } from "../../firebase";
+// Your Axios Base URL for API Requests
+const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const CustomStepIcon = () => {
   return (
     <div style={{ width: 22, height: 22 }}>
@@ -28,7 +30,6 @@ export default function Content() {
   const [activeStep, setActiveStep] = useState(0);
   const [inputFieldValues, setInputFieldValues] = useState({
     name: "",
-    image: "",
     course: "",
     year: "",
     location: "",
@@ -39,6 +40,7 @@ export default function Content() {
     offers: "",
     linkedin: "",
     website: "",
+    image: "", // Image field added
   });
 
   const [filledFields, setFilledFields] = useState(steps.map(() => new Set()));
@@ -50,7 +52,7 @@ export default function Content() {
         steps.find((step) => step.mandatoryFields.includes(field))
     ).length;
 
-    const progressPercentage = (filledMandatoryFieldsCount / 10) * 100;
+    const progressPercentage = (filledMandatoryFieldsCount / 11) * 100; // 11 fields including the image
 
     return progressPercentage;
   };
@@ -70,13 +72,15 @@ export default function Content() {
 
   // Function to handle field changes
   const handleFieldChange = (event, fieldLabel) => {
+    const value = event.target.value;
+
     setInputFieldValues((prevValues) => ({
       ...prevValues,
-      [fieldLabel]: event.target.value,
+      [fieldLabel]: value || "", // Use an empty string as a default if the value is null
     }));
 
     const currentStepFilledFields = filledFields[activeStep];
-    if (event.target.value) {
+    if (value) {
       currentStepFilledFields.add(fieldLabel);
     } else {
       currentStepFilledFields.delete(fieldLabel);
@@ -112,36 +116,10 @@ export default function Content() {
       setActiveStep(index);
     }
   };
-  const handleImageDrop = (event) => {
-    event.preventDefault();
 
-    // Check if files are available in the event dataTransfer
-    if (
-      event.dataTransfer &&
-      event.dataTransfer.files &&
-      event.dataTransfer.files.length > 0
-    ) {
-      const file = event.dataTransfer.files[0];
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setInputFieldValues((prevValues) => ({
-          ...prevValues,
-          image: e.target.result,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const postData = {
       name: inputFieldValues.name,
-      image: inputFieldValues.image,
       course: inputFieldValues.course,
       year: inputFieldValues.year,
       location: inputFieldValues.location,
@@ -154,14 +132,52 @@ export default function Content() {
       website: inputFieldValues.website,
     };
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, postData)
-      .then((response) => {
-        console.log("Profile added successfully!");
-      })
-      .catch((error) => {
-        console.error("Error adding profile: ", error);
-      });
+    try {
+      // Upload image to Firebase Storage
+      const downloadURL = await uploadImageToFirebaseStorage(
+        inputFieldValues.image, // Pass the image file
+        inputFieldValues.name // Use name as the display name for the image
+      );
+
+      // Update the image field in postData
+      postData.image = downloadURL;
+
+      // Send a POST request to your API to save the profile data to MongoDB
+      await axios.post(`${API_BASE_URL}/profile/add`, postData);
+
+      console.log("Profile added successfully!");
+      // Redirect or perform any desired action on successful submission
+    } catch (error) {
+      console.error("Error adding profile: ", error);
+    }
+  };
+
+  const uploadImageToFirebaseStorage = async (file, displayName) => {
+    const date = new Date().getTime();
+    const storageRef = ref(storage, `${displayName + date}`);
+
+    await uploadBytesResumable(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const droppedFile = event.dataTransfer.files[0];
+
+    // Check if a valid image file was dropped
+    if (droppedFile && droppedFile.type.startsWith("image/")) {
+      setInputFieldValues((prevValues) => ({
+        ...prevValues,
+        image: droppedFile,
+      }));
+    }
+  };
+
+  // Event listener for drag-over and drag-enter to allow dropping files
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
   };
 
   return (
@@ -169,28 +185,8 @@ export default function Content() {
       <ProgressSlider progressPercentage={calculateProgressPercentage()} />
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
-          <Step
-            key={step.index}
-            sx={{
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-              borderRadius: 5,
-              backgroundColor: "#ffffff",
-            }}
-          >
-            <StepLabel
-              onClick={() => handleStepLabelClick(index)}
-              sx={{
-                border: activeStep === index ? "#b8c0ff" : "transparent",
-                borderBottom: activeStep === index ? "1px solid black" : "none",
-                backgroundColor: activeStep === index ? "#3e5c76" : "#fff",
-                borderTopLeftRadius: activeStep === index ? 20 : 5,
-                borderTopRightRadius: activeStep === index ? 20 : 5,
-                padding: 2,
-              }}
-              icon={
-                activeStep === index ? <CustomStepIcon /> : <CustomStepIcon />
-              }
-            >
+          <Step key={index}>
+            <StepLabel>
               <div
                 style={{
                   display: "flex",
@@ -228,41 +224,31 @@ export default function Content() {
                   margin="normal"
                 />
               ))}
-              <label htmlFor="fileInput">
-                <Box
-                  sx={{
-                    mb: 2,
-                    ml: "60%",
-                    width: 100,
-                    height: 100,
-                    backgroundColor: "lightblue",
+
+              {/* Conditionally render the image input in the final step */}
+              {index === steps.length - 1 && (
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  style={{
                     border: "2px dashed #ccc",
-                    borderRadius: "5px",
-                    paddingTop: "70px",
-                    textAlign: "right",
+                    padding: "20px",
+                    textAlign: "center",
                     cursor: "pointer",
                   }}
-                  onDrop={(e) => handleImageDrop(e)} // Corrected the event handler here
-                  onDragOver={(e) => handleDragOver(e)}
                 >
-                  <EditIcon />
-                  {inputFieldValues.image && (
-                    <div>
-                      <img
-                        src={inputFieldValues.image}
-                        alt="Uploaded Image Preview"
-                        style={{ maxWidth: "100%", maxHeight: "200px" }}
-                      />
-                    </div>
-                  )}
-                </Box>
-              </label>
-              <input
-                type="file"
-                id="fileInput"
-                style={{ display: "none" }}
-                onChange={(e) => handleImageDrop(e)} // Corrected the event handler here
-              />
+                  <label htmlFor="file" style={{ cursor: "pointer" }}>
+                    Upload an avatar
+                  </label>
+                  <input
+                    required
+                    style={{ display: "none" }}
+                    type="file"
+                    id="file"
+                    onChange={(event) => handleFieldChange(event, "image")}
+                  />
+                </div>
+              )}
 
               <Box sx={{ mb: 2 }}>
                 <div>

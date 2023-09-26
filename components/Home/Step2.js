@@ -5,28 +5,28 @@ const Step2 = ({ inputFieldValues, handleFieldChange }) => {
   return (
     <>
       <TextField
-        label="Company"
+        label="company"
         value={inputFieldValues.company}
         onChange={(event) => handleFieldChange(event, "company")}
         fullWidth
         margin="normal"
       />
       <TextField
-        label="Designation"
+        label="designation"
         value={inputFieldValues.designation}
         onChange={(event) => handleFieldChange(event, "designation")}
         fullWidth
         margin="normal"
       />
       <TextField
-        label="Industry"
+        label="industry"
         value={inputFieldValues.industry}
         onChange={(event) => handleFieldChange(event, "industry")}
         fullWidth
         margin="normal"
       />
       <TextField
-        label="Offers"
+        label="offers"
         value={inputFieldValues.offers}
         onChange={(event) => handleFieldChange(event, "offers")}
         fullWidth

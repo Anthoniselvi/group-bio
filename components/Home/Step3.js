@@ -5,14 +5,14 @@ const Step3 = ({ inputFieldValues, handleFieldChange }) => {
   return (
     <>
       <TextField
-        label="LinkedIn"
+        label="linkedIn"
         value={inputFieldValues.linkedin}
         onChange={(event) => handleFieldChange(event, "linkedin")}
         fullWidth
         margin="normal"
       />
       <TextField
-        label="Website"
+        label="website"
         value={inputFieldValues.website}
         onChange={(event) => handleFieldChange(event, "website")}
         fullWidth

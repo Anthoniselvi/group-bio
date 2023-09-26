@@ -73,18 +73,17 @@ export default function Form() {
       ...prevValues,
       [fieldLabel]: event.target.value,
     }));
+    // console.log("Updated inputFieldValues:", inputFieldValues);
   };
 
   const handleSubmit = (file) => {
     const formData = new FormData();
 
-    // Loop through the inputFieldValues and append each field to formData
     for (const fieldLabel in inputFieldValues) {
       formData.append(fieldLabel, inputFieldValues[fieldLabel]);
+      console.log(`Appended ${fieldLabel}: ${inputFieldValues[fieldLabel]}`);
     }
-    formData.append("image", file); // 'file' should be the actual image file
 
-    // Make the POST request with the FormData
     axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, formData)
       .then((response) => {
