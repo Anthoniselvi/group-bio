@@ -101,7 +101,7 @@ const FormPage = ({ inputs, title }) => {
           <form onSubmit={handleAdd} className={styles.form}>
             <div className={styles.forminput}>
               <label htmlFor="file">
-                Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                Image: <DriveFolderUploadOutlinedIcon className={styles.icon}/>
               </label>
               <input
                 type="file"
