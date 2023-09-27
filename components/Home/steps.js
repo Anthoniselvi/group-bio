@@ -8,10 +8,10 @@ export const steps = [
         label: "name",
         value: "",
       },
-      {
-        label: "image",
-        value: "",
-      },
+      // {
+      //   label: "image",
+      //   value: "",
+      // },
       {
         label: "course",
         value: "",
