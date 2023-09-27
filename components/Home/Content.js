@@ -238,7 +238,7 @@ export default function Content() {
                   }}
                 >
                   <label htmlFor="file" style={{ cursor: "pointer" }}>
-                    Upload an avatar
+                    Upload an image
                   </label>
                   <input
                     required
