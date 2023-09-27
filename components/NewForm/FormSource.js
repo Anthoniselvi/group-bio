@@ -29,37 +29,40 @@ export const userInputs = [
     type: "text",
     placeholder: "1234567890",
   },
-];
-
-export const productInputs = [
   {
-    id: 1,
-    label: "Title",
+    id: "company",
+    label: "Company Name",
     type: "text",
-    placeholder: "Apple Macbook Pro",
+    placeholder: "",
   },
   {
-    id: 2,
-    label: "Description",
+    id: "designation",
+    label: "Designation",
     type: "text",
-    placeholder: "Description",
+    placeholder: "",
   },
   {
-    id: 3,
-    label: "Category",
+    id: "industry",
+    label: "Industry",
     type: "text",
-    placeholder: "Computers",
+    placeholder: "",
   },
   {
-    id: 4,
-    label: "Price",
+    id: "offers",
+    label: "Services Offered",
     type: "text",
-    placeholder: "100",
+    placeholder: "",
   },
   {
-    id: 5,
-    label: "Stock",
+    id: "linkedin",
+    label: "LinkedIn",
     type: "text",
-    placeholder: "in stock",
+    placeholder: "",
+  },
+  {
+    id: "website",
+    label: "Website",
+    type: "text",
+    placeholder: "",
   },
 ];

@@ -88,7 +88,7 @@ const FormPage = ({ inputs, title }) => {
 
       <div className={styles.bottom}>
         <div className={styles.left}>
-          <img
+          <img className={styles.image}
             src={
               file
                 ? URL.createObjectURL(file)
@@ -98,7 +98,7 @@ const FormPage = ({ inputs, title }) => {
           />
         </div>
         <div className={styles.right}>
-          <form onSubmit={handleAdd}>
+          <form onSubmit={handleAdd} className={styles.form}>
             <div className={styles.forminput}>
               <label htmlFor="file">
                 Image: <DriveFolderUploadOutlinedIcon className="icon" />
