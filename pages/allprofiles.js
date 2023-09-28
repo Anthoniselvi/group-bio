@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField"; // Import TextField from Material-UI
 import axios from "axios";
 import Footer from "@/components/Footer/Footer";
-import AddProfile from "@/components/Dashboard/AddProfile";
 import ProfileCard from "@/components/Dashboard/ProfileCard";
 const steps = ["Personal Information", "Company Information"];
 

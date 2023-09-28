@@ -32,7 +32,7 @@ export default function FilteredProfile() {
   const navigateToSingleProfile = (item) => {
     router.push({
       pathname: "/singleprofile",
-      query: { id: item.id }, // Pass the clicked item's ID as a query parameter
+      query: { id: item.profileId }, // Pass the clicked item's ID as a query parameter
     });
   };
   const getFirstLetterCapital = (name) => {
@@ -82,9 +82,17 @@ export default function FilteredProfile() {
                 image={item.photo}
                 alt="Profile Image"
               /> */}
-              {item.photo ? (
+              {item.image ? (
                 // Display the image if it is available
-                <img src={item.photo} alt="Profile" />
+                <img
+                  src={item.image}
+                  alt="Profile"
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    borderRadius: "50%",
+                  }}
+                />
               ) : (
                 // Display the first letter of the name in capital if no image is available
                 <div className={styles.nameInitial}>

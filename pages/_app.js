@@ -3,6 +3,7 @@ import App from "next/app";
 import Router from "next/router";
 import Layout from "@/components/TopBar/Layout";
 import "../styles/globals.css";
+import { ApiContextProvider } from "@/context/DataContext";
 
 class MyApp extends App {
   componentDidMount() {
@@ -15,9 +16,11 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ApiContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApiContextProvider>
     );
   }
 }

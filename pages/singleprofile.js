@@ -58,6 +58,11 @@ export default function SingleProfile() {
             style={{ marginBottom: "-2rem", cursor: "pointer" }}
           />
           <div className={styles.imageContainer}>
+            <img
+              src={selectedProfile.image}
+              alt="image"
+              style={{ width: "100%", height: "100%" }}
+            />
             {/* <Image
               src={selectedProfile.photo}
               width={170}
@@ -66,7 +71,7 @@ export default function SingleProfile() {
               className={styles.image}
             />
              */}
-            <div className={styles.image}>
+            {/* <div className={styles.image}>
               {selectedProfile.photo ? (
                 // Display the image if it is available
                 <img src={selectedProfile.photo} alt="Profile" />
@@ -78,7 +83,7 @@ export default function SingleProfile() {
                   </p>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
           <div className={styles.content}>
             <div className={styles.heading}>

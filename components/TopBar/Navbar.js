@@ -4,15 +4,18 @@ import { ImCross } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import data from "../data";
+// import data from "../data";
 import { useRouter } from "next/router";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useUserAuth } from "@/context/DataContext";
+
 const Navbar = ({ opened, setOpened }) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const { membersList } = useUserAuth();
   const router = useRouter();
-
+  console.log("membersList from Context: " + JSON.stringify(membersList));
   const navigateToHome = () => {
     router.push({
       pathname: "/",
@@ -27,8 +30,7 @@ const Navbar = ({ opened, setOpened }) => {
   };
 
   const performSearch = () => {
-    console.log("data: " + JSON.stringify(data));
-    const filteredData = data.filter(
+    const filteredData = membersList.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.company.toLowerCase().includes(searchQuery.toLowerCase()) ||

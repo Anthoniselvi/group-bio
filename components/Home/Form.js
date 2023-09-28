@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepContent from "@mui/material/StepContent";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
+  Button,
+  Paper,
+  Typography,
+} from "@mui/material";
 import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import ProgressSlider from "./ProgressSlider";
-import EditIcon from "@mui/icons-material/Edit";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -43,22 +44,20 @@ export default function Form() {
   });
   const [filledFields, setFilledFields] = useState(steps.map(() => new Set()));
   const [stepContentVisibility, setStepContentVisibility] = useState(
-    Array(steps.length).fill(false) // Initialize all steps as hidden
+    Array(steps.length).fill(false)
   );
 
   const handleStepLabelClick = (index) => {
-    // Toggle the visibility of the clicked step's content
     setStepContentVisibility((prevVisibility) => {
       const updatedVisibility = [...prevVisibility];
       updatedVisibility[index] = !updatedVisibility[index];
       return updatedVisibility;
     });
 
-    // Set the active step to the clicked step if it's currently hidden
     if (!stepContentVisibility[index]) {
       setActiveStep(index);
     } else {
-      setActiveStep(-1); // Hide the content if it's currently shown
+      setActiveStep(-1);
     }
   };
   useEffect(() => {
@@ -81,22 +80,18 @@ export default function Form() {
   };
 
   const handleNext = () => {
-    // Handle "Continue" button click
     if (activeStep < steps.length - 1) {
-      // Hide the current step's content
       setStepContentVisibility((prevVisibility) => {
         const updatedVisibility = [...prevVisibility];
         updatedVisibility[activeStep] = false;
         return updatedVisibility;
       });
 
-      // Increment the active step
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
   const handleBack = () => {
-    // Handle "Back" button click
     if (activeStep > 0) {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
@@ -114,10 +109,8 @@ export default function Form() {
       currentStepFilledFields.delete(fieldLabel);
     }
 
-    // Calculate and update the step statuses only if the field is mandatory
     if (steps[activeStep].mandatoryFields.includes(fieldLabel)) {
       const updatedStepStatus = calculateStepStatus();
-      // Here, you can use updatedStepStatus as needed in your component
     }
   };
   const calculateStepStatus = () => {
@@ -202,7 +195,6 @@ export default function Form() {
               </div>
             </StepLabel>
             <StepContent sx={{ p: 0, pr: 1 }}>
-              {/* Conditionally display step content based on visibility */}
               {stepContentVisibility[index] && (
                 <div>
                   {index === 0 && (

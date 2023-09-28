@@ -59,7 +59,7 @@ export default function ProfileCard() {
             justifyContent: "center",
             alignItems: "center",
           }}
-          key={item.id}
+          key={item.profileId}
           onClick={() => navigateToSingleProfile(item)}
         >
           {/* <CardMedia
@@ -75,19 +75,25 @@ export default function ProfileCard() {
           <CardMedia
             component="div"
             sx={{
-              width: 70,
-              height: 70,
+              width: 80,
+              height: 80,
               borderRadius: "50%",
               overflow: "hidden",
             }}
           >
-            <Image
-              src={Photo}
+            {/* {console.log("image: " + item.image)} */}
+            <img
+              src={item.image}
+              style={{ width: "100%", height: "100%" }}
+              alt="image"
+            />
+            {/* <Image
+              src={`/${item.image}`}
               alt="Profile Image"
               width={70}
               height={70}
               objectFit="cover"
-            />
+            /> */}
           </CardMedia>
 
           <Box

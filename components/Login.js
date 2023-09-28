@@ -15,7 +15,7 @@ const Login = () => {
         username,
         password,
       });
-      router.push("/allprofiles");
+      router.push("/");
     } catch (err) {
       setError(true);
     }
