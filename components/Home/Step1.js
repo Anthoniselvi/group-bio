@@ -1,39 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { Select, MenuItem } from "@mui/material";
 import generateYearOptions from "./GenerateYear";
+import styles from "@/styles/Form.module.css";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { auth, db, storage } from "../../firebase";
 
 const Step1 = ({ inputFieldValues, handleFieldChange }) => {
-  const [isDragging, setIsDragging] = useState(false); // Define isDragging state
+  const [file, setFile] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [per, setPerc] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
 
-  const handleImageDrop = (event) => {
-    event.preventDefault();
-    setIsDragging(false);
+  useEffect(() => {
+    const uploadFile = () => {
+      if (file) {
+        const name = new Date().getTime() + file.name;
+        const storageRef = ref(storage, name);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-    if (event.dataTransfer && event.dataTransfer.files) {
-      const droppedFiles = event.dataTransfer.files;
-
-      if (droppedFiles.length > 0) {
-        const file = droppedFiles[0];
-        // Ensure that the file is indeed a valid image
-        if (file.type.startsWith("image/")) {
-          // Create a URL for the dropped image
-          const imageUrl = URL.createObjectURL(file);
-
-          // Update the inputFieldValues.image state with the image URL
-          handleFieldChange({ target: { value: imageUrl } }, "image");
-        } else {
-          console.error("Invalid file type. Please drop an image file.");
-        }
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            setPerc(progress);
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+              default:
+                break;
+            }
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setImageUrl(downloadURL);
+              handleFieldChange({ target: { value: downloadURL } }, "image"); // Update inputFieldValues.image
+            });
+          }
+        );
       }
-    }
-  };
+    };
+    uploadFile();
+  }, [file, handleFieldChange]);
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-    setIsDragging(true); // Set isDragging to true when dragging over the area
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   return (
@@ -45,42 +68,42 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         fullWidth
         margin="normal"
       />
-      {/* <label htmlFor="fileInput">
+
+      <label htmlFor="file" className={styles.righttext}>
+        <p>Kindly select your profile picture</p>
         <Box
           sx={{
-            mb: 2,
-            ml: "60%",
             width: 100,
             height: 100,
-            backgroundColor: isDragging ? "lightgray" : "lightblue",
+            backgroundColor: "lightblue",
             border: "2px dashed #ccc",
             borderRadius: "5px",
-            paddingTop: "70px",
-            textAlign: "right",
             cursor: "pointer",
           }}
-          onDrop={(e) => handleImageDrop(e)}
-          onDragOver={(e) => handleDragOver(e)}
         >
-          <EditIcon />
-          {inputFieldValues.image && (
-            <div>
-              <img
-                src={inputFieldValues.image}
-                alt="Uploaded Image Preview"
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
-              />
-            </div>
+          {imageUrl ? (
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={imageUrl}
+              alt="image"
+            />
+          ) : (
+            <EditIcon
+              style={{
+                marginTop: "70px",
+                marginLeft: "70px",
+                textAlign: "right",
+              }}
+            />
           )}
         </Box>
       </label>
       <input
-        name="image"
         type="file"
-        id="fileInput"
+        id="file"
+        onChange={handleFileChange}
         style={{ display: "none" }}
-        onChange={(e) => handleImageDrop(e)}
-      /> */}
+      />
       <TextField
         label="course"
         fullWidth
@@ -89,7 +112,6 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         value={inputFieldValues.course}
         onChange={(event) => handleFieldChange(event, "course")}
       >
-        {/* Add your course options here */}
         <MenuItem value="Option1">Option 1</MenuItem>
         <MenuItem value="Option2">Option 2</MenuItem>
         <MenuItem value="Option3">Option 3</MenuItem>
@@ -102,7 +124,6 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         value={inputFieldValues.year}
         onChange={(event) => handleFieldChange(event, "year")}
       >
-        {/* Generate a list of years from 1960 to the current year */}
         {generateYearOptions().map((year) => (
           <MenuItem key={year} value={year}>
             {year}

@@ -33,3 +33,8 @@
     /* background-color: aqua; */
    
 }
+.righttext{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

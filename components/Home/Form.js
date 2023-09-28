@@ -83,9 +83,9 @@ export default function Form() {
       formData.append(fieldLabel, inputFieldValues[fieldLabel]);
       console.log(`Appended ${fieldLabel}: ${inputFieldValues[fieldLabel]}`);
     }
-
+    console.log("formData: " + JSON.stringify(inputFieldValues));
     axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, formData)
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, inputFieldValues)
       .then((response) => {
         console.log("Profile added successfully!");
       })

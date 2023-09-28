@@ -66,23 +66,7 @@ const FormPage = ({ inputs, title }) => {
     setData({ ...data, [id]: value });
   };
 
-  // const handleAdd = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await createUserWithEmailAndPassword(
-  //       auth,
-  //       data.email,
-  //       data.password
-  //     );
-  //     await setDoc(doc(db, "users", res.user.uid), {
-  //       ...data,
-  //       timeStamp: serverTimestamp(),
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  const handleAdd = async (e) => {
+   const handleAdd = async (e) => {
     e.preventDefault();
     try {
       
