@@ -7,8 +7,8 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <Header />
-      <Content />
-      {/* <Form /> */}
+      {/* <Content /> */}
+      <Form />
     </div>
   );
 }

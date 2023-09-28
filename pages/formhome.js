@@ -1,15 +1,15 @@
 import React from "react";
 import { userInputs } from "@/components/NewForm/FormSource";
 import FormPage from "@/components/NewForm/formpage";
-import StepperForm from "@/components/NewForm/StepperForm";
 import Form from "@/components/Home/Form";
+import HomePage from "@/components/Home/homepage";
 
 const FormHomePage = () => {
   return (
     <div>
       {/* <FormPage inputs={userInputs} title="Add New User" /> */}
-      {/* <StepperForm inputs={userInputs} title="Add New User" /> */}
-      <Form />
+      <HomePage />
+      {/* <Form /> */}
     </div>
   );
 };
