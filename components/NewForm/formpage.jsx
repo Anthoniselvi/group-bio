@@ -1,6 +1,7 @@
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import styles from "@/styles/Form.module.css";
+import axios from "axios";
 import {
   addDoc,
   collection,
@@ -65,23 +66,56 @@ const FormPage = ({ inputs, title }) => {
     setData({ ...data, [id]: value });
   };
 
+  // const handleAdd = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await createUserWithEmailAndPassword(
+  //       auth,
+  //       data.email,
+  //       data.password
+  //     );
+  //     await setDoc(doc(db, "users", res.user.uid), {
+  //       ...data,
+  //       timeStamp: serverTimestamp(),
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      await setDoc(doc(db, "users", res.user.uid), {
-        ...data,
-        timeStamp: serverTimestamp(),
-      });
+      
+      const formData = {
+        name: data.name,
+        image: data.img, 
+        course: data.course, 
+        year: data.year, 
+        location: data.location, 
+        phone: data.phone, 
+        company: data.company, 
+        designation: data.designation, 
+        industry: data.industry, 
+        offers: data.offers, 
+        linkedin: data.linkedin, 
+        website: data.website, 
+              
+      };
+  
+      // Send a POST request to your MongoDB server
+      axios
+        .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, formData)
+        .then((response) => {
+          console.log("Profile data added successfully to MongoDB!");
+        })
+        .catch((error) => {
+          console.error("Error adding profile data to MongoDB: ", error);
+        });
     } catch (err) {
       console.log(err);
     }
   };
-
+  
   return (
     <div className={styles.container}>
       <h1>{title}</h1>
