@@ -81,11 +81,25 @@ export default function Form() {
   };
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // Handle "Continue" button click
+    if (activeStep < steps.length - 1) {
+      // Hide the current step's content
+      setStepContentVisibility((prevVisibility) => {
+        const updatedVisibility = [...prevVisibility];
+        updatedVisibility[activeStep] = false;
+        return updatedVisibility;
+      });
+
+      // Increment the active step
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    // Handle "Back" button click
+    if (activeStep > 0) {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    }
   };
 
   const handleFieldChange = (event, fieldLabel) => {
