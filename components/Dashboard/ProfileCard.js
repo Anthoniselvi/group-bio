@@ -91,7 +91,7 @@ export default function ProfileCard() {
               width: "100%",
               justifyContent: "center",
               alignItems: "center",
-              boxShadow: "0px 1px 5px 1px #90e0ef",
+              boxShadow: "0px 1px 5px 1px #03045e",
             }}
             key={item.profileId}
             onClick={() => navigateToSingleProfile(item)}
