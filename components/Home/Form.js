@@ -18,10 +18,10 @@ import Step3 from "./Step3";
 import { steps } from "./steps";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const CustomStepIcon = () => {
+const CustomStepIcon = ({ color }) => {
   return (
     <div style={{ width: 22, height: 22 }}>
-      <AccountCircleIcon style={{ color: "#9bf6ff", fontSize: 22 }} />
+      <AccountCircleIcon style={{ color: { color }, fontSize: 22 }} />
     </div>
   );
 };
@@ -83,7 +83,8 @@ export default function Form() {
     if (activeStep < steps.length - 1) {
       setStepContentVisibility((prevVisibility) => {
         const updatedVisibility = [...prevVisibility];
-        updatedVisibility[activeStep] = false;
+        updatedVisibility[activeStep] = false; // Hide the current step's content
+        updatedVisibility[activeStep + 1] = true; // Show the next step's content
         return updatedVisibility;
       });
 
@@ -93,6 +94,13 @@ export default function Form() {
 
   const handleBack = () => {
     if (activeStep > 0) {
+      setStepContentVisibility((prevVisibility) => {
+        const updatedVisibility = [...prevVisibility];
+        updatedVisibility[activeStep] = false; // Hide the current step's content
+        updatedVisibility[activeStep - 1] = true; // Show the previous step's content
+        return updatedVisibility;
+      });
+
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
   };
@@ -173,7 +181,11 @@ export default function Form() {
                 padding: 2,
               }}
               icon={
-                activeStep === index ? <CustomStepIcon /> : <CustomStepIcon />
+                activeStep === index ? (
+                  <CustomStepIcon color="#9bf6ff" />
+                ) : (
+                  <CustomStepIcon color="#03045e" />
+                )
               }
             >
               <div
@@ -231,7 +243,7 @@ export default function Form() {
                 <Button
                   variant="contained"
                   onClick={handleBack}
-                  sx={{ mt: 2, color: "#3e5c76" }}
+                  sx={{ mt: 2, backgroundColor: "#00b4d8", color: "#fff" }}
                 >
                   Back
                 </Button>
@@ -240,7 +252,7 @@ export default function Form() {
                   onClick={
                     activeStep === steps.length - 1 ? handleSubmit : handleNext
                   }
-                  sx={{ mt: 2, backgroundColor: "#3e5c76" }}
+                  sx={{ mt: 2, backgroundColor: "#03045e", color: "#fff" }}
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Continue"}
                 </Button>
