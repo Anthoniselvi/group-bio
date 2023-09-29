@@ -1,26 +1,21 @@
 import * as React from "react";
-import { useEffect, useState } from "react"; // Import useEffect and useState
-import axios from "axios"; // Import Axios
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { useRouter } from "next/router";
-import TopBar from "../TopBar/TopBar";
-import Photo from "./photo.png";
-import Image from "next/image";
 
 export default function ProfileCard() {
   const theme = useTheme();
   const router = useRouter();
   const [profilesList, setProfilesList] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState(null);
+
+  const profileCardsRef = useRef(null); // Create a ref for the div containing profile cards
 
   const navigateToSingleProfile = (item) => {
     router.push({
@@ -62,19 +57,24 @@ export default function ProfileCard() {
     } else {
       setSelectedLetter(letter);
       const filteredData = filterProfilesByLetter(letter);
-      router.push({
-        pathname: "/filteredprofile",
-        query: {
-          searchResult: JSON.stringify(filteredData),
-          searchQuery: letter,
-        },
-      });
+
+      // Scroll to the first profile card starting with the selected letter
+      const firstProfileCardStartingWithLetter =
+        profileCardsRef.current.querySelector(
+          `*[data-starts-with="${letter}"]`
+        );
+      if (firstProfileCardStartingWithLetter) {
+        firstProfileCardStartingWithLetter.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
     }
   };
 
   return (
     <div style={{ display: "flex", gap: "1rem" }}>
       <div
+        ref={profileCardsRef} // Assign the ref to the div containing profile cards
         style={{
           display: "flex",
           flexDirection: "column",
@@ -95,6 +95,7 @@ export default function ProfileCard() {
             }}
             key={item.profileId}
             onClick={() => navigateToSingleProfile(item)}
+            data-starts-with={item.name.charAt(0).toLowerCase()} // Add a data attribute for the first letter of the name
           >
             <CardMedia
               component="div"
@@ -110,13 +111,6 @@ export default function ProfileCard() {
                 style={{ width: "100%", height: "100%" }}
                 alt="image"
               />
-              {/* <Image
-              src={`/${item.image}`}
-              alt="Profile Image"
-              width={70}
-              height={70}
-              objectFit="cover"
-            /> */}
             </CardMedia>
 
             <Box
@@ -129,7 +123,6 @@ export default function ProfileCard() {
             >
               <CardContent
                 sx={{
-                  // flex: "1 0 auto",
                   display: "flex",
                   flexDirection: "column",
                   gap: "0.5em",
@@ -140,7 +133,6 @@ export default function ProfileCard() {
               >
                 <Typography
                   component="div"
-                  // variant="h5"
                   sx={{
                     fontFamily: "Sans-serif",
                     fontSize: "17px",
@@ -151,7 +143,6 @@ export default function ProfileCard() {
                 </Typography>
                 <Typography
                   component="div"
-                  // variant="h5"
                   sx={{
                     fontFamily: "Sans-serif",
                     fontSize: "15px",
@@ -166,8 +157,6 @@ export default function ProfileCard() {
                     fontSize: "14px",
                     color: "#999999",
                   }}
-                  // variant="subtitle1"
-                  // color="text.secondary"
                   component="div"
                 >
                   {item.designation}, {item.company}
@@ -181,8 +170,6 @@ export default function ProfileCard() {
                     fontSize: "14px",
                     color: "#000000",
                   }}
-                  // variant="subtitle1"
-                  // color="text.secondary"
                   component="div"
                 >
                   Services Offered: <br />
@@ -201,16 +188,20 @@ export default function ProfileCard() {
           position: "absolute",
           zIndex: 4,
           padding: "0px 5px",
+          // top: 100,
           right: 5,
           backgroundColor: "#f8edeb",
           borderRadius: "10px",
+          position: "fixed",
+          height: "calc(100vh-150px)",
+          justifyContent: "space-between",
         }}
       >
         {alphabet.map((letter) => (
           <p
             key={letter}
             onClick={() => handleLetterClick(letter)}
-            // ...rest of the button styling...
+            style={{ fontSize: 13 }}
           >
             {letter.toUpperCase()}
           </p>
