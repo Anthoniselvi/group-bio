@@ -68,6 +68,7 @@ export default function FilteredProfile() {
                 paddingBottom: 0,
                 justifyContent: "center",
                 alignItems: "center",
+                boxShadow: "0px 1px 5px 1px #90e0ef",
               }}
               key={item.profileId}
               onClick={() => navigateToSingleProfile(item)}

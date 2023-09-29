@@ -194,7 +194,7 @@ export default function Form() {
                 </Typography>
               </div>
             </StepLabel>
-            <StepContent sx={{ p: 0, pr: 1 }}>
+            <StepContent sx={{ p: 0, pr: 1, zIndex: 10, border: "none" }}>
               {stepContentVisibility[index] && (
                 <div>
                   {index === 0 && (
