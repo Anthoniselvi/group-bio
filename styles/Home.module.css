@@ -269,3 +269,6 @@ border-top-left-radius:  20;
 border-top-right-radius: 20;
 padding: 2,
 }
+.stepLabelHovered {
+  background-color: #3e5c76; 
+}

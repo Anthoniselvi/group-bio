@@ -35,7 +35,7 @@ export default function ProgressSlider({ progressPercentage }) {
         step={10}
         sx={{
           height: 10,
-          color: "#76c893",
+          color: "#4361ee",
         }}
         // marks={marks}
         // valueLabelDisplay="on"

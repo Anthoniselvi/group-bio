@@ -21,7 +21,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const CustomStepIcon = () => {
   return (
     <div style={{ width: 22, height: 22 }}>
-      <AccountCircleIcon style={{ color: "rgb(1, 180, 228)", fontSize: 22 }} />
+      <AccountCircleIcon style={{ color: "#9bf6ff", fontSize: 22 }} />
     </div>
   );
 };
@@ -153,13 +153,21 @@ export default function Form() {
       <ProgressSlider progressPercentage={calculateProgressPercentage()} />
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
-          <Step key={step.label} className={styles.step}>
+          <Step
+            key={step.label}
+            className={styles.step}
+            sx={{
+              borderTopLeftRadius: activeStep === index ? 20 : 5,
+              borderTopRightRadius: activeStep === index ? 20 : 5,
+            }}
+          >
             <StepLabel
               onClick={() => handleStepLabelClick(index)}
               sx={{
-                border: activeStep === index ? "#b8c0ff" : "transparent",
-                borderBottom: activeStep === index ? "1px solid black" : "none",
-                backgroundColor: activeStep === index ? "#3e5c76" : "#fff",
+                border: activeStep === index ? "#03045e" : "transparent",
+                borderBottom:
+                  activeStep === index ? "1px solid #03045e" : "none",
+                backgroundColor: activeStep === index ? "#03045e" : "#fff",
                 borderTopLeftRadius: activeStep === index ? 20 : 5,
                 borderTopRightRadius: activeStep === index ? 20 : 5,
                 padding: 2,
@@ -217,11 +225,13 @@ export default function Form() {
                   )}
                 </div>
               )}
-              <div>
+              <div
+                style={{ display: "flex", gap: "20px", paddingBottom: "20px" }}
+              >
                 <Button
                   variant="contained"
                   onClick={handleBack}
-                  sx={{ mt: 2, ml: 2, color: "#3e5c76" }}
+                  sx={{ mt: 2, color: "#3e5c76" }}
                 >
                   Back
                 </Button>
