@@ -7,6 +7,7 @@ import generateYearOptions from "./GenerateYear";
 import styles from "@/styles/Form.module.css";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../firebase";
+import { CourseList } from "./CourseList";
 
 const Step1 = ({ inputFieldValues, handleFieldChange }) => {
   const [file, setFile] = useState(null);
@@ -112,9 +113,11 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         value={inputFieldValues.course}
         onChange={(event) => handleFieldChange(event, "course")}
       >
-        <MenuItem value="Option1">Option 1</MenuItem>
-        <MenuItem value="Option2">Option 2</MenuItem>
-        <MenuItem value="Option3">Option 3</MenuItem>
+        {CourseList.map((courseItem, index) => (
+          <MenuItem key={index} value={courseItem.course}>
+            {courseItem.course}
+          </MenuItem>
+        ))}
       </TextField>
       <TextField
         label="year"
