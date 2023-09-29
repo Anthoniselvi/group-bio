@@ -47,6 +47,10 @@ box-shadow: 0 0 5px #03045e;}
     padding: 5px;
     border-radius: 50%;
   }
+  .search:hover{
+    transition: "0.3s ease";
+    transform: "scale(1.4)";
+  }
   .item {
     flex: 1;
     display: flex;
