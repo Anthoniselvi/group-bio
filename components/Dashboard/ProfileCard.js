@@ -106,11 +106,29 @@ export default function ProfileCard() {
                 overflow: "hidden",
               }}
             >
-              <img
-                src={item.image}
-                style={{ width: "100%", height: "100%" }}
-                alt="image"
-              />
+              {item.image ? (
+                <img
+                  src={item.image}
+                  style={{ width: "100%", height: "100%" }}
+                  alt="image"
+                />
+              ) : (
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background: "#00b4d8",
+                    borderRadius: "50%",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.name.charAt(0).toUpperCase()}
+                </div>
+              )}
             </CardMedia>
 
             <Box

@@ -20,7 +20,7 @@ export default function AllProfiles() {
     });
   };
   return (
-    <div style={{ padding: "1rem", paddingTop: "6rem" }}>
+    <div style={{ padding: "1rem", marginTop: "6rem" }}>
       <div
         style={{
           display: "flex",
