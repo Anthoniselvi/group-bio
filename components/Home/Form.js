@@ -198,7 +198,6 @@ export default function Form() {
   const handleSubmit = () => {
     const fieldErrors = {};
 
-    // Iterate through input fields and validate them
     for (const fieldLabel in inputFieldValues) {
       const validationFunction =
         Validation[
@@ -258,6 +257,7 @@ export default function Form() {
         console.log(`Appended ${fieldLabel}: ${inputFieldValues[fieldLabel]}`);
       }
       console.log("formData: " + JSON.stringify(inputFieldValues));
+
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`,
@@ -265,14 +265,15 @@ export default function Form() {
         )
         .then((response) => {
           console.log("Profile added successfully!");
+          // Now navigate to the home page
+          router.push({
+            pathname: "/",
+          });
         })
         .catch((error) => {
           console.error("Error adding profile: ", error);
         });
     }
-    router.push({
-      pathname: "/",
-    });
   };
 
   return (
