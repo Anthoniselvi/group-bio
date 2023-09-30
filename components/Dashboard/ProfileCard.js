@@ -15,7 +15,7 @@ export default function ProfileCard() {
   const [profilesList, setProfilesList] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState(null);
 
-  const profileCardsRef = useRef(null); // Create a ref for the div containing profile cards
+  const profileCardsRef = useRef(null);
 
   const navigateToSingleProfile = (item) => {
     router.push({
@@ -74,7 +74,7 @@ export default function ProfileCard() {
   return (
     <div style={{ display: "flex", gap: "1rem" }}>
       <div
-        ref={profileCardsRef} // Assign the ref to the div containing profile cards
+        ref={profileCardsRef}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -96,7 +96,7 @@ export default function ProfileCard() {
             }}
             key={item.profileId}
             onClick={() => navigateToSingleProfile(item)}
-            data-starts-with={item.name.charAt(0).toLowerCase()} // Add a data attribute for the first letter of the name
+            data-starts-with={item.name.charAt(0).toLowerCase()}
           >
             <Box
               sx={{

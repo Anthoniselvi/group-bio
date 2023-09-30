@@ -131,23 +131,23 @@ export default function Form() {
     if (fieldLabel === "name") {
       const validationFunction = Validation.validateName;
       const error = validationFunction(event.target.value);
-      setIsNameError(!!error); // Set the error state based on validation result
+      setIsNameError(!!error);
     } else if (fieldLabel === "course") {
-      const validationFunction = Validation.validateCourse; // Use the appropriate validation function for "Course"
+      const validationFunction = Validation.validateCourse;
       const error = validationFunction(event.target.value);
-      setIsCourseError(!!error); // Set the error state based on validation result
+      setIsCourseError(!!error);
     } else if (fieldLabel === "year") {
-      const validationFunction = Validation.validateYear; // Use the appropriate validation function for "Course"
+      const validationFunction = Validation.validateYear;
       const error = validationFunction(event.target.value);
-      setIsYearError(!!error); // Set the error state based on validation result
+      setIsYearError(!!error);
     } else if (fieldLabel === "location") {
-      const validationFunction = Validation.validateLocation; // Use the appropriate validation function for "Course"
+      const validationFunction = Validation.validateLocation;
       const error = validationFunction(event.target.value);
-      setIsLocationError(!!error); // Set the error state based on validation result
+      setIsLocationError(!!error);
     } else if (fieldLabel === "company") {
-      const validationFunction = Validation.validateLocation; // Use the appropriate validation function for "Course"
+      const validationFunction = Validation.validateLocation;
       const error = validationFunction(event.target.value);
-      setIsCompanyError(!!error); // Set the error state based on validation result
+      setIsCompanyError(!!error);
     } else if (fieldLabel === "designation") {
       const validationFunction = Validation.validateLocation;
       const error = validationFunction(event.target.value);
@@ -247,9 +247,7 @@ export default function Form() {
 
     if (Object.keys(fieldErrors).length > 0) {
       setFieldErrors(fieldErrors);
-      // setIsNameError(true);
     } else {
-      // If there are no validation errors, proceed with the API request
       const formData = new FormData();
 
       for (const fieldLabel in inputFieldValues) {
@@ -265,7 +263,7 @@ export default function Form() {
         )
         .then((response) => {
           console.log("Profile added successfully!");
-          // Now navigate to the home page
+
           router.push({
             pathname: "/",
           });

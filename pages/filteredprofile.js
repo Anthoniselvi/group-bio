@@ -20,7 +20,7 @@ export default function FilteredProfile() {
     });
   };
 
-  let filteredData = []; // Initialize with an empty array
+  let filteredData = [];
 
   try {
     if (searchResult) {
@@ -32,7 +32,7 @@ export default function FilteredProfile() {
   const navigateToSingleProfile = (item) => {
     router.push({
       pathname: "/singleprofile",
-      query: { id: item.profileId }, // Pass the clicked item's ID as a query parameter
+      query: { id: item.profileId },
     });
   };
   const getFirstLetterCapital = (name) => {
@@ -84,7 +84,6 @@ export default function FilteredProfile() {
                 alt="Profile Image"
               /> */}
               {item.image ? (
-                // Display the image if it is available
                 <img
                   src={item.image}
                   alt="Profile"
@@ -95,7 +94,6 @@ export default function FilteredProfile() {
                   }}
                 />
               ) : (
-                // Display the first letter of the name in capital if no image is available
                 <div className={styles.nameInitial}>
                   <p className={styles.firstletter}>
                     {getFirstLetterCapital(item.name)}

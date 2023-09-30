@@ -12,7 +12,7 @@ export default function SingleProfile() {
   const router = useRouter();
   const { id } = router.query;
 
-  const [selectedProfile, setSelectedProfile] = useState({}); // State to store the selected profile data
+  const [selectedProfile, setSelectedProfile] = useState({});
 
   const navigateToHome = () => {
     router.push({
@@ -21,11 +21,10 @@ export default function SingleProfile() {
   };
 
   useEffect(() => {
-    // Fetch data for the selected profile from your API when the component mounts
     if (id) {
       axios
         .get(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/${id}`)
-        // .get(`http://localhost:2222/profile/${id}`)
+
         .then((response) => {
           setSelectedProfile(response.data);
           console.log("selectedprofile :" + JSON.stringify(response.data));
@@ -34,7 +33,7 @@ export default function SingleProfile() {
           console.error("Error fetching data:", error);
         });
     }
-  }, [id]); // Include 'id' as a dependency to re-fetch data when the 'id' changes
+  }, [id]);
 
   if (!selectedProfile || Object.keys(selectedProfile).length === 0) {
     return <div>Loading...</div>;
