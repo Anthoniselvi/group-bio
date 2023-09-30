@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   Stepper,
@@ -41,7 +42,7 @@ export default function Form() {
   const [isOffersError, setIsOffersError] = useState(false);
   const [isLinkedinError, setIsLinkedinError] = useState(false);
   const [isWebsiteError, setIsWebsiteError] = useState(false);
-
+  const router = useRouter();
   const [inputFieldValues, setInputFieldValues] = useState({
     name: "",
     image: "",
@@ -269,6 +270,9 @@ export default function Form() {
           console.error("Error adding profile: ", error);
         });
     }
+    router.push({
+      pathname: "/",
+    });
   };
 
   return (

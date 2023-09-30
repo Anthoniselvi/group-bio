@@ -188,7 +188,7 @@ export default function ProfileCard() {
           position: "absolute",
           zIndex: 4,
           padding: "0px 5px",
-          // top: 100,
+          cursor: "pointer",
           right: 5,
           backgroundColor: "#f8edeb",
           borderRadius: "10px",
