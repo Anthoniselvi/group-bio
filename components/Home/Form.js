@@ -18,6 +18,9 @@ import Step3 from "./Step3";
 import { steps } from "./steps";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
+// Import validation functions from Validation.js
+import * as Validation from "./Validation";
+
 const CustomStepIcon = (s) => {
   return (
     <div style={{ width: 22, height: 22 }}>
@@ -28,6 +31,17 @@ const CustomStepIcon = (s) => {
 
 export default function Form() {
   const [activeStep, setActiveStep] = useState(0);
+  const [isNameError, setIsNameError] = useState(false);
+  const [isCourseError, setIsCourseError] = useState(false);
+  const [isYearError, setIsYearError] = useState(false);
+  const [isLocationError, setIsLocationError] = useState(false);
+  const [isCompanyError, setIsCompanyError] = useState(false);
+  const [isDesignationError, setIsDesignationError] = useState(false);
+  const [isIndustryError, setIsIndustryError] = useState(false);
+  const [isOffersError, setIsOffersError] = useState(false);
+  const [isLinkedinError, setIsLinkedinError] = useState(false);
+  const [isWebsiteError, setIsWebsiteError] = useState(false);
+
   const [inputFieldValues, setInputFieldValues] = useState({
     name: "",
     image: "",
@@ -46,6 +60,7 @@ export default function Form() {
   const [stepContentVisibility, setStepContentVisibility] = useState(
     Array(steps.length).fill(false)
   );
+  const [fieldErrors, setFieldErrors] = useState({});
 
   const handleStepLabelClick = (index) => {
     setStepContentVisibility((prevVisibility) => {
@@ -60,6 +75,7 @@ export default function Form() {
       setActiveStep(-1);
     }
   };
+
   useEffect(() => {
     setStepContentVisibility((prevVisibility) => {
       const updatedVisibility = [...prevVisibility];
@@ -67,6 +83,7 @@ export default function Form() {
       return updatedVisibility;
     });
   }, []);
+
   const calculateProgressPercentage = () => {
     const filledMandatoryFieldsCount = Object.keys(inputFieldValues).filter(
       (field) =>
@@ -83,8 +100,8 @@ export default function Form() {
     if (activeStep < steps.length - 1) {
       setStepContentVisibility((prevVisibility) => {
         const updatedVisibility = [...prevVisibility];
-        updatedVisibility[activeStep] = false; // Hide the current step's content
-        updatedVisibility[activeStep + 1] = true; // Show the next step's content
+        updatedVisibility[activeStep] = false;
+        updatedVisibility[activeStep + 1] = true;
         return updatedVisibility;
       });
 
@@ -96,8 +113,8 @@ export default function Form() {
     if (activeStep > 0) {
       setStepContentVisibility((prevVisibility) => {
         const updatedVisibility = [...prevVisibility];
-        updatedVisibility[activeStep] = false; // Hide the current step's content
-        updatedVisibility[activeStep - 1] = true; // Show the previous step's content
+        updatedVisibility[activeStep] = false;
+        updatedVisibility[activeStep - 1] = true;
         return updatedVisibility;
       });
 
@@ -110,17 +127,55 @@ export default function Form() {
       ...prevValues,
       [fieldLabel]: event.target.value,
     }));
+    if (fieldLabel === "name") {
+      const validationFunction = Validation.validateName;
+      const error = validationFunction(event.target.value);
+      setIsNameError(!!error); // Set the error state based on validation result
+    } else if (fieldLabel === "course") {
+      const validationFunction = Validation.validateCourse; // Use the appropriate validation function for "Course"
+      const error = validationFunction(event.target.value);
+      setIsCourseError(!!error); // Set the error state based on validation result
+    } else if (fieldLabel === "year") {
+      const validationFunction = Validation.validateYear; // Use the appropriate validation function for "Course"
+      const error = validationFunction(event.target.value);
+      setIsYearError(!!error); // Set the error state based on validation result
+    } else if (fieldLabel === "location") {
+      const validationFunction = Validation.validateLocation; // Use the appropriate validation function for "Course"
+      const error = validationFunction(event.target.value);
+      setIsLocationError(!!error); // Set the error state based on validation result
+    } else if (fieldLabel === "company") {
+      const validationFunction = Validation.validateLocation; // Use the appropriate validation function for "Course"
+      const error = validationFunction(event.target.value);
+      setIsCompanyError(!!error); // Set the error state based on validation result
+    } else if (fieldLabel === "designation") {
+      const validationFunction = Validation.validateLocation;
+      const error = validationFunction(event.target.value);
+      setIsDesignationError(!!error);
+    } else if (fieldLabel === "industry") {
+      const validationFunction = Validation.validateLocation;
+      const error = validationFunction(event.target.value);
+      setIsIndustryError(!!error);
+    } else if (fieldLabel === "offers") {
+      const validationFunction = Validation.validateLocation;
+      const error = validationFunction(event.target.value);
+      setIsOffersError(!!error);
+    } else if (fieldLabel === "linkedin") {
+      const validationFunction = Validation.validateLocation;
+      const error = validationFunction(event.target.value);
+      setIsLinkedinError(!!error);
+    } else if (fieldLabel === "website") {
+      const validationFunction = Validation.validateLocation;
+      const error = validationFunction(event.target.value);
+      setIsWebsiteError(!!error);
+    }
     const currentStepFilledFields = filledFields[activeStep];
     if (event.target.value) {
       currentStepFilledFields.add(fieldLabel);
     } else {
       currentStepFilledFields.delete(fieldLabel);
     }
-
-    if (steps[activeStep].mandatoryFields.includes(fieldLabel)) {
-      const updatedStepStatus = calculateStepStatus();
-    }
   };
+
   const calculateStepStatus = () => {
     const stepStatus = steps.map((step, index) => {
       const currentStepFilledFields = filledFields[index];
@@ -138,22 +193,82 @@ export default function Form() {
 
     return stepStatus;
   };
-  const handleSubmit = (file) => {
-    const formData = new FormData();
 
+  const handleSubmit = () => {
+    const fieldErrors = {};
+
+    // Iterate through input fields and validate them
     for (const fieldLabel in inputFieldValues) {
-      formData.append(fieldLabel, inputFieldValues[fieldLabel]);
-      console.log(`Appended ${fieldLabel}: ${inputFieldValues[fieldLabel]}`);
+      const validationFunction =
+        Validation[
+          `validate${fieldLabel.charAt(0).toUpperCase() + fieldLabel.slice(1)}`
+        ];
+      if (validationFunction) {
+        const error = validationFunction(inputFieldValues[fieldLabel]);
+        if (error) {
+          fieldErrors[fieldLabel] = error;
+          switch (fieldLabel) {
+            case "name":
+              setIsNameError(true);
+              break;
+            case "course":
+              setIsCourseError(true);
+              break;
+            case "year":
+              setIsYearError(true);
+              break;
+            case "location":
+              setIsLocationError(true);
+              break;
+            case "company":
+              setIsCompanyError(true);
+              break;
+            case "designation":
+              setIsDesignationError(true);
+              break;
+            case "industry":
+              setIsIndustryError(true);
+              break;
+            case "offers":
+              setIsOffersError(true);
+              break;
+            case "linkedin":
+              setIsLinkedinError(true);
+              break;
+            case "website":
+              setIsWebsiteError(true);
+              break;
+            default:
+              break;
+          }
+        }
+      }
     }
-    console.log("formData: " + JSON.stringify(inputFieldValues));
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`, inputFieldValues)
-      .then((response) => {
-        console.log("Profile added successfully!");
-      })
-      .catch((error) => {
-        console.error("Error adding profile: ", error);
-      });
+
+    if (Object.keys(fieldErrors).length > 0) {
+      setFieldErrors(fieldErrors);
+      // setIsNameError(true);
+    } else {
+      // If there are no validation errors, proceed with the API request
+      const formData = new FormData();
+
+      for (const fieldLabel in inputFieldValues) {
+        formData.append(fieldLabel, inputFieldValues[fieldLabel]);
+        console.log(`Appended ${fieldLabel}: ${inputFieldValues[fieldLabel]}`);
+      }
+      console.log("formData: " + JSON.stringify(inputFieldValues));
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`,
+          inputFieldValues
+        )
+        .then((response) => {
+          console.log("Profile added successfully!");
+        })
+        .catch((error) => {
+          console.error("Error adding profile: ", error);
+        });
+    }
   };
 
   return (
@@ -169,6 +284,17 @@ export default function Form() {
               borderTopRightRadius: activeStep === index ? 20 : 5,
             }}
           >
+            {console.log("isNameError : " + isNameError)}
+            {console.log("isCourseError : " + isCourseError)}
+            {console.log("YearError : " + isYearError)}
+            {console.log("LocationError : " + isLocationError)}
+            {console.log("Company Error : " + isCompanyError)}
+            {console.log("Designation Error : " + isDesignationError)}
+            {console.log("Industry Error : " + isIndustryError)}
+            {console.log("Offers Error : " + isOffersError)}
+            {console.log("Lnkedin Error : " + isLinkedinError)}
+            {console.log("isWebsite Error : " + isWebsiteError)}
+
             <StepLabel
               onClick={() => handleStepLabelClick(index)}
               sx={{
@@ -203,7 +329,23 @@ export default function Form() {
                 <Typography
                   sx={{
                     fontSize: 12,
-                    color: activeStep === index ? "#edf2f4" : "#a5a58d",
+                    color:
+                      (index === 0 && isNameError) ||
+                      (index === 0 && isCourseError) ||
+                      (index === 0 && isYearError) ||
+                      (index === 0 && isLocationError)
+                        ? "red"
+                        : (index === 1 && isCompanyError) ||
+                          (index === 1 && isDesignationError) ||
+                          (index === 1 && isIndustryError) ||
+                          (index === 1 && isOffersError)
+                        ? "red "
+                        : (index === 2 && isLinkedinError) ||
+                          (index === 2 && isWebsiteError)
+                        ? "red "
+                        : activeStep === index
+                        ? "#edf2f4"
+                        : "#a5a58d",
                   }}
                 >
                   {calculateStepStatus()[index]}
@@ -217,18 +359,21 @@ export default function Form() {
                     <Step1
                       inputFieldValues={inputFieldValues}
                       handleFieldChange={handleFieldChange}
+                      fieldErrors={fieldErrors}
                     />
                   )}
                   {index === 1 && (
                     <Step2
                       inputFieldValues={inputFieldValues}
                       handleFieldChange={handleFieldChange}
+                      fieldErrors={fieldErrors}
                     />
                   )}
                   {index === 2 && (
                     <Step3
                       inputFieldValues={inputFieldValues}
                       handleFieldChange={handleFieldChange}
+                      fieldErrors={fieldErrors}
                     />
                   )}
                 </div>

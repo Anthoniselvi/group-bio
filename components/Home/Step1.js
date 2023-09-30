@@ -9,9 +9,8 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../firebase";
 import { courseList } from "./CourseList";
 
-const Step1 = ({ inputFieldValues, handleFieldChange }) => {
+const Step1 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
   const [file, setFile] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [per, setPerc] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
 
@@ -68,6 +67,8 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         onChange={(event) => handleFieldChange(event, "name")}
         fullWidth
         margin="normal"
+        error={Boolean(fieldErrors.name)}
+        helperText={fieldErrors.name}
       />
 
       <label htmlFor="file" className={styles.righttext}>
@@ -112,6 +113,8 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         margin="normal"
         value={inputFieldValues.course}
         onChange={(event) => handleFieldChange(event, "course")}
+        error={Boolean(fieldErrors.course)}
+        helperText={fieldErrors.course}
       >
         {courseList.map((courseItem, index) => (
           <MenuItem key={index} value={courseItem.course}>
@@ -126,6 +129,8 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         margin="normal"
         value={inputFieldValues.year}
         onChange={(event) => handleFieldChange(event, "year")}
+        error={Boolean(fieldErrors.year)}
+        helperText={fieldErrors.year}
       >
         {generateYearOptions().map((year) => (
           <MenuItem key={year} value={year}>
@@ -140,6 +145,8 @@ const Step1 = ({ inputFieldValues, handleFieldChange }) => {
         onChange={(event) => handleFieldChange(event, "location")}
         fullWidth
         margin="normal"
+        error={Boolean(fieldErrors.location)}
+        helperText={fieldErrors.location}
       />
       <TextField
         label="phone"

@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 
-const Step3 = ({ inputFieldValues, handleFieldChange }) => {
+const Step3 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
   return (
     <>
       <TextField
@@ -10,6 +10,8 @@ const Step3 = ({ inputFieldValues, handleFieldChange }) => {
         onChange={(event) => handleFieldChange(event, "linkedin")}
         fullWidth
         margin="normal"
+        error={Boolean(fieldErrors.linkedin)}
+        helperText={fieldErrors.linkedin}
       />
       <TextField
         label="website"
@@ -17,6 +19,8 @@ const Step3 = ({ inputFieldValues, handleFieldChange }) => {
         onChange={(event) => handleFieldChange(event, "website")}
         fullWidth
         margin="normal"
+        error={Boolean(fieldErrors.website)}
+        helperText={fieldErrors.website}
       />
     </>
   );
