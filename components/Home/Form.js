@@ -18,10 +18,10 @@ import Step3 from "./Step3";
 import { steps } from "./steps";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const CustomStepIcon = ({ color }) => {
+const CustomStepIcon = (s) => {
   return (
     <div style={{ width: 22, height: 22 }}>
-      <AccountCircleIcon style={{ color: { color }, fontSize: 22 }} />
+      <AccountCircleIcon style={{ color: "#00b4d8", fontSize: 22 }} />
     </div>
   );
 };
@@ -181,11 +181,7 @@ export default function Form() {
                 padding: 2,
               }}
               icon={
-                activeStep === index ? (
-                  <CustomStepIcon color="#9bf6ff" />
-                ) : (
-                  <CustomStepIcon color="#03045e" />
-                )
+                activeStep === index ? <CustomStepIcon /> : <CustomStepIcon />
               }
             >
               <div
@@ -243,7 +239,12 @@ export default function Form() {
                 <Button
                   variant="contained"
                   onClick={handleBack}
-                  sx={{ mt: 2, backgroundColor: "#00b4d8", color: "#fff" }}
+                  sx={{
+                    mt: 2,
+                    backgroundColor: "#00b4d8",
+                    color: "#fff",
+                    borderRadius: "20px",
+                  }}
                 >
                   Back
                 </Button>
@@ -252,7 +253,12 @@ export default function Form() {
                   onClick={
                     activeStep === steps.length - 1 ? handleSubmit : handleNext
                   }
-                  sx={{ mt: 2, backgroundColor: "#03045e", color: "#fff" }}
+                  sx={{
+                    mt: 2,
+                    backgroundColor: "#03045e",
+                    color: "#fff",
+                    borderRadius: "20px",
+                  }}
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Continue"}
                 </Button>
