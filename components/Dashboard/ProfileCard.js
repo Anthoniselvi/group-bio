@@ -89,7 +89,8 @@ export default function ProfileCard() {
               display: "flex",
               padding: "0 1em",
               width: "100%",
-              justifyContent: "center",
+              flexDirection: "column",
+              // justifyContent: "center",
               alignItems: "center",
               boxShadow: "0px 1px 5px 1px #03045e",
             }}
@@ -97,44 +98,10 @@ export default function ProfileCard() {
             onClick={() => navigateToSingleProfile(item)}
             data-starts-with={item.name.charAt(0).toLowerCase()} // Add a data attribute for the first letter of the name
           >
-            <CardMedia
-              component="div"
-              sx={{
-                width: 80,
-                height: 80,
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-            >
-              {item.image ? (
-                <img
-                  src={item.image}
-                  style={{ width: "100%", height: "100%" }}
-                  alt="image"
-                />
-              ) : (
-                <div
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    background: "#00b4d8",
-                    borderRadius: "50%",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {item.name.charAt(0).toUpperCase()}
-                </div>
-              )}
-            </CardMedia>
-
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
+                justifyContent: "space-between",
                 alignItems: "top",
                 width: "100%",
               }}
@@ -168,37 +135,85 @@ export default function ProfileCard() {
                 >
                   {item.course}, {item.year}
                 </Typography>
-
-                <Typography
-                  sx={{
-                    fontFamily: "Sans-serif",
-                    fontSize: "14px",
-                    color: "#999999",
-                  }}
-                  component="div"
-                >
-                  {item.designation}, {item.company}
-                  <br />
-                  {item.location}
-                </Typography>
-
-                <Typography
-                  sx={{
-                    fontFamily: "Sans-serif",
-                    fontSize: "14px",
-                    color: "#000000",
-                  }}
-                  component="div"
-                >
-                  Services Offered: <br />
-                  {item.offers}
-                </Typography>
               </CardContent>
+              <CardMedia
+                component="div"
+                sx={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  marginTop: 2,
+                }}
+              >
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    style={{ width: "100%", height: "100%" }}
+                    alt="image"
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      background: "#00b4d8",
+                      borderRadius: "50%",
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.name.charAt(0).toUpperCase()}
+                  </div>
+                )}
+              </CardMedia>
             </Box>
+
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "left",
+                gap: "0.5em",
+                padding: 0,
+                paddingLeft: "1em",
+                paddingTop: "1em",
+                width: "100%",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Sans-serif",
+                  fontSize: "14px",
+                  color: "#999999",
+                }}
+                component="div"
+              >
+                {item.designation}
+                <br />
+                {item.company}
+                <br />
+                {item.location}
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: "Sans-serif",
+                  fontSize: "14px",
+                  color: "#000000",
+                }}
+                component="div"
+              >
+                {/* Services Offered: <br /> */}
+                {item.offers}
+              </Typography>
+            </CardContent>
           </Card>
         ))}
       </div>
-      <div
+      {/* <div
         style={{
           display: "flex",
           flexDirection: "column",
@@ -224,7 +239,7 @@ export default function ProfileCard() {
             {letter.toUpperCase()}
           </p>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
