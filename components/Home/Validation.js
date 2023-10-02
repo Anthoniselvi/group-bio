@@ -1,78 +1,50 @@
-export const validateName = (value) => {
-  if (!value) {
-    return "Name is required";
+export const validateStep1 = (values) => {
+  const errors = {};
+
+  if (!values.name) {
+    errors.name = "Name is required";
+  }
+  if (!values.course) {
+    errors.course = "Course is required";
+  }
+  if (!values.year) {
+    errors.year = "Year is required";
+  }
+  if (!values.location) {
+    errors.location = "Location is required";
   }
 
-  return "";
+  return errors;
 };
 
-export const validateCourse = (value) => {
-  if (!value) {
-    return "Course is required";
+export const validateStep2 = (values) => {
+  const errors = {};
+
+  if (!values.company) {
+    errors.company = "Company Name is required";
+  }
+  if (!values.designation) {
+    errors.designation = "Designation is required";
+  }
+  if (!values.industry) {
+    errors.industry = "Industry is required";
+  }
+  if (!values.offers) {
+    errors.offers = "Offers is required";
   }
 
-  return "";
+  return errors;
 };
 
-export const validateYear = (value) => {
-  if (!value) {
-    return "Year is required";
+export const validateStep3 = (values) => {
+  const errors = {};
+
+  if (!values.linkedin) {
+    errors.linkedin = "Linkedin is required";
+  }
+  if (!values.website) {
+    errors.website = "Website is required";
   }
 
-  return "";
-};
-
-export const validateLocation = (value) => {
-  if (!value) {
-    return "Location is required";
-  }
-
-  return "";
-};
-
-export const validateCompany = (value) => {
-  if (!value) {
-    return "Company is required";
-  }
-
-  return "";
-};
-
-export const validateDesignation = (value) => {
-  if (!value) {
-    return "Designation is required";
-  }
-
-  return "";
-};
-
-export const validateIndustry = (value) => {
-  if (!value) {
-    return "Industry is required";
-  }
-
-  return "";
-};
-
-export const validateOffers = (value) => {
-  if (!value) {
-    return "Services offered is required";
-  }
-
-  return "";
-};
-export const validateLinkedin = (value) => {
-  if (!value) {
-    return "Linkedin is required";
-  }
-
-  return "";
-};
-
-export const validateWebsite = (value) => {
-  if (!value) {
-    return "Website is required";
-  }
-
-  return "";
+  return errors;
 };

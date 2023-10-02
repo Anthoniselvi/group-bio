@@ -54,7 +54,7 @@ export const steps = [
     ],
   },
   {
-    label: "Social Media Information",
+    label: "Social Media",
     status: "2 fields left",
     mandatoryFields: ["linkedin", "website"], // Add the mandatory fields here
     fields: [

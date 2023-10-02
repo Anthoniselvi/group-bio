@@ -18,9 +18,8 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { steps } from "./steps";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
-// Import validation functions from Validation.js
-import * as Validation from "./Validation";
+import { validateStep1, validateStep2, validateStep3 } from "./Validation";
+import DoneIcon from "@mui/icons-material/Done";
 
 const CustomStepIcon = (s) => {
   return (
@@ -98,6 +97,23 @@ export default function Form() {
   };
 
   const handleNext = () => {
+    // Validate the fields for the current step
+    let validationErrors = {};
+    if (activeStep === 0) {
+      validationErrors = validateStep1(inputFieldValues);
+    } else if (activeStep === 1) {
+      validationErrors = validateStep2(inputFieldValues);
+    } else if (activeStep === 2) {
+      validationErrors = validateStep3(inputFieldValues);
+    }
+
+    // If there are validation errors, set fieldErrors and return
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors);
+      return;
+    }
+
+    // Proceed to the next step
     if (activeStep < steps.length - 1) {
       setStepContentVisibility((prevVisibility) => {
         const updatedVisibility = [...prevVisibility];
@@ -124,53 +140,89 @@ export default function Form() {
   };
 
   const handleFieldChange = (event, fieldLabel) => {
+    const newValue = event.target.value;
     setInputFieldValues((prevValues) => ({
       ...prevValues,
-      [fieldLabel]: event.target.value,
+      [fieldLabel]: newValue,
     }));
-    if (fieldLabel === "name") {
-      const validationFunction = Validation.validateName;
-      const error = validationFunction(event.target.value);
-      setIsNameError(!!error);
-    } else if (fieldLabel === "course") {
-      const validationFunction = Validation.validateCourse;
-      const error = validationFunction(event.target.value);
-      setIsCourseError(!!error);
-    } else if (fieldLabel === "year") {
-      const validationFunction = Validation.validateYear;
-      const error = validationFunction(event.target.value);
-      setIsYearError(!!error);
-    } else if (fieldLabel === "location") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsLocationError(!!error);
-    } else if (fieldLabel === "company") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsCompanyError(!!error);
-    } else if (fieldLabel === "designation") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsDesignationError(!!error);
-    } else if (fieldLabel === "industry") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsIndustryError(!!error);
-    } else if (fieldLabel === "offers") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsOffersError(!!error);
-    } else if (fieldLabel === "linkedin") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsLinkedinError(!!error);
-    } else if (fieldLabel === "website") {
-      const validationFunction = Validation.validateLocation;
-      const error = validationFunction(event.target.value);
-      setIsWebsiteError(!!error);
+
+    let validationFunction = null;
+
+    switch (fieldLabel) {
+      case "name":
+        validationFunction = validateStep1;
+        break;
+      case "course":
+        validationFunction = validateStep1;
+        break;
+      case "year":
+        validationFunction = validateStep1;
+        break;
+      case "location":
+        validationFunction = validateStep1;
+        break;
+      case "company":
+        validationFunction = validateStep2;
+        break;
+      case "designation":
+        validationFunction = validateStep2;
+        break;
+      case "industry":
+        validationFunction = validateStep2;
+        break;
+      case "offers":
+        validationFunction = validateStep2;
+        break;
+      case "linkedin":
+        validationFunction = validateStep3;
+        break;
+      case "website":
+        validationFunction = validateStep3;
+        break;
+      default:
+        break;
     }
+
+    if (validationFunction) {
+      const error = validationFunction(newValue);
+      switch (fieldLabel) {
+        case "name":
+          setIsNameError(!!error.name);
+          break;
+        case "course":
+          setIsCourseError(!!error.course);
+          break;
+        case "year":
+          setIsYearError(!!error.year);
+          break;
+        case "location":
+          setIsLocationError(!!error.location);
+          break;
+        case "company":
+          setIsCompanyError(!!error.company);
+          break;
+        case "designation":
+          setIsDesignationError(!!error.designation);
+          break;
+        case "industry":
+          setIsIndustryError(!!error.industry);
+          break;
+        case "offers":
+          setIsOffersError(!!error.offers);
+          break;
+        case "linkedin":
+          setIsLinkedinError(!!error.linkedin);
+          break;
+        case "website":
+          setIsWebsiteError(!!error.website);
+          break;
+        default:
+          break;
+      }
+    }
+
     const currentStepFilledFields = filledFields[activeStep];
-    if (event.target.value) {
+    if (newValue) {
       currentStepFilledFields.add(fieldLabel);
     } else {
       currentStepFilledFields.delete(fieldLabel);
@@ -189,64 +241,30 @@ export default function Form() {
         }
       });
 
-      return `${unfilledMandatoryFieldsCount} fields left`;
+      return unfilledMandatoryFieldsCount === 0 ? (
+        <DoneIcon style={{ color: "#38b000", fontSize: 28, fontWeight: 800 }} />
+      ) : (
+        `${unfilledMandatoryFieldsCount} fields left`
+      );
     });
 
     return stepStatus;
   };
 
   const handleSubmit = () => {
-    const fieldErrors = {};
+    // Validate all steps before submitting the form
+    const step1Errors = validateStep1(inputFieldValues);
+    const step2Errors = validateStep2(inputFieldValues);
+    const step3Errors = validateStep3(inputFieldValues);
 
-    for (const fieldLabel in inputFieldValues) {
-      const validationFunction =
-        Validation[
-          `validate${fieldLabel.charAt(0).toUpperCase() + fieldLabel.slice(1)}`
-        ];
-      if (validationFunction) {
-        const error = validationFunction(inputFieldValues[fieldLabel]);
-        if (error) {
-          fieldErrors[fieldLabel] = error;
-          switch (fieldLabel) {
-            case "name":
-              setIsNameError(true);
-              break;
-            case "course":
-              setIsCourseError(true);
-              break;
-            case "year":
-              setIsYearError(true);
-              break;
-            case "location":
-              setIsLocationError(true);
-              break;
-            case "company":
-              setIsCompanyError(true);
-              break;
-            case "designation":
-              setIsDesignationError(true);
-              break;
-            case "industry":
-              setIsIndustryError(true);
-              break;
-            case "offers":
-              setIsOffersError(true);
-              break;
-            case "linkedin":
-              setIsLinkedinError(true);
-              break;
-            case "website":
-              setIsWebsiteError(true);
-              break;
-            default:
-              break;
-          }
-        }
-      }
-    }
+    const combinedErrors = {
+      ...step1Errors,
+      ...step2Errors,
+      ...step3Errors,
+    };
 
-    if (Object.keys(fieldErrors).length > 0) {
-      setFieldErrors(fieldErrors);
+    if (Object.keys(combinedErrors).length > 0) {
+      setFieldErrors(combinedErrors);
     } else {
       const formData = new FormData();
 
