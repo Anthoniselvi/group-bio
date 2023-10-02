@@ -20,6 +20,7 @@ import { steps } from "./steps";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { validateStep1, validateStep2, validateStep3 } from "./Validation";
 import DoneIcon from "@mui/icons-material/Done";
+import handleSubmit from "./handleSubmit";
 
 const CustomStepIcon = (s) => {
   return (
@@ -313,46 +314,8 @@ export default function Form() {
 
     return stepStatus;
   };
-
-  const handleSubmit = () => {
-    // Validate all steps before submitting the form
-    const step1Errors = validateStep1(inputFieldValues);
-    const step2Errors = validateStep2(inputFieldValues);
-    const step3Errors = validateStep3(inputFieldValues);
-
-    const combinedErrors = {
-      ...step1Errors,
-      ...step2Errors,
-      ...step3Errors,
-    };
-
-    if (Object.keys(combinedErrors).length > 0) {
-      setFieldErrors(combinedErrors);
-    } else {
-      const formData = new FormData();
-
-      for (const fieldLabel in inputFieldValues) {
-        formData.append(fieldLabel, inputFieldValues[fieldLabel]);
-        console.log(`Appended ${fieldLabel}: ${inputFieldValues[fieldLabel]}`);
-      }
-      console.log("formData: " + JSON.stringify(inputFieldValues));
-
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/profile/add`,
-          inputFieldValues
-        )
-        .then((response) => {
-          console.log("Profile added successfully!");
-
-          router.push({
-            pathname: "/",
-          });
-        })
-        .catch((error) => {
-          console.error("Error adding profile: ", error);
-        });
-    }
+  const handleSubmitForm = () => {
+    handleSubmit(inputFieldValues, router);
   };
 
   return (
@@ -480,7 +443,9 @@ export default function Form() {
                 <Button
                   variant="contained"
                   onClick={
-                    activeStep === steps.length - 1 ? handleSubmit : handleNext
+                    activeStep === steps.length - 1
+                      ? handleSubmitForm
+                      : handleNext
                   }
                   sx={{
                     mt: 2,
