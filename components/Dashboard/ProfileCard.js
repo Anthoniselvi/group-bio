@@ -180,7 +180,7 @@ export default function ProfileCard() {
                 gap: "0.5em",
                 padding: 0,
                 paddingLeft: "1em",
-                paddingTop: "1em",
+                // paddingTop: "1em",
                 width: "100%",
               }}
             >
@@ -203,6 +203,10 @@ export default function ProfileCard() {
                   fontFamily: "Sans-serif",
                   fontSize: "14px",
                   color: "#000000",
+                  backgroundColor: "red",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  display: "inline-block",
                 }}
                 component="div"
               >
