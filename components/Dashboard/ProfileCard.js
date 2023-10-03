@@ -87,8 +87,11 @@ export default function ProfileCard() {
           <Card
             sx={{
               display: "flex",
-              padding: "0 1em",
+              // padding: "0 1em",
+              paddingRight: "1em",
+              paddingBottom: "1em",
               width: "100%",
+              height: "200px",
               flexDirection: "column",
               // justifyContent: "center",
               alignItems: "center",
@@ -180,7 +183,7 @@ export default function ProfileCard() {
                 gap: "0.5em",
                 padding: 0,
                 paddingLeft: "1em",
-                // paddingTop: "1em",
+                paddingTop: "0.5em",
                 width: "100%",
               }}
             >
