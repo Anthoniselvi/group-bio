@@ -11,11 +11,12 @@ const Login = () => {
 
   const handleClick = async () => {
     try {
-      await axios.post("http://localhost:3000/api/login", {
+      await axios.post("http://localhost:2222/admin/add", {
         username,
         password,
       });
-      router.push("/");
+      console.log("username: " + username);
+      router.push("/allprofiles");
     } catch (err) {
       setError(true);
     }

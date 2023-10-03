@@ -15,7 +15,8 @@ export default function Home() {
       <main>
         <div className={styles.maindiv}>
           {/* <Sample /> */}
-          <AllProfiles />
+          {/* <AllProfiles /> */}
+          <Login />
         </div>
       </main>
     </>
