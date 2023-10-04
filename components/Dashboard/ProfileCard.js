@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
+import { courseList } from "../Home/CourseList";
 
 export default function ProfileCard() {
   const theme = useTheme();
@@ -47,28 +48,17 @@ export default function ProfileCard() {
     return filtered;
   };
 
-  const handleLetterClick = (letter) => {
-    if (selectedLetter === letter) {
-      setSelectedLetter(null);
-      router.push({
-        pathname: "/filteredprofile",
-        query: { searchResult: JSON.stringify(profilesList), searchQuery: "" },
-      });
-    } else {
-      setSelectedLetter(letter);
-      const filteredData = filterProfilesByLetter(letter);
+  const getShortFormForCourse = (fullCourseName) => {
+    const course = courseList.find(
+      (courseItem) => courseItem.course === fullCourseName
+    );
+    return course ? course.shortform : fullCourseName; // Use the shortform if found, or use the full course name as a fallback
+  };
 
-      // Scroll to the first profile card starting with the selected letter
-      const firstProfileCardStartingWithLetter =
-        profileCardsRef.current.querySelector(
-          `*[data-starts-with="${letter}"]`
-        );
-      if (firstProfileCardStartingWithLetter) {
-        firstProfileCardStartingWithLetter.scrollIntoView({
-          behavior: "smooth",
-        });
-      }
-    }
+  const formatCourseInfo = (course, year, shortform) => {
+    // Remove content within parentheses and surrounding spaces
+    const cleanedCourse = course.replace(/\s*\([^)]*\)\s*/, "");
+    return `${cleanedCourse.replace(/\)$/, "")}, ${year} (${shortform})`;
   };
 
   return (
@@ -87,13 +77,11 @@ export default function ProfileCard() {
           <Card
             sx={{
               display: "flex",
-              // padding: "0 1em",
               paddingRight: "1em",
               paddingBottom: "1em",
               width: "100%",
               height: "200px",
               flexDirection: "column",
-              // justifyContent: "center",
               alignItems: "center",
               boxShadow: "0px 1px 5px 1px #03045e",
             }}
@@ -136,7 +124,11 @@ export default function ProfileCard() {
                     fontSize: "15px",
                   }}
                 >
-                  {item.course}, {item.year}
+                  {formatCourseInfo(
+                    item.course,
+                    item.year,
+                    getShortFormForCourse(item.course)
+                  )}
                 </Typography>
               </CardContent>
               <CardMedia
@@ -220,33 +212,6 @@ export default function ProfileCard() {
           </Card>
         ))}
       </div>
-      {/* <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          position: "absolute",
-          zIndex: 4,
-          padding: "0px 5px",
-          cursor: "pointer",
-          right: 5,
-          backgroundColor: "#f8edeb",
-          borderRadius: "10px",
-          position: "fixed",
-          height: "calc(100vh-150px)",
-          justifyContent: "space-between",
-        }}
-      >
-        {alphabet.map((letter) => (
-          <p
-            key={letter}
-            onClick={() => handleLetterClick(letter)}
-            style={{ fontSize: 13 }}
-          >
-            {letter.toUpperCase()}
-          </p>
-        ))}
-      </div> */}
     </div>
   );
 }
