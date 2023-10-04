@@ -8,7 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
-import { courseList } from "../Home/CourseList";
+import { courseList } from "../Form/CourseList";
 
 export default function ProfileCard() {
   const theme = useTheme();
@@ -62,7 +62,7 @@ export default function ProfileCard() {
   };
 
   return (
-    <div style={{ display: "flex", gap: "1rem" }}>
+    <div>
       <div
         ref={profileCardsRef}
         style={{

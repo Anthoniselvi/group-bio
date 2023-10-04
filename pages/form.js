@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField"; // Import TextField from Material-UI
 import axios from "axios";
 import Footer from "@/components/Footer/Footer";
-import FormPage from "@/components/Home/FormPage";
+import FormPage from "@/components/Form/FormPage";
 const steps = ["Personal Information", "Company Information"];
 
 export default function Form() {
