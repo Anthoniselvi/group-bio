@@ -16,7 +16,7 @@ const Login = () => {
         password,
       });
       console.log("username: " + username);
-      router.push("/allprofiles");
+      router.push("/dashboard");
     } catch (err) {
       setError(true);
     }
