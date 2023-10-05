@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import styles from "@/styles/Home.module.css";
-import axios from "axios";
+
 import ProgressSlider from "./ProgressSlider";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -331,17 +331,6 @@ export default function Form() {
               borderTopRightRadius: activeStep === index ? 20 : 5,
             }}
           >
-            {console.log("isNameError : " + isNameError)}
-            {console.log("isCourseError : " + isCourseError)}
-            {console.log("YearError : " + isYearError)}
-            {console.log("LocationError : " + isLocationError)}
-            {console.log("Company Error : " + isCompanyError)}
-            {console.log("Designation Error : " + isDesignationError)}
-            {console.log("Industry Error : " + isIndustryError)}
-            {console.log("Offers Error : " + isOffersError)}
-            {console.log("Lnkedin Error : " + isLinkedinError)}
-            {console.log("isWebsite Error : " + isWebsiteError)}
-
             <StepLabel
               onClick={() => handleStepLabelClick(index)}
               sx={{

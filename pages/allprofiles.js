@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField"; // Import TextField from Material-UI
 import axios from "axios";
 import Footer from "@/components/Footer/Footer";
-import ProfileCard from "@/components/Dashboard/ProfileCard";
+import ProfileCard from "@/components/MembersList/ProfileCard";
 import { useRouter } from "next/router";
 const steps = ["Personal Information", "Company Information"];
 
