@@ -18,7 +18,7 @@ export default function SingleGroupProfiles() {
   const [groupIdList, setGroupIdList] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [singleGroup, setSingleGroup] = useState([]);
-
+  const [selectedGroup, setSelectedGroup] = useState({});
   const profileCardsRef = useRef(null);
 
   const navigateToSingleProfile = (item) => {
@@ -41,6 +41,18 @@ export default function SingleGroupProfiles() {
         });
     }
   }, [id]);
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/group/single/${id}`)
+
+      .then((response) => {
+        setSelectedGroup(response.data);
+        console.log("selectedGroup :" + JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -120,6 +132,23 @@ export default function SingleGroupProfiles() {
                 >
                   {item.name}
                 </Typography>
+                {selectedGroup.groupType === "0" ? (
+                  <Typography
+                    component="div"
+                    sx={{
+                      fontFamily: "Sans-serif",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {formatCourseInfo(
+                      item.course,
+                      item.year,
+                      getShortFormForCourse(item.course)
+                    )}
+                  </Typography>
+                ) : (
+                  <></>
+                )}
               </CardContent>
               <CardMedia
                 component="div"

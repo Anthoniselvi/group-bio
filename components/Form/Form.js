@@ -328,6 +328,7 @@ export default function Form() {
 
     return stepStatus;
   };
+  const selectedGroupId = selectedGroup.groupId;
   const handleSubmitForm = () => {
     handleSubmit(inputFieldValues, selectedGroupId, router);
   };
