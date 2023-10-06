@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import styles from "@/styles/Home.module.css";
-
+import axios from "axios";
 import ProgressSlider from "./ProgressSlider";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -42,7 +42,21 @@ export default function Form() {
   const [isOffersError, setIsOffersError] = useState(false);
   const [isLinkedinError, setIsLinkedinError] = useState(false);
   const [isWebsiteError, setIsWebsiteError] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState({});
   const router = useRouter();
+  const { id } = router.query;
+  console.log("id: " + id);
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/group/single/${id}`)
+      .then((response) => {
+        setSelectedGroup(response.data);
+        console.log("selected group: " + JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
   const [inputFieldValues, setInputFieldValues] = useState({
     name: "",
     image: "",
@@ -315,7 +329,7 @@ export default function Form() {
     return stepStatus;
   };
   const handleSubmitForm = () => {
-    handleSubmit(inputFieldValues, router);
+    handleSubmit(inputFieldValues, selectedGroupId, router);
   };
 
   return (
@@ -396,6 +410,8 @@ export default function Form() {
                       inputFieldValues={inputFieldValues}
                       handleFieldChange={handleFieldChange}
                       fieldErrors={fieldErrors}
+                      groupId={id}
+                      selectedGroupType={selectedGroup.groupType}
                     />
                   )}
                   {index === 1 && (

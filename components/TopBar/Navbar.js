@@ -16,9 +16,9 @@ const Navbar = ({ opened, setOpened }) => {
   const { membersList } = useUserAuth();
   const router = useRouter();
   console.log("membersList from Context: " + JSON.stringify(membersList));
-  const navigateToHome = () => {
+  const navigateToDashboard = () => {
     router.push({
-      pathname: "/",
+      pathname: "/dashboard",
     });
   };
   const handleMenuClicked = () => {
@@ -65,7 +65,7 @@ const Navbar = ({ opened, setOpened }) => {
   return (
     <div className={styles.nav}>
       {router.pathname === "/form" ? (
-        <KeyboardBackspaceIcon onClick={navigateToHome} />
+        <KeyboardBackspaceIcon onClick={navigateToDashboard} />
       ) : !opened ? (
         <GiHamburgerMenu onClick={handleMenuClicked} className={styles.icon} />
       ) : (
@@ -94,10 +94,7 @@ const Navbar = ({ opened, setOpened }) => {
               autoFocus // Set autofocus here
               ref={(input) => input && input.focus()}
             />
-            <div
-              className={styles.search}
-             
-            >
+            <div className={styles.search}>
               <SearchIcon
                 style={{
                   color: "black",

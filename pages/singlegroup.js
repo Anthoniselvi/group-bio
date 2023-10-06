@@ -11,13 +11,14 @@ import Footer from "@/components/Footer/Footer";
 import ProfileCard from "@/components/MembersList/ProfileCard";
 import { useRouter } from "next/router";
 import SingleGroupProfiles from "@/components/MembersList/SingleGroupProfiles";
-const steps = ["Personal Information", "Company Information"];
 
 export default function SingleGroup() {
   const router = useRouter();
-  const navigateToCreateProfile = () => {
+  const { id: groupId } = router.query;
+  const navigateToCreateProfile = (groupId) => {
     router.push({
       pathname: "/form",
+      query: { id: groupId },
     });
   };
   return (
@@ -40,7 +41,7 @@ export default function SingleGroup() {
             border: "none",
             cursor: "pointer",
           }}
-          onClick={navigateToCreateProfile}
+          onClick={() => navigateToCreateProfile(groupId)}
         >
           + Add
         </button>

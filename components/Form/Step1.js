@@ -9,7 +9,14 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../firebase";
 import { courseList } from "./CourseList";
 
-const Step1 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
+const Step1 = ({
+  inputFieldValues,
+  handleFieldChange,
+  fieldErrors,
+  groupId,
+  selectedGroupType,
+}) => {
+  console.log("groupType in Step1:" + selectedGroupType);
   const [file, setFile] = useState(null);
   const [per, setPerc] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -106,39 +113,44 @@ const Step1 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
-      <TextField
-        label="course"
-        fullWidth
-        select
-        margin="normal"
-        value={inputFieldValues.course}
-        onChange={(event) => handleFieldChange(event, "course")}
-        error={Boolean(fieldErrors.course)}
-        helperText={fieldErrors.course}
-      >
-        {courseList.map((courseItem, index) => (
-          <MenuItem key={index} value={courseItem.course}>
-            {courseItem.course}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        label="year"
-        fullWidth
-        select
-        margin="normal"
-        value={inputFieldValues.year}
-        onChange={(event) => handleFieldChange(event, "year")}
-        error={Boolean(fieldErrors.year)}
-        helperText={fieldErrors.year}
-      >
-        {generateYearOptions().map((year) => (
-          <MenuItem key={year} value={year}>
-            {year}
-          </MenuItem>
-        ))}
-      </TextField>
-
+      {selectedGroupType === "0" ? (
+        <>
+          <TextField
+            label="course"
+            fullWidth
+            select
+            margin="normal"
+            value={inputFieldValues.course}
+            onChange={(event) => handleFieldChange(event, "course")}
+            error={Boolean(fieldErrors.course)}
+            helperText={fieldErrors.course}
+          >
+            {courseList.map((courseItem, index) => (
+              <MenuItem key={index} value={courseItem.course}>
+                {courseItem.course}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label="year"
+            fullWidth
+            select
+            margin="normal"
+            value={inputFieldValues.year}
+            onChange={(event) => handleFieldChange(event, "year")}
+            error={Boolean(fieldErrors.year)}
+            helperText={fieldErrors.year}
+          >
+            {generateYearOptions().map((year) => (
+              <MenuItem key={year} value={year}>
+                {year}
+              </MenuItem>
+            ))}
+          </TextField>
+        </>
+      ) : (
+        <></>
+      )}
       <TextField
         label="location"
         value={inputFieldValues.location}
