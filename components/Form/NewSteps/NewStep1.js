@@ -55,6 +55,7 @@ export default function NewStep1({
   groupId,
   selectedGroupType,
 }) {
+  console.log("selectedGroupType:" + selectedGroupType);
   const [expanded, setExpanded] = React.useState("panel1");
   const [file, setFile] = useState(null);
   const [per, setPerc] = useState(null);
@@ -126,15 +127,15 @@ export default function NewStep1({
           />
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Select your Course & Year</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {selectedGroupType === "0" ? (
+      {selectedGroupType === "0" ? (
+        <Accordion
+          expanded={expanded === "panel2"}
+          onChange={handleChange("panel2")}
+        >
+          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+            <Typography>Select your Course & Year</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
             <>
               Course
               <TextField
@@ -170,11 +171,11 @@ export default function NewStep1({
                 ))}
               </TextField>
             </>
-          ) : (
-            <></>
-          )}
-        </AccordionDetails>
-      </Accordion>
+          </AccordionDetails>
+        </Accordion>
+      ) : (
+        <></>
+      )}
       <Accordion
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
