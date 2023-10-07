@@ -21,6 +21,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { validateStep1, validateStep2, validateStep3 } from "./Validation";
 import DoneIcon from "@mui/icons-material/Done";
 import handleSubmit from "./handleSubmit";
+import NewStep1 from "./NewSteps/NewStep1";
+import NewStep2 from "./NewSteps/NewStep2";
+import NewStep3 from "./NewSteps/NewStep3";
 
 const CustomStepIcon = (s) => {
   return (
@@ -403,36 +406,44 @@ export default function Form() {
                 </Typography>
               </div>
             </StepLabel>
-            <StepContent sx={{ p: 0, pr: 1, zIndex: 10, border: "none" }}>
+            <StepContent sx={{ p: 0, margin: 0, zIndex: 10, border: "none" }}>
               {stepContentVisibility[index] && (
                 <div>
                   {index === 0 && (
-                    <Step1
-                      inputFieldValues={inputFieldValues}
-                      handleFieldChange={handleFieldChange}
-                      fieldErrors={fieldErrors}
-                      groupId={id}
-                      selectedGroupType={selectedGroup.groupType}
-                    />
+                    <NewStep1 />
+                    // <Step1
+                    //   inputFieldValues={inputFieldValues}
+                    //   handleFieldChange={handleFieldChange}
+                    //   fieldErrors={fieldErrors}
+                    //   groupId={id}
+                    //   selectedGroupType={selectedGroup.groupType}
+                    // />
                   )}
                   {index === 1 && (
-                    <Step2
-                      inputFieldValues={inputFieldValues}
-                      handleFieldChange={handleFieldChange}
-                      fieldErrors={fieldErrors}
-                    />
+                    <NewStep2 />
+                    // <Step2
+                    //   inputFieldValues={inputFieldValues}
+                    //   handleFieldChange={handleFieldChange}
+                    //   fieldErrors={fieldErrors}
+                    // />
                   )}
                   {index === 2 && (
-                    <Step3
-                      inputFieldValues={inputFieldValues}
-                      handleFieldChange={handleFieldChange}
-                      fieldErrors={fieldErrors}
-                    />
+                    <NewStep3 />
+                    // <Step3
+                    //   inputFieldValues={inputFieldValues}
+                    //   handleFieldChange={handleFieldChange}
+                    //   fieldErrors={fieldErrors}
+                    // />
                   )}
                 </div>
               )}
               <div
-                style={{ display: "flex", gap: "20px", paddingBottom: "20px" }}
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  paddingBottom: "20px",
+                  paddingLeft: "20px",
+                }}
               >
                 <Button
                   variant="contained"

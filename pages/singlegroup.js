@@ -14,7 +14,7 @@ import SingleGroupProfiles from "@/components/MembersList/SingleGroupProfiles";
 
 export default function SingleGroup() {
   const router = useRouter();
-  const { id: groupId } = router.query;
+  const { id: groupId, name } = router.query;
   const navigateToCreateProfile = (groupId) => {
     router.push({
       pathname: "/form",
@@ -31,7 +31,7 @@ export default function SingleGroup() {
           paddingBottom: "1rem",
         }}
       >
-        <h2>Groups</h2>
+        <h2>{name}</h2>
         <button
           style={{
             padding: "10px 20px",

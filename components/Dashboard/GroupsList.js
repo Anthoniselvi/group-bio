@@ -9,7 +9,7 @@ const GroupsList = () => {
   const navigateToSingleGroupProfiles = (singleGroup) => {
     router.push({
       pathname: "/singlegroup",
-      query: { id: singleGroup.groupId },
+      query: { id: singleGroup.groupId, name: singleGroup.groupName },
     });
   };
 
@@ -23,7 +23,7 @@ const GroupsList = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [groupsList]);
 
   return (
     <div
@@ -47,10 +47,13 @@ const GroupsList = () => {
           <p onClick={() => navigateToSingleGroupProfiles(singleGroup)}>
             {singleGroup.groupName}
           </p>
-          {singleGroup.groupType === "Alumni" ? (
+          {/* {singleGroup.groupType} */}
+          {singleGroup.groupType === "0" ? (
             <p>Alumni Group</p>
+          ) : singleGroup.groupType === "1" ? (
+            <p>Business Group</p>
           ) : (
-            <p>Non Alumni Group</p>
+            <p>Friends Group</p>
           )}
         </div>
       ))}
