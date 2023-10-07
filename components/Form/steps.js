@@ -1,17 +1,21 @@
-export const steps = [
+// steps.js
+
+export const steps = (selectedGroup) => [
   {
     label: "Personal Information",
-    status: "4 fields left",
-    mandatoryFields: ["name", "course", "year", "location"], // Add the mandatory fields here
+    mandatoryFields:
+      selectedGroup.groupType === "0"
+        ? ["name", "location", "course", "year"]
+        : ["name", "location"],
     fields: [
       {
         label: "name",
         value: "",
       },
-      // {
-      //   label: "image",
-      //   value: "",
-      // },
+      {
+        label: "location",
+        value: "",
+      },
       {
         label: "course",
         value: "",
@@ -20,20 +24,13 @@ export const steps = [
         label: "year",
         value: "",
       },
-      {
-        label: "location",
-        value: "",
-      },
-      {
-        label: "phone",
-        value: "",
-      },
     ],
   },
+
   {
     label: "Business Information",
     status: "4 fields left",
-    mandatoryFields: ["company", "designation", "industry", "offers"], // Add the mandatory fields here
+    mandatoryFields: ["company", "designation", "industry", "offers"],
     fields: [
       {
         label: "company",
@@ -56,7 +53,7 @@ export const steps = [
   {
     label: "Social Media",
     status: "2 fields left",
-    mandatoryFields: ["linkedin", "website"], // Add the mandatory fields here
+    mandatoryFields: ["linkedin", "website"],
     fields: [
       {
         label: "linkedin",

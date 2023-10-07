@@ -63,9 +63,12 @@ export default function NewForm({ selectedGroup }) {
     linkedin: "",
     website: "",
   });
-  const [filledFields, setFilledFields] = useState(steps.map(() => new Set()));
+
+  const [filledFields, setFilledFields] = useState(
+    steps(selectedGroup).map(() => new Set())
+  );
   const [stepContentVisibility, setStepContentVisibility] = useState(
-    Array(steps.length).fill(false)
+    Array(steps(selectedGroup).length).fill(false)
   );
   const [fieldErrors, setFieldErrors] = useState({});
 
@@ -95,7 +98,9 @@ export default function NewForm({ selectedGroup }) {
     const filledMandatoryFieldsCount = Object.keys(inputFieldValues).filter(
       (field) =>
         inputFieldValues[field] !== "" &&
-        steps.find((step) => step.mandatoryFields.includes(field))
+        steps(selectedGroup).find((step) =>
+          step.mandatoryFields.includes(field)
+        )
     ).length;
 
     const progressPercentage = (filledMandatoryFieldsCount / 12) * 100;
@@ -121,7 +126,7 @@ export default function NewForm({ selectedGroup }) {
     }
 
     // Proceed to the next step
-    if (activeStep < steps.length - 1) {
+    if (activeStep < steps(selectedGroup).length - 1) {
       setStepContentVisibility((prevVisibility) => {
         const updatedVisibility = [...prevVisibility];
         updatedVisibility[activeStep] = false;
@@ -231,16 +236,34 @@ export default function NewForm({ selectedGroup }) {
   };
 
   const calculateStepStatus = () => {
-    const stepStatus = steps.map((step, index) => {
+    const stepStatus = steps(selectedGroup).map((step, index) => {
       const currentStepFilledFields = filledFields[index];
       const mandatoryFieldsCount = step.mandatoryFields.length;
       let unfilledMandatoryFieldsCount = mandatoryFieldsCount;
 
-      step.mandatoryFields.forEach((field) => {
-        if (currentStepFilledFields.has(field)) {
-          unfilledMandatoryFieldsCount--;
-        }
-      });
+      if (index === 0 && selectedGroup.groupType === "0") {
+        // If groupType is 0 and it's the first step, set 4 fields as mandatory
+        const mandatoryFieldsInStep1 = ["name", "course", "year", "location"];
+        mandatoryFieldsInStep1.forEach((field) => {
+          if (currentStepFilledFields.has(field)) {
+            unfilledMandatoryFieldsCount--;
+          }
+        });
+      } else if (index === 0) {
+        // If it's the first step but groupType is not 0, set 2 fields as mandatory
+        const mandatoryFieldsInStep1 = ["name", "location"];
+        mandatoryFieldsInStep1.forEach((field) => {
+          if (currentStepFilledFields.has(field)) {
+            unfilledMandatoryFieldsCount--;
+          }
+        });
+      } else if (index !== 0) {
+        step.mandatoryFields.forEach((field) => {
+          if (currentStepFilledFields.has(field)) {
+            unfilledMandatoryFieldsCount--;
+          }
+        });
+      }
 
       return unfilledMandatoryFieldsCount === 0 ? (
         <DoneIcon style={{ color: "#38b000", fontSize: 28, fontWeight: 800 }} />
@@ -251,16 +274,25 @@ export default function NewForm({ selectedGroup }) {
 
     return stepStatus;
   };
+
   const selectedGroupId = selectedGroup.groupId;
+
   const handleSubmitForm = () => {
-    handleSubmit(inputFieldValues, selectedGroupId, setFieldErrors, router);
+    console.log("submit btn clicked");
+    handleSubmit(
+      inputFieldValues,
+      selectedGroupId,
+      setFieldErrors,
+      router,
+      selectedGroup
+    );
   };
 
   return (
     <Box className={styles.content_container}>
       <ProgressSlider progressPercentage={calculateProgressPercentage()} />
       <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((step, index) => (
+        {steps(selectedGroup).map((step, index) => (
           <Step
             key={step.label}
             className={styles.step}
@@ -377,7 +409,7 @@ export default function NewForm({ selectedGroup }) {
                 <Button
                   variant="contained"
                   onClick={
-                    activeStep === steps.length - 1
+                    activeStep === steps(selectedGroup).length - 1
                       ? handleSubmitForm
                       : handleNext
                   }
@@ -388,7 +420,9 @@ export default function NewForm({ selectedGroup }) {
                     borderRadius: "20px",
                   }}
                 >
-                  {activeStep === steps.length - 1 ? "Finish" : "Continue"}
+                  {activeStep === steps(selectedGroup).length - 1
+                    ? "Finish"
+                    : "Continue"}
                 </Button>
               </div>{" "}
             </StepContent>
