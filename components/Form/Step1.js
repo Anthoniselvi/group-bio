@@ -70,10 +70,10 @@ const Step1 = ({
     <>
       <TextField
         label="name"
-        value={inputFieldValues.name}
-        onChange={(event) => handleFieldChange(event, "name")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.name}
+        onChange={(event) => handleFieldChange(event, "name")}
         error={Boolean(fieldErrors.name)}
         helperText={fieldErrors.name}
       />
@@ -153,10 +153,10 @@ const Step1 = ({
       )}
       <TextField
         label="location"
-        value={inputFieldValues.location}
-        onChange={(event) => handleFieldChange(event, "location")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.location}
+        onChange={(event) => handleFieldChange(event, "location")}
         error={Boolean(fieldErrors.location)}
         helperText={fieldErrors.location}
       />

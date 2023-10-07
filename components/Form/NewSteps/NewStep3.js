@@ -43,7 +43,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export default function NewStep3() {
+export default function NewStep3({
+  inputFieldValues,
+  handleFieldChange,
+  fieldErrors,
+}) {
   const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -61,7 +65,14 @@ export default function NewStep3() {
         </AccordionSummary>
         <AccordionDetails>
           LinkedIn URL
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.linkedin}
+            onChange={(event) => handleFieldChange(event, "linkedin")}
+            error={Boolean(fieldErrors.linkedin)}
+            helperText={fieldErrors.linkedin}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -73,7 +84,14 @@ export default function NewStep3() {
         </AccordionSummary>
         <AccordionDetails>
           Website Name
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.website}
+            onChange={(event) => handleFieldChange(event, "website")}
+            error={Boolean(fieldErrors.website)}
+            helperText={fieldErrors.website}
+          />
         </AccordionDetails>
       </Accordion>
     </div>

@@ -43,7 +43,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export default function NewStep2() {
+export default function NewStep2({
+  inputFieldValues,
+  handleFieldChange,
+  fieldErrors,
+}) {
   const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -61,9 +65,23 @@ export default function NewStep2() {
         </AccordionSummary>
         <AccordionDetails>
           Company Name
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.company}
+            onChange={(event) => handleFieldChange(event, "company")}
+            error={Boolean(fieldErrors.company)}
+            helperText={fieldErrors.company}
+          />
           Designation
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.designation}
+            onChange={(event) => handleFieldChange(event, "designation")}
+            error={Boolean(fieldErrors.designation)}
+            helperText={fieldErrors.designation}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -75,9 +93,23 @@ export default function NewStep2() {
         </AccordionSummary>
         <AccordionDetails>
           Industry
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.industry}
+            onChange={(event) => handleFieldChange(event, "industry")}
+            error={Boolean(fieldErrors.industry)}
+            helperText={fieldErrors.industry}
+          />
           Offers
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.offers}
+            onChange={(event) => handleFieldChange(event, "offers")}
+            error={Boolean(fieldErrors.offers)}
+            helperText={fieldErrors.offers}
+          />
         </AccordionDetails>
       </Accordion>
     </div>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -47,13 +48,64 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export default function NewStep1() {
+export default function NewStep1({
+  inputFieldValues,
+  handleFieldChange,
+  fieldErrors,
+  groupId,
+  selectedGroupType,
+}) {
   const [expanded, setExpanded] = React.useState("panel1");
-
+  const [file, setFile] = useState(null);
+  const [per, setPerc] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+  useEffect(() => {
+    const uploadFile = () => {
+      if (file) {
+        const name = new Date().getTime() + file.name;
+        const storageRef = ref(storage, name);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            setPerc(progress);
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+              default:
+                break;
+            }
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setImageUrl(downloadURL);
+              handleFieldChange({ target: { value: downloadURL } }, "image"); // Update inputFieldValues.image
+            });
+          }
+        );
+      }
+    };
+    uploadFile();
+  }, [file, handleFieldChange]);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  };
   return (
     <div style={{ width: "100%", height: "100%", margin: 0, padding: 0 }}>
       <Accordion
@@ -64,8 +116,14 @@ export default function NewStep1() {
           <Typography>Enter your Name</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          Name
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.name}
+            onChange={(event) => handleFieldChange(event, "name")}
+            error={Boolean(fieldErrors.name)}
+            helperText={fieldErrors.name}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -76,46 +134,45 @@ export default function NewStep1() {
           <Typography>Select your Course & Year</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* {selectedGroupType === "0" ? ( */}
-          <>
-            Course
-            <TextField
-              // label="course"
-              fullWidth
-              select
-              margin="normal"
-              // value={inputFieldValues.course}
-              // onChange={(event) => handleFieldChange(event, "course")}
-              // error={Boolean(fieldErrors.course)}
-              // helperText={fieldErrors.course}
-            >
-              {courseList.map((courseItem, index) => (
-                <MenuItem key={index} value={courseItem.course}>
-                  {courseItem.course}
-                </MenuItem>
-              ))}
-            </TextField>
-            Year
-            <TextField
-              // label="year"
-              fullWidth
-              select
-              margin="normal"
-              // value={inputFieldValues.year}
-              // onChange={(event) => handleFieldChange(event, "year")}
-              // error={Boolean(fieldErrors.year)}
-              // helperText={fieldErrors.year}
-            >
-              {generateYearOptions().map((year) => (
-                <MenuItem key={year} value={year}>
-                  {year}
-                </MenuItem>
-              ))}
-            </TextField>
-          </>
-          {/* ) : (
+          {selectedGroupType === "0" ? (
+            <>
+              Course
+              <TextField
+                // label="course"
+                fullWidth
+                select
+                margin="normal"
+                value={inputFieldValues.course}
+                onChange={(event) => handleFieldChange(event, "course")}
+                error={Boolean(fieldErrors.course)}
+                helperText={fieldErrors.course}
+              >
+                {courseList.map((courseItem, index) => (
+                  <MenuItem key={index} value={courseItem.course}>
+                    {courseItem.course}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                // label="year"
+                fullWidth
+                select
+                margin="normal"
+                value={inputFieldValues.year}
+                onChange={(event) => handleFieldChange(event, "year")}
+                error={Boolean(fieldErrors.year)}
+                helperText={fieldErrors.year}
+              >
+                {generateYearOptions().map((year) => (
+                  <MenuItem key={year} value={year}>
+                    {year}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </>
+          ) : (
             <></>
-          )} */}
+          )}
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -126,7 +183,14 @@ export default function NewStep1() {
           <Typography>Location</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.location}
+            onChange={(event) => handleFieldChange(event, "location")}
+            error={Boolean(fieldErrors.location)}
+            helperText={fieldErrors.location}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -137,7 +201,12 @@ export default function NewStep1() {
           <Typography>Contact Number (Optional)</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <TextField fullWidth id="fullWidth" />
+          <TextField
+            fullWidth
+            id="fullWidth"
+            value={inputFieldValues.phone}
+            onChange={(event) => handleFieldChange(event, "phone")}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -160,21 +229,21 @@ export default function NewStep1() {
                 cursor: "pointer",
               }}
             >
-              {/* {imageUrl ? ( */}({" "}
-              <img
-                style={{ width: "100%", height: "100%" }}
-                // src={imageUrl}
-                alt="image"
-              />
+              {imageUrl ? (
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  // src={imageUrl}
+                  alt="image"
+                />
               ) : (
-              <EditIcon
-                style={{
-                  marginTop: "70px",
-                  marginLeft: "70px",
-                  textAlign: "right",
-                }}
-              />
-              ){/* } */}
+                <EditIcon
+                  style={{
+                    marginTop: "70px",
+                    marginLeft: "70px",
+                    textAlign: "right",
+                  }}
+                />
+              )}
             </Box>
           </label>
           <input

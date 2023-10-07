@@ -6,19 +6,19 @@ const Step2 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
     <>
       <TextField
         label="company"
-        value={inputFieldValues.company}
-        onChange={(event) => handleFieldChange(event, "company")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.company}
+        onChange={(event) => handleFieldChange(event, "company")}
         error={Boolean(fieldErrors.company)}
         helperText={fieldErrors.company}
       />
       <TextField
         label="designation"
-        value={inputFieldValues.designation}
-        onChange={(event) => handleFieldChange(event, "designation")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.designation}
+        onChange={(event) => handleFieldChange(event, "designation")}
         error={Boolean(fieldErrors.designation)}
         helperText={fieldErrors.designation}
       />
@@ -33,10 +33,10 @@ const Step2 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
       />
       <TextField
         label="offers"
-        value={inputFieldValues.offers}
-        onChange={(event) => handleFieldChange(event, "offers")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.offers}
+        onChange={(event) => handleFieldChange(event, "offers")}
         error={Boolean(fieldErrors.offers)}
         helperText={fieldErrors.offers}
       />

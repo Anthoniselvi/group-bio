@@ -6,19 +6,19 @@ const Step3 = ({ inputFieldValues, handleFieldChange, fieldErrors }) => {
     <>
       <TextField
         label="linkedIn"
-        value={inputFieldValues.linkedin}
-        onChange={(event) => handleFieldChange(event, "linkedin")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.linkedin}
+        onChange={(event) => handleFieldChange(event, "linkedin")}
         error={Boolean(fieldErrors.linkedin)}
         helperText={fieldErrors.linkedin}
       />
       <TextField
         label="website"
-        value={inputFieldValues.website}
-        onChange={(event) => handleFieldChange(event, "website")}
         fullWidth
         margin="normal"
+        value={inputFieldValues.website}
+        onChange={(event) => handleFieldChange(event, "website")}
         error={Boolean(fieldErrors.website)}
         helperText={fieldErrors.website}
       />

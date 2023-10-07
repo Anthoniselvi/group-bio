@@ -1,7 +1,12 @@
 import axios from "axios";
 import { validateStep1, validateStep2, validateStep3 } from "./Validation";
 
-const handleSubmit = (inputFieldValues, selectedGroupId, router) => {
+const handleSubmit = (
+  inputFieldValues,
+  selectedGroupId,
+  setFieldErrors,
+  router
+) => {
   const step1Errors = validateStep1(inputFieldValues);
   const step2Errors = validateStep2(inputFieldValues);
   const step3Errors = validateStep3(inputFieldValues);
@@ -30,7 +35,7 @@ const handleSubmit = (inputFieldValues, selectedGroupId, router) => {
         console.log("Profile added successfully!");
 
         router.push({
-          pathname: "/singleGroup",
+          pathname: "/singlegroup",
           query: { id: selectedGroupId },
         });
       })
